@@ -1,9 +1,11 @@
 package controllers
 
 import (
+	"errors"
+	"strings"
+
 	"github.com/astaxie/beego"
 	"github.com/hsluoyz/gitstar/api"
-	"strings"
 )
 
 type MainController struct {
@@ -123,5 +125,22 @@ func (c *MainController) DeleteUserRepo() {
 	} else {
 		c.Data["json"] = "not affected"
 	}
+	c.ServeJSON()
+}
+
+func (c *MainController) GetUserTarget() {
+	user := c.GetString(":user")
+	target := c.GetString(":target")
+
+	targetRepos := getUserRepos(target)
+	userStarringRepos := api.ListStarringRepos(user)
+	res, ok := Intersect(targetRepos, userStarringRepos)
+	if !ok {
+		panic(errors.New("cannot find intersect"))
+	}
+
+	user2TargetRepos := res.Interface().([]string)
+
+	c.Data["json"] = []string(user2TargetRepos)
 	c.ServeJSON()
 }

@@ -10,14 +10,48 @@ func ListRepos(user string) []string {
 	var res []string
 
 	client := github.NewClient(nil)
-
-	// list all organizations for user "willnorris"
 	ctx := context.Background()
-	repos, _, _ := client.Repositories.List(ctx, user, nil)
+
+	repos, _, err := client.Repositories.List(ctx, user, nil)
+	if err != nil {
+		panic(err)
+	}
 
 	for _, repo := range repos {
 		res = append(res, *repo.FullName)
 		// fmt.Println(*repo.FullName)
+	}
+
+	return res
+}
+
+func ListStarringRepos(user string) []string {
+	res := []string{}
+
+	client := github.NewClient(nil)
+	ctx := context.Background()
+
+	page := 1
+	got := 0
+
+	for {
+		opt := &github.ActivityListStarredOptions{"created", "asc", github.ListOptions{Page: page, PerPage: 100}}
+		starredRepos, _, err := client.Activity.ListStarred(ctx, user, opt)
+		if err != nil {
+			panic(err)
+		}
+
+		for _, repo := range starredRepos {
+			res = append(res, *repo.Repository.FullName)
+			// fmt.Println(*repo.FullName)
+		}
+
+		got = len(starredRepos)
+		if got != 100 {
+			break
+		} else {
+			page += 1
+		}
 	}
 
 	return res
