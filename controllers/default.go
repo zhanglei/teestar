@@ -53,6 +53,46 @@ func (c *MainController) GetUserRepos() {
 	c.ServeJSON()
 }
 
+func addUserRepo(user string, repo string) bool {
+	repos := getUserRepos(user)
+	found := false
+	for _, r := range repos {
+		if repo == r {
+			found = true
+			break
+		}
+	}
+
+	if found {
+		return false
+	} else {
+		repos = append(repos, repo)
+	}
+
+	userRepos := UserRepos{User:user, Repos:strings.Join(repos, ",")}
+	affected, err := adapter.engine.Update(&userRepos)
+	if err != nil {
+		panic(err)
+	}
+
+	return affected != 0
+}
+
+func (c *MainController) AddUserRepo() {
+	user := c.GetString(":user")
+	repo := c.GetString(":repo")
+	repo = strings.Replace(repo, ".", "/", -1)
+
+	affected := addUserRepo(user, repo)
+
+	if affected {
+		c.Data["json"] = "ok"
+	} else {
+		c.Data["json"] = "not affected"
+	}
+	c.ServeJSON()
+}
+
 func deleteUserRepo(user string, repo string) bool {
 	repos := getUserRepos(user)
 	var newRepos []string
