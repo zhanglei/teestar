@@ -11,6 +11,7 @@ type UserRepos struct {
 	User  string `xorm:"varchar(100)"`
 	Repos string `xorm:"varchar(255)"`
 }
+
 // Adapter represents the MySQL adapter for policy storage.
 type Adapter struct {
 	driverName     string

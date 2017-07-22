@@ -12,4 +12,5 @@ func init() {
 	beego.Router("/api/users/:user/repos/delete/:repo", &controllers.MainController{}, "get:DeleteUserRepo")
 
 	beego.Router("/api/users/:user/targets/:target", &controllers.MainController{}, "get:GetUserTarget")
+	beego.Router("/api/users/:user/targets/:target/status", &controllers.MainController{}, "get:GetUserTargetStatus")
 }

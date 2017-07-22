@@ -133,14 +133,42 @@ func (c *MainController) GetUserTarget() {
 	target := c.GetString(":target")
 
 	targetRepos := getUserRepos(target)
-	userStarringRepos := api.ListStarringRepos(user)
-	res, ok := Intersect(targetRepos, userStarringRepos)
+	targetStarredReposPotential := api.ListStarringRepos(user)
+	res, ok := Intersect(targetRepos, targetStarredReposPotential)
 	if !ok {
 		panic(errors.New("cannot find intersect"))
 	}
+	targetStarredRepos := res.Interface().([]string)
 
-	user2TargetRepos := res.Interface().([]string)
+	c.Data["json"] = targetStarredRepos
+	c.ServeJSON()
+}
 
-	c.Data["json"] = []string(user2TargetRepos)
+type UserTargetStatus struct {
+	StarringRepos []string
+	StarredRepos  []string
+}
+
+func (c *MainController) GetUserTargetStatus() {
+	user := c.GetString(":user")
+	target := c.GetString(":target")
+
+	targetRepos := getUserRepos(target)
+	targetStarredReposPotential := api.ListStarringRepos(user)
+	targetRes, ok := Intersect(targetRepos, targetStarredReposPotential)
+	if !ok {
+		panic(errors.New("cannot find intersect"))
+	}
+	targetStarredRepos := targetRes.Interface().([]string)
+
+	userRepos := getUserRepos(user)
+	userStarredReposPotential := api.ListStarringRepos(target)
+	userRes, ok := Intersect(userRepos, userStarredReposPotential)
+	if !ok {
+		panic(errors.New("cannot find intersect"))
+	}
+	userStarredRepos := userRes.Interface().([]string)
+
+	c.Data["json"] = UserTargetStatus{StarringRepos: targetStarredRepos, StarredRepos: userStarredRepos}
 	c.ServeJSON()
 }
