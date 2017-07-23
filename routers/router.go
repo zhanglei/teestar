@@ -18,4 +18,5 @@ func init() {
 
 	beego.Router("/api/users/:user/targets/:target", &controllers.MainController{}, "get:GetUserTarget")
 	beego.Router("/api/users/:user/targets/:target/status", &controllers.MainController{}, "get:GetUserTargetStatus")
+	beego.Router("/api/users/:user/targets/:target/pool", &controllers.MainController{}, "get:GetUserTargetPool")
 }
