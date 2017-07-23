@@ -54,10 +54,7 @@ type UserTargetStatus struct {
 	Score         int
 }
 
-func (c *MainController) GetUserTargetStatus() {
-	user := c.GetString(":user")
-	target := c.GetString(":target")
-
+func getUserTargetStatus(user string, target string) UserTargetStatus {
 	targetRepos := getUserRepos(target)
 	userStarringRepos := getUserStarringRepos(user)
 	starringRepos := getIntersect(targetRepos, userStarringRepos)
@@ -68,7 +65,14 @@ func (c *MainController) GetUserTargetStatus() {
 
 	score := len(starredRepos) - len(starringRepos)
 
-	c.Data["json"] = UserTargetStatus{StarringRepos: starringRepos, StarredRepos: starredRepos, Score: score}
+	return UserTargetStatus{StarringRepos: starringRepos, StarredRepos: starredRepos, Score: score}
+}
+
+func (c *MainController) GetUserTargetStatus() {
+	user := c.GetString(":user")
+	target := c.GetString(":target")
+
+	c.Data["json"] = getUserTargetStatus(user, target)
 	c.ServeJSON()
 }
 
