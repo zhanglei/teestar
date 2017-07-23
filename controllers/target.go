@@ -48,13 +48,6 @@ func (c *MainController) GetUserTarget() {
 	c.ServeJSON()
 }
 
-type UserTargetStatus struct {
-	StarringRepos []string
-	StarredRepos  []string
-	Score         int
-	CanStarRepos  []string
-}
-
 func getUserTargetStatus(user string, target string) UserTargetStatus {
 	targetRepos := getUserRepos(target)
 	userStarringRepos := getUserStarringRepos(user)
@@ -94,30 +87,31 @@ func (c *MainController) GetUserTargetPool() {
 	c.ServeJSON()
 }
 
-func getUserStatus(user string) []UserTargetStatus {
-	userTargetStatuses := []UserTargetStatus{}
+func getUserStatus(user string) StatusList {
+	statusList := []*UserTargetStatus{}
 	otherUsers := getOtherUsers(user)
 	for _, otherUser := range otherUsers {
-		userTargetStatuses = append(userTargetStatuses, getUserTargetStatus(user, otherUser))
+		status := getUserTargetStatus(user, otherUser)
+		statusList = append(statusList, &status)
 	}
 
-	return userTargetStatuses
+	return statusList
 }
 
 func (c *MainController) GetUserStatus() {
 	user := c.GetString(":user")
 
-	statuses := getUserStatus(user)
+	statusList := getUserStatus(user)
 
-	c.Data["json"] = statuses
+	c.Data["json"] = statusList
 	c.ServeJSON()
 }
 
 func (c *MainController) GetUserRecommend() {
 	user := c.GetString(":user")
 
-	statuses := getUserStatus(user)
+	statusList := getUserStatus(user)
 
-	c.Data["json"] = statuses
+	c.Data["json"] = statusList
 	c.ServeJSON()
 }
