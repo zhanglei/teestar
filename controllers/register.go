@@ -31,17 +31,18 @@ func (c *MainController) GetUserAllRepos() {
 }
 
 func getUserRepos(user string) []string {
-	userRepos := UserRepos{User:user}
-	has, err := adapter.engine.Get(&userRepos)
+	var userRepos []UserRepo
+	err := adapter.engine.Find(&userRepos, &UserRepo{User: user})
 	if err != nil {
 		panic(err)
 	}
 
-	if !has {
-		return []string{}
-	} else {
-		return strings.Split(userRepos.Repos, ",")
+	repos := []string{}
+	for _, userRepo := range userRepos {
+		repos = append(repos, userRepo.Repo)
 	}
+
+	return repos
 }
 
 func (c *MainController) GetUserRepos() {
@@ -56,23 +57,17 @@ func (c *MainController) GetUserRepos() {
 }
 
 func addUserRepo(user string, repo string) bool {
-	repos := getUserRepos(user)
-	found := false
-	for _, r := range repos {
-		if repo == r {
-			found = true
-			break
-		}
+	userRepo := UserRepo{User: user, Repo: repo}
+	has, err := adapter.engine.Get(&userRepo)
+	if err != nil {
+		panic(err)
 	}
 
-	if found {
+	if has {
 		return false
-	} else {
-		repos = append(repos, repo)
 	}
 
-	userRepos := UserRepos{User:user, Repos:strings.Join(repos, ",")}
-	affected, err := adapter.engine.Update(&userRepos)
+	affected, err := adapter.engine.Insert(userRepo)
 	if err != nil {
 		panic(err)
 	}
@@ -96,16 +91,17 @@ func (c *MainController) AddUserRepo() {
 }
 
 func deleteUserRepo(user string, repo string) bool {
-	repos := getUserRepos(user)
-	var newRepos []string
-	for _, r := range repos {
-		if repo != r {
-			newRepos = append(newRepos, r)
-		}
+	userRepo := UserRepo{User: user, Repo: repo}
+	has, err := adapter.engine.Get(&userRepo)
+	if err != nil {
+		panic(err)
 	}
 
-	userRepos := UserRepos{User:user, Repos:strings.Join(newRepos, ",")}
-	affected, err := adapter.engine.Update(&userRepos)
+	if !has {
+		return false
+	}
+
+	affected, err := adapter.engine.Delete(&userRepo)
 	if err != nil {
 		panic(err)
 	}

@@ -7,9 +7,9 @@ import (
 	"github.com/go-xorm/xorm"
 )
 
-type UserRepos struct {
-	User  string `xorm:"varchar(100)"`
-	Repos string `xorm:"varchar(255)"`
+type UserRepo struct {
+	User string `xorm:"varchar(100)"`
+	Repo string `xorm:"varchar(100)"`
 }
 
 type UserStarringRepo struct {
@@ -81,7 +81,7 @@ func (a *Adapter) close() {
 }
 
 func (a *Adapter) createTable() {
-	err := a.engine.Sync2(new(UserRepos))
+	err := a.engine.Sync2(new(UserRepo))
 	if err != nil {
 		panic(err)
 	}
