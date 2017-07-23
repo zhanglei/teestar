@@ -113,8 +113,12 @@ func (c *MainController) GetUserStatus() {
 func (c *MainController) GetUserRecommend() {
 	user := c.GetString(":user")
 
+	repos := []string{}
 	statusList := getUserStatus(user)
+	for _, status := range statusList {
+		repos = append(repos, status.CanStarRepos...)
+	}
 
-	c.Data["json"] = statusList
+	c.Data["json"] = repos
 	c.ServeJSON()
 }
