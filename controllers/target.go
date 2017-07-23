@@ -1,20 +1,22 @@
 package controllers
 
-import (
-	"errors"
-)
-
 func getIntersect(a []string, b []string) []string {
-	if len(a) == 0 || len(b) == 0 {
-		return []string{}
+	res := []string{}
+	for _, ia := range a {
+		found := false
+		for _, ib := range b {
+			if ia == ib {
+				found = true
+				break
+			}
+		}
+
+		if found {
+			res = append(res, ia)
+		}
 	}
 
-	res, ok := Intersect(a, b)
-	if !ok {
-		panic(errors.New("cannot find intersect"))
-	}
-
-	return res.Interface().([]string)
+	return res
 }
 
 func getSubtract(a []string, b []string) []string {
@@ -34,19 +36,6 @@ func getSubtract(a []string, b []string) []string {
 	}
 
 	return res
-}
-
-func Get(a []string, b []string) []string {
-	if len(a) == 0 || len(b) == 0 {
-		return []string{}
-	}
-
-	res, ok := Intersect(a, b)
-	if !ok {
-		panic(errors.New("cannot find intersect"))
-	}
-
-	return res.Interface().([]string)
 }
 
 func (c *MainController) GetUserTarget() {
