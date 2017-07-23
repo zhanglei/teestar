@@ -20,6 +20,10 @@ func getUserStarringRepos(user string) []string {
 func (c *MainController) GetUserStarringRepos() {
 	user := c.GetString(":user")
 
+	hitter := getUserHitter(user)
+	if hitter != "" {
+		user = hitter
+	}
 	c.Data["json"] = getUserStarringRepos(user)
 	c.ServeJSON()
 }
@@ -47,6 +51,10 @@ func updateUserStarringRepos(user string) bool {
 func (c *MainController) UpdateUserStarringRepos() {
 	user := c.GetString(":user")
 
+	hitter := getUserHitter(user)
+	if hitter != "" {
+		user = hitter
+	}
 	affected := updateUserStarringRepos(user)
 
 	if affected {
