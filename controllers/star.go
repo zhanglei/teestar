@@ -25,13 +25,12 @@ func (c *MainController) GetUserStarringRepos() {
 }
 
 func updateUserStarringRepos(user string) bool {
-	repos := api.ListStarringRepos(user)
-
 	affected, err := adapter.engine.Delete(&UserStarringRepo{User: user})
 	if err != nil {
 		panic(err)
 	}
 
+	repos := api.ListStarringRepos(user)
 	userRepos := []UserStarringRepo{}
 	for _, repo := range repos {
 		userRepos = append(userRepos, UserStarringRepo{User: user, Repo: repo})
@@ -49,6 +48,35 @@ func (c *MainController) UpdateUserStarringRepos() {
 	user := c.GetString(":user")
 
 	affected := updateUserStarringRepos(user)
+
+	if affected {
+		c.Data["json"] = "ok"
+	} else {
+		c.Data["json"] = "not affected"
+	}
+	c.ServeJSON()
+}
+
+func updateUserHitter(user string, hitter string) bool {
+	affected, err := adapter.engine.Delete(&UserHitter{User: user})
+	if err != nil {
+		panic(err)
+	}
+
+	userHitter := UserHitter{User: user, Hitter: hitter}
+	affected, err = adapter.engine.Insert(userHitter)
+	if err != nil {
+		panic(err)
+	}
+
+	return affected != 0
+}
+
+func (c *MainController) UpdateUserHitter() {
+	user := c.GetString(":user")
+	hitter := c.GetString(":hitter")
+
+	affected := updateUserHitter(user, hitter)
 
 	if affected {
 		c.Data["json"] = "ok"
