@@ -1,5 +1,7 @@
 package controllers
 
+import  "sort"
+
 func getIntersect(a []string, b []string) []string {
 	res := []string{}
 	for _, ia := range a {
@@ -88,13 +90,14 @@ func (c *MainController) GetUserTargetPool() {
 }
 
 func getUserStatus(user string) StatusList {
-	statusList := []*UserTargetStatus{}
+	statusList := StatusList{}
 	otherUsers := getOtherUsers(user)
 	for _, otherUser := range otherUsers {
 		status := getUserTargetStatus(user, otherUser)
 		statusList = append(statusList, &status)
 	}
 
+	sort.Sort(statusList)
 	return statusList
 }
 
