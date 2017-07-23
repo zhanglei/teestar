@@ -52,6 +52,7 @@ type UserTargetStatus struct {
 	StarringRepos []string
 	StarredRepos  []string
 	Score         int
+	CanStarRepos  []string
 }
 
 func getUserTargetStatus(user string, target string) UserTargetStatus {
@@ -65,7 +66,9 @@ func getUserTargetStatus(user string, target string) UserTargetStatus {
 
 	score := len(starredRepos) - len(starringRepos)
 
-	return UserTargetStatus{StarringRepos: starringRepos, StarredRepos: starredRepos, Score: score}
+	canStarRepos := getSubtract(targetRepos, userStarringRepos)
+
+	return UserTargetStatus{StarringRepos: starringRepos, StarredRepos: starredRepos, Score: score, CanStarRepos: canStarRepos}
 }
 
 func (c *MainController) GetUserTargetStatus() {
