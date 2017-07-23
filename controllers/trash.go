@@ -7,11 +7,6 @@ import (
 	"github.com/hsluoyz/gitstar/api"
 )
 
-type UserTargetStatus struct {
-	StarringRepos []string
-	StarredRepos  []string
-}
-
 func getAllUserAndOrganRepos(user string) []string {
 	var repos []string
 
