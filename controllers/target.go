@@ -76,14 +76,17 @@ func (c *MainController) GetUserTargetStatus() {
 	c.ServeJSON()
 }
 
+func getUserTargetPool(user string, target string) []string {
+	targetRepos := getUserRepos(target)
+	userStarringRepos := getUserStarringRepos(user)
+	poolRepos := getSubtract(targetRepos, userStarringRepos)
+	return poolRepos
+}
+
 func (c *MainController) GetUserTargetPool() {
 	user := c.GetString(":user")
 	target := c.GetString(":target")
 
-	targetRepos := getUserRepos(target)
-	userStarringRepos := getUserStarringRepos(user)
-	poolRepos := getSubtract(targetRepos, userStarringRepos)
-
-	c.Data["json"] = poolRepos
+	c.Data["json"] = getUserTargetPool(user, target)
 	c.ServeJSON()
 }
