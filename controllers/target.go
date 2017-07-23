@@ -107,6 +107,17 @@ func getUserStatus(user string) []UserTargetStatus {
 func (c *MainController) GetUserStatus() {
 	user := c.GetString(":user")
 
-	c.Data["json"] = getUserStatus(user)
+	statuses := getUserStatus(user)
+
+	c.Data["json"] = statuses
+	c.ServeJSON()
+}
+
+func (c *MainController) GetUserRecommend() {
+	user := c.GetString(":user")
+
+	statuses := getUserStatus(user)
+
+	c.Data["json"] = statuses
 	c.ServeJSON()
 }
