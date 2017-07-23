@@ -3,6 +3,11 @@ package controllers
 import "github.com/hsluoyz/gitstar/api"
 
 func getUserStarringRepos(user string) []string {
+	hitter := getUserHitter(user)
+	if hitter != "" {
+		user = hitter
+	}
+
 	var userRepos []UserStarringRepo
 	err := adapter.engine.Find(&userRepos, &UserStarringRepo{User: user})
 	if err != nil {
@@ -20,15 +25,16 @@ func getUserStarringRepos(user string) []string {
 func (c *MainController) GetUserStarringRepos() {
 	user := c.GetString(":user")
 
-	hitter := getUserHitter(user)
-	if hitter != "" {
-		user = hitter
-	}
 	c.Data["json"] = getUserStarringRepos(user)
 	c.ServeJSON()
 }
 
 func updateUserStarringRepos(user string) bool {
+	hitter := getUserHitter(user)
+	if hitter != "" {
+		user = hitter
+	}
+
 	affected, err := adapter.engine.Delete(&UserStarringRepo{User: user})
 	if err != nil {
 		panic(err)
@@ -51,10 +57,6 @@ func updateUserStarringRepos(user string) bool {
 func (c *MainController) UpdateUserStarringRepos() {
 	user := c.GetString(":user")
 
-	hitter := getUserHitter(user)
-	if hitter != "" {
-		user = hitter
-	}
 	affected := updateUserStarringRepos(user)
 
 	if affected {
