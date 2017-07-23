@@ -94,15 +94,19 @@ func (c *MainController) GetUserTargetPool() {
 	c.ServeJSON()
 }
 
-func (c *MainController) GetUserStatus() {
-	user := c.GetString(":user")
-
+func getUserStatus(user string) []UserTargetStatus {
 	userTargetStatuses := []UserTargetStatus{}
 	otherUsers := getOtherUsers(user)
 	for _, otherUser := range otherUsers {
 		userTargetStatuses = append(userTargetStatuses, getUserTargetStatus(user, otherUser))
 	}
 
-	c.Data["json"] = userTargetStatuses
+	return userTargetStatuses
+}
+
+func (c *MainController) GetUserStatus() {
+	user := c.GetString(":user")
+
+	c.Data["json"] = getUserStatus(user)
 	c.ServeJSON()
 }
