@@ -21,8 +21,24 @@ func (c *MainController) GetUserTarget() {
 	user := c.GetString(":user")
 	target := c.GetString(":target")
 
-	userRepos := getUserRepos(target)
+	targetRepos := getUserRepos(target)
 	userStarringRepos := getUserStarringRepos(user)
-	c.Data["json"] = getIntersect(userRepos, userStarringRepos)
+	c.Data["json"] = getIntersect(targetRepos, userStarringRepos)
+	c.ServeJSON()
+}
+
+func (c *MainController) GetUserTargetStatus() {
+	user := c.GetString(":user")
+	target := c.GetString(":target")
+
+	targetRepos := getUserRepos(target)
+	userStarringRepos := getUserStarringRepos(user)
+	starringRepos := getIntersect(targetRepos, userStarringRepos)
+
+	userRepos := getUserRepos(user)
+	targetStarringRepos := getUserStarringRepos(target)
+	starredRepos := getIntersect(userRepos, targetStarringRepos)
+
+	c.Data["json"] = UserTargetStatus{StarringRepos: starringRepos, StarredRepos: starredRepos}
 	c.ServeJSON()
 }
