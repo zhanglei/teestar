@@ -13,6 +13,7 @@ func init() {
 
 	beego.Router("/api/users/:user/starring-repos", &controllers.MainController{}, "get:GetUserStarringRepos")
 	beego.Router("/api/users/:user/starring-repos/update", &controllers.MainController{}, "get:UpdateUserStarringRepos")
+	beego.Router("/api/users/:user/hitter", &controllers.MainController{}, "get:GetUserHitter")
 	beego.Router("/api/users/:user/hitter/update/:hitter", &controllers.MainController{}, "get:UpdateUserHitter")
 
 	beego.Router("/api/users/:user/targets/:target", &controllers.MainController{}, "get:GetUserTarget")

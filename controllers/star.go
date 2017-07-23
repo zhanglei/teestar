@@ -57,6 +57,29 @@ func (c *MainController) UpdateUserStarringRepos() {
 	c.ServeJSON()
 }
 
+func getUserHitter(user string) string {
+	var userHitter = UserHitter{User: user}
+	has, err := adapter.engine.Get(&userHitter)
+	if err != nil {
+		panic(err)
+	}
+
+	if has {
+		return userHitter.Hitter
+	} else {
+		return ""
+	}
+}
+
+func (c *MainController) GetUserHitter() {
+	user := c.GetString(":user")
+
+	hitter := getUserHitter(user)
+
+	c.Data["json"] = hitter
+	c.ServeJSON()
+}
+
 func updateUserHitter(user string, hitter string) bool {
 	affected, err := adapter.engine.Delete(&UserHitter{User: user})
 	if err != nil {
