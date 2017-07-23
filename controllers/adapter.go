@@ -17,9 +17,10 @@ type UserStarringRepo struct {
 	Repo string `xorm:"varchar(100)"`
 }
 
-type UserHitter struct {
-	User   string `xorm:"varchar(100)"`
-	Hitter string `xorm:"varchar(100)"`
+type User struct {
+	User      string `xorm:"varchar(100) unique pk"`
+	Hitter    string `xorm:"varchar(100)"`
+	CreatedAt string `xorm:"varchar(100)"`
 }
 
 // Adapter represents the MySQL adapter for policy storage.
@@ -91,7 +92,7 @@ func (a *Adapter) createTable() {
 		panic(err)
 	}
 
-	err = a.engine.Sync2(new(UserHitter))
+	err = a.engine.Sync2(new(User))
 	if err != nil {
 		panic(err)
 	}

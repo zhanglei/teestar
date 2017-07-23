@@ -68,14 +68,14 @@ func (c *MainController) UpdateUserStarringRepos() {
 }
 
 func getUserHitter(user string) string {
-	var userHitter = UserHitter{User: user}
-	has, err := adapter.engine.Get(&userHitter)
+	var objUser = User{User: user}
+	has, err := adapter.engine.Get(&objUser)
 	if err != nil {
 		panic(err)
 	}
 
 	if has {
-		return userHitter.Hitter
+		return objUser.Hitter
 	} else {
 		return ""
 	}
@@ -91,13 +91,8 @@ func (c *MainController) GetUserHitter() {
 }
 
 func updateUserHitter(user string, hitter string) bool {
-	affected, err := adapter.engine.Delete(&UserHitter{User: user})
-	if err != nil {
-		panic(err)
-	}
-
-	userHitter := UserHitter{User: user, Hitter: hitter}
-	affected, err = adapter.engine.Insert(userHitter)
+	objUser := User{User: user, Hitter: hitter}
+	affected, err := adapter.engine.Id(user).Update(objUser)
 	if err != nil {
 		panic(err)
 	}
