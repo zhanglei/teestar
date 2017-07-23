@@ -2,25 +2,29 @@ package routers
 
 import (
 	"github.com/astaxie/beego"
-	"github.com/hsluoyz/gitstar/controllers"
+	"github.com/hsluoyz/gitstar/controllers/api_controller"
 )
 
 func init() {
-	beego.Router("/api/users", &controllers.MainController{}, "get:GetUsers")
+	initAPI()
+}
 
-    beego.Router("/api/users/:user/all-repos", &controllers.MainController{},"get:GetUserAllRepos")
-	beego.Router("/api/users/:user/repos", &controllers.MainController{}, "get:GetUserRepos")
-	beego.Router("/api/users/:user/repos/add/:repo", &controllers.MainController{}, "get:AddUserRepo")
-	beego.Router("/api/users/:user/repos/delete/:repo", &controllers.MainController{}, "get:DeleteUserRepo")
+func initAPI() {
+	beego.Router("/api/users", &api_controller.APIController{}, "get:GetUsers")
 
-	beego.Router("/api/users/:user/starring-repos", &controllers.MainController{}, "get:GetUserStarringRepos")
-	beego.Router("/api/users/:user/starring-repos/update", &controllers.MainController{}, "get:UpdateUserStarringRepos")
-	beego.Router("/api/users/:user/hitter", &controllers.MainController{}, "get:GetUserHitter")
-	beego.Router("/api/users/:user/hitter/update/:hitter", &controllers.MainController{}, "get:UpdateUserHitter")
+    beego.Router("/api/users/:user/all-repos", &api_controller.APIController{},"get:GetUserAllRepos")
+	beego.Router("/api/users/:user/repos", &api_controller.APIController{}, "get:GetUserRepos")
+	beego.Router("/api/users/:user/repos/add/:repo", &api_controller.APIController{}, "get:AddUserRepo")
+	beego.Router("/api/users/:user/repos/delete/:repo", &api_controller.APIController{}, "get:DeleteUserRepo")
 
-	beego.Router("/api/users/:user/targets/:target", &controllers.MainController{}, "get:GetUserTarget")
-	beego.Router("/api/users/:user/targets/:target/status", &controllers.MainController{}, "get:GetUserTargetStatus")
-	beego.Router("/api/users/:user/targets/:target/pool", &controllers.MainController{}, "get:GetUserTargetPool")
-	beego.Router("/api/users/:user/status", &controllers.MainController{}, "get:GetUserStatus")
-	beego.Router("/api/users/:user/recommend", &controllers.MainController{}, "get:GetUserRecommend")
+	beego.Router("/api/users/:user/starring-repos", &api_controller.APIController{}, "get:GetUserStarringRepos")
+	beego.Router("/api/users/:user/starring-repos/update", &api_controller.APIController{}, "get:UpdateUserStarringRepos")
+	beego.Router("/api/users/:user/hitter", &api_controller.APIController{}, "get:GetUserHitter")
+	beego.Router("/api/users/:user/hitter/update/:hitter", &api_controller.APIController{}, "get:UpdateUserHitter")
+
+	beego.Router("/api/users/:user/targets/:target", &api_controller.APIController{}, "get:GetUserTarget")
+	beego.Router("/api/users/:user/targets/:target/status", &api_controller.APIController{}, "get:GetUserTargetStatus")
+	beego.Router("/api/users/:user/targets/:target/pool", &api_controller.APIController{}, "get:GetUserTargetPool")
+	beego.Router("/api/users/:user/status", &api_controller.APIController{}, "get:GetUserStatus")
+	beego.Router("/api/users/:user/recommend", &api_controller.APIController{}, "get:GetUserRecommend")
 }

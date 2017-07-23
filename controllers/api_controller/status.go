@@ -1,4 +1,4 @@
-package controllers
+package api_controller
 
 type UserTargetStatus struct {
 	StarringRepos []string

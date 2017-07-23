@@ -1,4 +1,4 @@
-package controllers
+package api_controller
 
 import  "sort"
 
@@ -40,7 +40,7 @@ func getSubtract(a []string, b []string) []string {
 	return res
 }
 
-func (c *MainController) GetUserTarget() {
+func (c *APIController) GetUserTarget() {
 	user := c.GetString(":user")
 	target := c.GetString(":target")
 
@@ -66,7 +66,7 @@ func getUserTargetStatus(user string, target string) UserTargetStatus {
 	return UserTargetStatus{StarringRepos: starringRepos, StarredRepos: starredRepos, Score: score, CanStarRepos: canStarRepos}
 }
 
-func (c *MainController) GetUserTargetStatus() {
+func (c *APIController) GetUserTargetStatus() {
 	user := c.GetString(":user")
 	target := c.GetString(":target")
 
@@ -81,7 +81,7 @@ func getUserTargetPool(user string, target string) []string {
 	return poolRepos
 }
 
-func (c *MainController) GetUserTargetPool() {
+func (c *APIController) GetUserTargetPool() {
 	user := c.GetString(":user")
 	target := c.GetString(":target")
 
@@ -101,7 +101,7 @@ func getUserStatus(user string) StatusList {
 	return statusList
 }
 
-func (c *MainController) GetUserStatus() {
+func (c *APIController) GetUserStatus() {
 	user := c.GetString(":user")
 
 	statusList := getUserStatus(user)
@@ -110,7 +110,7 @@ func (c *MainController) GetUserStatus() {
 	c.ServeJSON()
 }
 
-func (c *MainController) GetUserRecommend() {
+func (c *APIController) GetUserRecommend() {
 	user := c.GetString(":user")
 
 	repos := []string{}

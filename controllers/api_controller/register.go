@@ -1,4 +1,4 @@
-package controllers
+package api_controller
 
 import (
 	"strings"
@@ -6,7 +6,7 @@ import (
 	"github.com/astaxie/beego"
 )
 
-type MainController struct {
+type APIController struct {
 	beego.Controller
 }
 
@@ -16,7 +16,7 @@ func init() {
 	adapter = NewAdapter("mysql", "root:@tcp(127.0.0.1:3306)/")
 }
 
-func (c *MainController) GetUserAllRepos() {
+func (c *APIController) GetUserAllRepos() {
 	user := c.GetString(":user")
 
 	//c.Data["Website"] = "beego.me"
@@ -43,7 +43,7 @@ func getUserRepos(user string) []string {
 	return repos
 }
 
-func (c *MainController) GetUserRepos() {
+func (c *APIController) GetUserRepos() {
 	user := c.GetString(":user")
 
 	//c.Data["Website"] = "beego.me"
@@ -73,7 +73,7 @@ func addUserRepo(user string, repo string) bool {
 	return affected != 0
 }
 
-func (c *MainController) AddUserRepo() {
+func (c *APIController) AddUserRepo() {
 	user := c.GetString(":user")
 	repo := c.GetString(":repo")
 	repo = strings.Replace(repo, ".", "/", -1)
@@ -107,7 +107,7 @@ func deleteUserRepo(user string, repo string) bool {
 	return affected != 0
 }
 
-func (c *MainController) DeleteUserRepo() {
+func (c *APIController) DeleteUserRepo() {
 	user := c.GetString(":user")
 	repo := c.GetString(":repo")
 	repo = strings.Replace(repo, ".", "/", -1)

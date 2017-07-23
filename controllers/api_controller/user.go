@@ -1,4 +1,4 @@
-package controllers
+package api_controller
 
 func getUsers() []string {
 	var objUsers []User
@@ -32,7 +32,7 @@ func getOtherUsers(user string) []string {
 	return users
 }
 
-func (c *MainController) GetUsers() {
+func (c *APIController) GetUsers() {
 	users := getUsers()
 	c.Data["json"] = users
 	c.ServeJSON()
