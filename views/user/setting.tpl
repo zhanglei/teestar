@@ -30,18 +30,16 @@
     <div class="panel panel-default">
       <div class="panel-heading">
         项目管理
-        <a href="/role/add" class="pull-right">添加项目</a>
+        <a href="/repo/add" class="pull-right">添加项目</a>
       </div>
       <div class="table-responsive">
         <table class="table table-striped table-responsive">
           <tbody>
-          {{range .Roles}}
+          {{range $i, $v := .Repos}}
           <tr>
-            <td>{{.Id}}</td>
-            <td>{{.Name}}</td>
+            <td>{{$v}}</td>
             <td>
-              <a href="/role/edit/{{.Id}}" class="btn btn-xs btn-warning">配置权限</a>
-              <a href="javascript:if(confirm('确认删除吗?')) location.href='/role/delete/{{.Id}}'" class="btn btn-xs btn-danger">删除</a>
+              <a href="javascript:if(confirm('确认删除吗?')) location.href='/role/delete/{{$v}}'" class="btn btn-xs btn-danger">删除</a>
             </td>
           </tr>
           {{end}}

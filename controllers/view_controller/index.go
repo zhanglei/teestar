@@ -160,6 +160,7 @@ func (c *ViewController) SettingPage() {
 	c.Data["IsLogin"] = true
 	c.Data["Username"] = username
 	c.Data["Hitter"] = api.GetUserHitter(username)
+	c.Data["Repos"] = api.GetUserRepos(username)
 
 	c.Data["PageTitle"] = "GitStar - 用户设置"
 	c.Layout = "layout/layout.tpl"
@@ -183,4 +184,21 @@ func (c *ViewController) Setting() {
 	flash.Success("更新资料成功")
 	flash.Store(&c.Controller)
 	c.Redirect("/user/setting", 302)
+}
+
+func (c *ViewController) AddRepo() {
+	beego.ReadFromRequest(&c.Controller)
+	flash := beego.NewFlash()
+
+	username := getUsername(c.Ctx)
+	if username == "" {
+		flash.Error("请先登录")
+		flash.Store(&c.Controller)
+		c.Redirect("/login", 302)
+		return
+	}
+
+	c.Data["PageTitle"] = "GitStar - 添加项目"
+	c.Layout = "layout/layout.tpl"
+	c.TplName = "repo/add.tpl"
 }
