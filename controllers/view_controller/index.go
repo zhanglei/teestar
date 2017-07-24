@@ -118,7 +118,7 @@ func (c *ViewController) Register() {
 		api.AddUser(username, password)
 
 		c.setUsername(username)
-		c.Redirect("/", 302)
+		c.Redirect("/user/setting", 302)
 	}
 }
 
