@@ -4,7 +4,7 @@
       <div class="panel-heading">添加项目</div>
       <div class="panel-body">
         {{template "../components/flash_error.tpl" .}}
-        <form action="/role/add" method="post">
+        <form action="/repo/add" method="post">
           <div class="form-group">
             <label for="name">项目地址（格式为：user_name/repo_name）</label>
             <input type="text" id="name" name="name" class="form-control">

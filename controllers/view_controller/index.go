@@ -147,6 +147,7 @@ func (c *ViewController) About() {
 }
 
 func (c *ViewController) SettingPage() {
+	beego.ReadFromRequest(&c.Controller)
 	flash := beego.NewFlash()
 
 	username := getUsername(c.Ctx)
@@ -186,7 +187,7 @@ func (c *ViewController) Setting() {
 	c.Redirect("/user/setting", 302)
 }
 
-func (c *ViewController) AddRepo() {
+func (c *ViewController) AddRepoPage() {
 	beego.ReadFromRequest(&c.Controller)
 	flash := beego.NewFlash()
 
@@ -201,4 +202,30 @@ func (c *ViewController) AddRepo() {
 	c.Data["PageTitle"] = "GitStar - 添加项目"
 	c.Layout = "layout/layout.tpl"
 	c.TplName = "repo/add.tpl"
+}
+
+func (c *ViewController) AddRepo() {
+	flash := beego.NewFlash()
+
+	username := getUsername(c.Ctx)
+	if username == "" {
+		flash.Error("请先登录")
+		flash.Store(&c.Controller)
+		c.Redirect("/login", 302)
+		return
+	}
+
+	repo := c.GetString("name")
+	if len(repo) == 0 {
+		flash.Error("项目不能为空")
+		flash.Store(&c.Controller)
+		c.Redirect("/repo/add", 302)
+		return
+	}
+
+	api.AddUserRepo(username, repo)
+
+	flash.Success("添加项目成功")
+	flash.Store(&c.Controller)
+	c.Redirect("/user/setting", 302)
 }

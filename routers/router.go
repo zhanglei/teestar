@@ -42,5 +42,6 @@ func initView(){
 
 	beego.Router("/user/setting", &view_controller.ViewController{}, "GET:SettingPage")
 	beego.Router("/user/setting", &view_controller.ViewController{}, "POST:Setting")
-	beego.Router("/repo/add", &view_controller.ViewController{}, "GET:AddRepo")
+	beego.Router("/repo/add", &view_controller.ViewController{}, "GET:AddRepoPage")
+	beego.Router("/repo/add", &view_controller.ViewController{}, "Post:AddRepo")
 }
