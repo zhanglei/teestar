@@ -24,6 +24,7 @@ func (c *ViewController) setUsername(username string) {
 
 //首页
 func (c *ViewController) Index() {
+	beego.ReadFromRequest(&c.Controller)
 	flash := beego.NewFlash()
 
 	username := c.getUsername()
@@ -41,6 +42,22 @@ func (c *ViewController) Index() {
 	c.Data["PageTitle"] = "GitStar - GitHub项目点赞"
 	c.Layout = "layout/layout.tpl"
 	c.TplName = "index.tpl"
+}
+
+func (c *ViewController) Update() {
+	flash := beego.NewFlash()
+
+	username := c.getUsername()
+	if username == "" {
+		flash.Error("请先登录")
+		flash.Store(&c.Controller)
+		c.Redirect("/login", 302)
+		return
+	}
+
+	api.UpdateUserStarringRepos(username)
+
+	c.Redirect("/", 302)
 }
 
 //登录页

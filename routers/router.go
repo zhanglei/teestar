@@ -33,6 +33,7 @@ func initAPI() {
 
 func initView(){
 	beego.Router("/", &view_controller.ViewController{}, "GET:Index")
+	beego.Router("/update", &view_controller.ViewController{}, "GET:Update")
 	beego.Router("/login", &view_controller.ViewController{}, "GET:LoginPage")
 	beego.Router("/login", &view_controller.ViewController{}, "POST:Login")
 	beego.Router("/register", &view_controller.ViewController{}, "GET:RegisterPage")
