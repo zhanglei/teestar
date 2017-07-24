@@ -51,24 +51,16 @@ func setUsername(ctx *context.Context, username string) {
 	}
 }
 
-////首页
-//func (c *ViewController) Index() {
-//	c.Data["PageTitle"] = "首页"
-//	c.Data["IsLogin"], c.Data["UserInfo"] = filters.IsLogin(c.Controller.Ctx)
-//	p, _ := strconv.Atoi(c.Ctx.Input.Query("p"))
-//	if p == 0 {
-//		p = 1
-//	}
-//	size, _ := beego.AppConfig.Int("page.size")
-//	s, _ := strconv.Atoi(c.Ctx.Input.Query("s"))
-//	c.Data["S"] = s
-//	section := models.Section{Id: s}
-//	c.Data["Page"] = models.PageTopic(p, size, &section)
-//	c.Data["Sections"] = models.FindAllSection()
-//	c.Layout = "layout/layout.tpl"
-//	c.TplName = "index.tpl"
-//}
-//
+//首页
+func (c *ViewController) Index() {
+	c.Data["PageTitle"] = "首页"
+
+	// username := getUsername(c.Ctx)
+
+	c.Layout = "layout/layout.tpl"
+	c.TplName = "index.tpl"
+}
+
 ////登录页
 //func (c *ViewController) LoginPage() {
 //	IsLogin, _ := filters.IsLogin(c.Ctx)
