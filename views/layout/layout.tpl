@@ -63,7 +63,7 @@
 <div class="container">
   <br>
   <div class="text-center">
-    ©2017 Powered by <a href="http://beego.me/" target="_blank">Beego</a>
+    ©2017 GitStar.cn Powered by <a href="http://beego.me/" target="_blank">Beego</a>
   </div>
   <br>
 </div>

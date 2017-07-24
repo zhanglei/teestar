@@ -10,7 +10,7 @@
         </a>
       </div>
       1. 浏览本页的项目，打开链接，进入GitHub点赞；<br>
-      2. 点赞完成后，点击下面的按钮，换一批项目浏览。
+      2. 点赞完成后，点击下面的按钮，换一批项目浏览，该按钮速度较慢，请耐心等待。
       <div class="media-body">
         <div class="media-heading">
           <a href="/user/{{.UserInfo.Username}}">{{.UserInfo.Username}}</a>
