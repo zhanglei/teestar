@@ -24,14 +24,19 @@ func (c *ViewController) setUsername(username string) {
 
 //首页
 func (c *ViewController) Index() {
-	c.Data["PageTitle"] = "GitStar - GitHub项目点赞"
+	flash := beego.NewFlash()
 
 	username := c.getUsername()
-	if username != "" {
-		c.Data["IsLogin"] = true
-		c.Data["Username"] = username
+	if username == "" {
+		flash.Error("请先登录")
+		flash.Store(&c.Controller)
+		c.Redirect("/login", 302)
+		return
 	}
+	c.Data["IsLogin"] = true
+	c.Data["Username"] = username
 
+	c.Data["PageTitle"] = "GitStar - GitHub项目点赞"
 	c.Layout = "layout/layout.tpl"
 	c.TplName = "index.tpl"
 }
