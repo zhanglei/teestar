@@ -14,8 +14,9 @@ func init() {
 }
 
 type UserRepo struct {
-	User string `xorm:"varchar(100) notnull pk"`
-	Repo string `xorm:"varchar(100) notnull pk"`
+	Id   int64
+	User string `xorm:"varchar(100) notnull"`
+	Repo string `xorm:"varchar(100) notnull"`
 }
 
 type UserStarringRepo struct {
