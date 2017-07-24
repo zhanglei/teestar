@@ -28,10 +28,6 @@
               <span class="hidden-sm hidden-xs">•</span>
               <span class="hidden-sm hidden-xs">{{.View}}次浏览</span>
               <span>•</span>
-              {{if .LastReplyUser}}
-                <span>•</span>
-                <span>最后回复来自 <a href="/user/{{.LastReplyUser.Username}}">{{.LastReplyUser.Username}}</a></span>
-              {{end}}
             </p>
           </div>
         </div>
