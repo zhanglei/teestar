@@ -21,6 +21,7 @@
             <p class="gray">
               <a target="_blank" href="https://github.com/{{.Target}}"><span class="label label-primary">{{.Target}}</span></a>
               <span>•</span>
+              <span class="hidden-sm hidden-xs">{{.Target}}还欠我{{.Score}}个赞</span>
             </p>
           </div>
         </div>

@@ -78,6 +78,7 @@ func GetUserStatus(user string) StatusList {
 type Entry struct {
 	Target string
 	Repo   string
+	Score  int
 }
 
 func GetUserRecommend(user string) []Entry {
@@ -85,7 +86,7 @@ func GetUserRecommend(user string) []Entry {
 	statusList := GetUserStatus(user)
 	for _, status := range statusList {
 		for _, repo := range status.CanStarRepos {
-			entries = append(entries, Entry{Target: status.Target, Repo: repo})
+			entries = append(entries, Entry{Target: status.Target, Repo: repo, Score: -status.Score})
 		}
 	}
 
