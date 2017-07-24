@@ -3,6 +3,7 @@ package api
 import (
 	"runtime"
 
+	"github.com/astaxie/beego"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/go-xorm/xorm"
 )
@@ -10,7 +11,7 @@ import (
 var adapter *Adapter
 
 func init() {
-	adapter = NewAdapter("mysql", "root:@tcp(127.0.0.1:3306)/")
+	adapter = NewAdapter("mysql", beego.AppConfig.String("dataSourceName"))
 }
 
 type UserRepo struct {
