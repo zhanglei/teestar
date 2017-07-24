@@ -1,110 +1,37 @@
 package api_controller
 
-import  "sort"
-
-func getIntersect(a []string, b []string) []string {
-	res := []string{}
-	for _, ia := range a {
-		found := false
-		for _, ib := range b {
-			if ia == ib {
-				found = true
-				break
-			}
-		}
-
-		if found {
-			res = append(res, ia)
-		}
-	}
-
-	return res
-}
-
-func getSubtract(a []string, b []string) []string {
-	res := []string{}
-	for _, ia := range a {
-		found := false
-		for _, ib := range b {
-			if ia == ib {
-				found = true
-				break
-			}
-		}
-
-		if !found {
-			res = append(res, ia)
-		}
-	}
-
-	return res
-}
+import "github.com/hsluoyz/gitstar/api"
 
 func (c *APIController) GetUserTarget() {
 	user := c.GetString(":user")
 	target := c.GetString(":target")
 
-	targetRepos := getUserRepos(target)
-	userStarringRepos := getUserStarringRepos(user)
-	c.Data["json"] = getIntersect(targetRepos, userStarringRepos)
+	targetRepos := api.GetUserRepos(target)
+	userStarringRepos := api.GetUserStarringRepos(user)
+	c.Data["json"] = api.GetIntersect(targetRepos, userStarringRepos)
 	c.ServeJSON()
-}
-
-func getUserTargetStatus(user string, target string) UserTargetStatus {
-	targetRepos := getUserRepos(target)
-	userStarringRepos := getUserStarringRepos(user)
-	starringRepos := getIntersect(targetRepos, userStarringRepos)
-
-	userRepos := getUserRepos(user)
-	targetStarringRepos := getUserStarringRepos(target)
-	starredRepos := getIntersect(userRepos, targetStarringRepos)
-
-	score := len(starredRepos) - len(starringRepos)
-
-	canStarRepos := getSubtract(targetRepos, userStarringRepos)
-
-	return UserTargetStatus{StarringRepos: starringRepos, StarredRepos: starredRepos, Score: score, CanStarRepos: canStarRepos}
 }
 
 func (c *APIController) GetUserTargetStatus() {
 	user := c.GetString(":user")
 	target := c.GetString(":target")
 
-	c.Data["json"] = getUserTargetStatus(user, target)
+	c.Data["json"] = api.GetUserTargetStatus(user, target)
 	c.ServeJSON()
-}
-
-func getUserTargetPool(user string, target string) []string {
-	targetRepos := getUserRepos(target)
-	userStarringRepos := getUserStarringRepos(user)
-	poolRepos := getSubtract(targetRepos, userStarringRepos)
-	return poolRepos
 }
 
 func (c *APIController) GetUserTargetPool() {
 	user := c.GetString(":user")
 	target := c.GetString(":target")
 
-	c.Data["json"] = getUserTargetPool(user, target)
+	c.Data["json"] = api.GetUserTargetPool(user, target)
 	c.ServeJSON()
-}
-
-func getUserStatus(user string) StatusList {
-	statusList := StatusList{}
-	otherUsers := getOtherUsers(user)
-	for _, otherUser := range otherUsers {
-		status := getUserTargetStatus(user, otherUser)
-		statusList = append(statusList, &status)
-	}
-
-	sort.Sort(statusList)
-	return statusList
 }
 
 func (c *APIController) GetUserStatus() {
 	user := c.GetString(":user")
 
-	statusList := getUserStatus(user)
+	statusList := api.GetUserStatus(user)
 
 	c.Data["json"] = statusList
 	c.ServeJSON()
@@ -114,7 +41,7 @@ func (c *APIController) GetUserRecommend() {
 	user := c.GetString(":user")
 
 	repos := []string{}
-	statusList := getUserStatus(user)
+	statusList := api.GetUserStatus(user)
 	for _, status := range statusList {
 		repos = append(repos, status.CanStarRepos...)
 	}

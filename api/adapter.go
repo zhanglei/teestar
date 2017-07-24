@@ -1,4 +1,4 @@
-package api_controller
+package api
 
 import (
 	"runtime"
@@ -6,6 +6,12 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/go-xorm/xorm"
 )
+
+var adapter *Adapter
+
+func init() {
+	adapter = NewAdapter("mysql", "root:@tcp(127.0.0.1:3306)/")
+}
 
 type UserRepo struct {
 	User string `xorm:"varchar(100)"`
