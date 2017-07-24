@@ -14,13 +14,13 @@ func init() {
 }
 
 type UserRepo struct {
-	User string `xorm:"varchar(100)"`
-	Repo string `xorm:"varchar(100)"`
+	User string `xorm:"varchar(100) notnull pk"`
+	Repo string `xorm:"varchar(100) notnull pk"`
 }
 
 type UserStarringRepo struct {
-	User string `xorm:"varchar(100)"`
-	Repo string `xorm:"varchar(100)"`
+	User string `xorm:"varchar(100) notnull pk"`
+	Repo string `xorm:"varchar(100) notnull pk"`
 }
 
 type User struct {
