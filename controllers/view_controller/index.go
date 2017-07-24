@@ -146,15 +146,41 @@ func (c *ViewController) About() {
 	c.TplName = "about.tpl"
 }
 
-func (c *ViewController) ToSetting() {
+func (c *ViewController) SettingPage() {
+	flash := beego.NewFlash()
+
 	username := getUsername(c.Ctx)
-	if username != "" {
-		c.Data["IsLogin"] = true
-		c.Data["Username"] = username
-		c.Data["Hitter"] = api.GetUserHitter(username)
+	if username == "" {
+		flash.Error("请先登录")
+		flash.Store(&c.Controller)
+		c.Redirect("/login", 302)
+		return
 	}
+
+	c.Data["IsLogin"] = true
+	c.Data["Username"] = username
+	c.Data["Hitter"] = api.GetUserHitter(username)
 
 	c.Data["PageTitle"] = "GitStar - 用户设置"
 	c.Layout = "layout/layout.tpl"
 	c.TplName = "user/setting.tpl"
+}
+
+func (c *ViewController) Setting() {
+	flash := beego.NewFlash()
+
+	username := getUsername(c.Ctx)
+	if username == "" {
+		//flash.Error("请先登录")
+		//flash.Store(&c.Controller)
+		c.Redirect("/login", 302)
+		return
+	}
+
+	hitter := c.Input().Get("hitter")
+	api.UpdateUserHitter(username, hitter)
+
+	flash.Success("更新资料成功")
+	flash.Store(&c.Controller)
+	c.Redirect("/user/setting", 302)
 }

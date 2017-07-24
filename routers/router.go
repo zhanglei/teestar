@@ -40,5 +40,6 @@ func initView(){
 	beego.Router("/logout", &view_controller.ViewController{}, "GET:Logout")
 	beego.Router("/about", &view_controller.ViewController{}, "GET:About")
 
-	beego.Router("/user/setting", &view_controller.ViewController{}, "GET:ToSetting")
+	beego.Router("/user/setting", &view_controller.ViewController{}, "GET:SettingPage")
+	beego.Router("/user/setting", &view_controller.ViewController{}, "POST:Setting")
 }
