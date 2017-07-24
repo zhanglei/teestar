@@ -76,9 +76,9 @@ func (c *ViewController) LoginPage() {
 //验证登录
 func (c *ViewController) Login() {
 	flash := beego.NewFlash()
-	username, _ := c.Input().Get("username"), c.Input().Get("password")
+	username, password := c.Input().Get("username"), c.Input().Get("password")
 
-	flag := api.HasUser(username)
+	flag := api.CheckUserPassword(username, password)
 	if flag {
 		c.setUsername(username)
 		c.Redirect("/", 302)
@@ -115,7 +115,7 @@ func (c *ViewController) Register() {
 		flash.Store(&c.Controller)
 		c.Redirect("/register", 302)
 	} else {
-		api.AddUser(username)
+		api.AddUser(username, password)
 
 		c.setUsername(username)
 		c.Redirect("/", 302)

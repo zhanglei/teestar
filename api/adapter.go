@@ -26,6 +26,7 @@ type UserStarringRepo struct {
 
 type User struct {
 	User      string `xorm:"varchar(100) unique pk"`
+	Password  string `xorm:"varchar(100)"`
 	Hitter    string `xorm:"varchar(100)"`
 	CreatedAt string `xorm:"varchar(100)"`
 }

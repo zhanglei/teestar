@@ -50,14 +50,30 @@ func HasUser(user string) bool {
 	return false
 }
 
+func CheckUserPassword(user string, password string) bool {
+	var objUsers []User
+	err := adapter.engine.Find(&objUsers)
+	if err != nil {
+		panic(err)
+	}
+
+	for _, objUser := range objUsers {
+		if objUser.User == user && objUser.Password == password {
+			return true
+		}
+	}
+
+	return false
+}
+
 func getCurrentTime() string {
 	timestamp := time.Now().Unix()
 	tm := time.Unix(timestamp, 0)
 	return tm.Format("2006-01-02 03:04:05 PM")
 }
 
-func AddUser(user string) bool {
-	objUser := User{User: user, Hitter: user, CreatedAt: getCurrentTime()}
+func AddUser(user string, password string) bool {
+	objUser := User{User: user, Password: password, Hitter: user, CreatedAt: getCurrentTime()}
 	affected, err := adapter.engine.Insert(objUser)
 	if err != nil {
 		panic(err)
