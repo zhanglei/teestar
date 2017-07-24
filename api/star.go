@@ -61,7 +61,7 @@ func GetUserHitter(user string) string {
 
 func UpdateUserHitter(user string, hitter string) bool {
 	objUser := User{User: user, Hitter: hitter}
-	affected, err := adapter.engine.Id(user).Update(objUser)
+	affected, err := adapter.engine.Id(user).Cols("hitter").Update(objUser)
 	if err != nil {
 		panic(err)
 	}
