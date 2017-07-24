@@ -3,6 +3,7 @@ package view_controller
 import (
 	"github.com/astaxie/beego"
 	"github.com/hsluoyz/gitstar/api"
+	"strings"
 )
 
 type ViewController struct {
@@ -121,6 +122,14 @@ func (c *ViewController) Register() {
 		flash.Error("用户名已被注册")
 		flash.Store(&c.Controller)
 		c.Redirect("/register", 302)
+	} else if strings.Contains(username, "@") {
+		flash.Error("请不要使用邮箱，GitHub profile（如https://github.com/abc）中，abc是用户名")
+		flash.Store(&c.Controller)
+		c.Redirect("/register", 302)
+	} else if !api.HasGitHubUser(username) {
+		flash.Error("用户名不是合法的、已存在的GitHub用户名")
+		flash.Store(&c.Controller)
+		c.Redirect("/register", 302)
 	} else {
 		api.AddUser(username, password)
 
@@ -175,13 +184,21 @@ func (c *ViewController) Setting() {
 
 	username := c.getUsername()
 	if username == "" {
-		//flash.Error("请先登录")
-		//flash.Store(&c.Controller)
+		flash.Error("请先登录")
+		flash.Store(&c.Controller)
 		c.Redirect("/login", 302)
 		return
 	}
 
 	hitter := c.Input().Get("hitter")
+
+	if hitter != "" && !api.HasGitHubUser(hitter) {
+		flash.Error("点赞账号不是合法的、已存在的GitHub用户名")
+		flash.Store(&c.Controller)
+		c.Redirect("/user/setting", 302)
+		return
+	}
+
 	api.UpdateUserHitter(username, hitter)
 
 	flash.Success("更新资料成功")

@@ -65,3 +65,19 @@ func ListStarringRepos(user string) []string {
 
 	return res
 }
+
+func HasGitHubUser(user string) bool {
+	client := NewAuthenticatedClient()
+	ctx := context.Background()
+
+	_, resp, err := client.Users.Get(ctx, user)
+	if err != nil {
+		if resp.Response.StatusCode == 404 {
+			return false
+		} else {
+			panic(err)
+		}
+	}
+
+	return true
+}
