@@ -194,6 +194,9 @@ func (c *ViewController) AddRepoPage() {
 		return
 	}
 
+	c.Data["IsLogin"] = true
+	c.Data["Username"] = username
+
 	c.Data["PageTitle"] = "GitStar - 添加项目"
 	c.Layout = "layout/layout.tpl"
 	c.TplName = "repo/add.tpl"
