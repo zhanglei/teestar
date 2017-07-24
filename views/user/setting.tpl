@@ -19,10 +19,10 @@
             <input type="text" disabled="" class="form-control" id="username" value="{{.Username}}">
           </div>
           <div class="form-group">
-            <label for="email">GitHub点赞账号</label>
+            <label for="email">GitHub点赞账号（如果与用户名相同，则留空即可）</label>
             <input type="text" class="form-control" name="hitter" id="hitter" value="{{.Hitter}}">
           </div>
-          <button type="submit" class="btn btn-default">保存设置</button>
+          <button type="submit" class="btn btn-default">保存设置</button> <a href="/" class="pull-right">已经设置完毕，带我去点赞</a>
         </form>
       </div>
     </div>
@@ -49,6 +49,6 @@
     </div>
   </div>
   <div class="col-md-3 hidden-sm hidden-xs">
-    {{template "../components/user_info.tpl" .}}
+    {{template "../components/setting_help_info.tpl" .}}
   </div>
 </div>
