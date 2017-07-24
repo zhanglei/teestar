@@ -72,7 +72,7 @@ func (c *ViewController) LoginPage() {
 		c.Redirect("/", 302)
 	} else {
 		beego.ReadFromRequest(&c.Controller)
-		c.Data["PageTitle"] = "GitStar登录"
+		c.Data["PageTitle"] = "GitStar - 登录"
 		c.Layout = "layout/layout.tpl"
 		c.TplName = "login.tpl"
 	}
@@ -101,7 +101,7 @@ func (c *ViewController) RegisterPage() {
 		c.Redirect("/", 302)
 	} else {
 		beego.ReadFromRequest(&c.Controller)
-		c.Data["PageTitle"] = "注册"
+		c.Data["PageTitle"] = "GitStar - 注册"
 		c.Layout = "layout/layout.tpl"
 		c.TplName = "register.tpl"
 	}
@@ -131,4 +131,17 @@ func (c *ViewController) Register() {
 func (c *ViewController) Logout() {
 	setUsername(c.Ctx, "")
 	c.Redirect("/", 302)
+}
+
+//关于
+func (c *ViewController) About() {
+	username := getUsername(c.Ctx)
+	if username != "" {
+		c.Data["IsLogin"] = true
+		c.Data["Username"] = username
+	}
+
+	c.Data["PageTitle"] = "GitStar - 关于"
+	c.Layout = "layout/layout.tpl"
+	c.TplName = "about.tpl"
 }
