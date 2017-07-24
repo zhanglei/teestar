@@ -32,8 +32,8 @@
           </li>
           {{if .IsLogin}}
           <li>
-            <a href="/user/{{.UserInfo.Username}}">
-              {{.UserInfo.Username}}
+            <a href="/user/{{.Username}}">
+              {{.Username}}
             </a>
           </li>
           <li>

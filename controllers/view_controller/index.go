@@ -55,7 +55,11 @@ func setUsername(ctx *context.Context, username string) {
 func (c *ViewController) Index() {
 	c.Data["PageTitle"] = "GitStar - GitHub项目点赞"
 
-	// username := getUsername(c.Ctx)
+	username := getUsername(c.Ctx)
+	if username != "" {
+		c.Data["IsLogin"] = true
+		c.Data["Username"] = username
+	}
 
 	c.Layout = "layout/layout.tpl"
 	c.TplName = "index.tpl"
@@ -123,10 +127,8 @@ func (c *ViewController) Register() {
 	}
 }
 
-////登出
-//func (c *ViewController) Logout() {
-//	c.SetSecureCookie(beego.AppConfig.String("cookie.secure"), beego.AppConfig.String("cookie.token"), "", -1, "/", beego.AppConfig.String("cookie.domain"), false, true)
-//	c.Redirect("/", 302)
-//}
-//
-
+//登出
+func (c *ViewController) Logout() {
+	setUsername(c.Ctx, "")
+	c.Redirect("/", 302)
+}
