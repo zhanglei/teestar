@@ -1,6 +1,7 @@
 package api
 
 type UserTargetStatus struct {
+	Target        string
 	StarringRepos []string
 	StarredRepos  []string
 	Score         int

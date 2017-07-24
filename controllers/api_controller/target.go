@@ -40,12 +40,6 @@ func (c *APIController) GetUserStatus() {
 func (c *APIController) GetUserRecommend() {
 	user := c.GetString(":user")
 
-	repos := []string{}
-	statusList := api.GetUserStatus(user)
-	for _, status := range statusList {
-		repos = append(repos, status.CanStarRepos...)
-	}
-
-	c.Data["json"] = repos
+	c.Data["json"] = api.GetUserRecommend(user)
 	c.ServeJSON()
 }

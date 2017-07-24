@@ -53,7 +53,7 @@ func GetUserTargetStatus(user string, target string) UserTargetStatus {
 
 	canStarRepos := GetSubtract(targetRepos, userStarringRepos)
 
-	return UserTargetStatus{StarringRepos: starringRepos, StarredRepos: starredRepos, Score: score, CanStarRepos: canStarRepos}
+	return UserTargetStatus{Target: target, StarringRepos: starringRepos, StarredRepos: starredRepos, Score: score, CanStarRepos: canStarRepos}
 }
 
 func GetUserTargetPool(user string, target string) []string {
@@ -73,4 +73,14 @@ func GetUserStatus(user string) StatusList {
 
 	sort.Sort(statusList)
 	return statusList
+}
+
+func GetUserRecommend(user string) []string {
+	repos := []string{}
+	statusList := GetUserStatus(user)
+	for _, status := range statusList {
+		repos = append(repos, status.CanStarRepos...)
+	}
+
+	return repos
 }
