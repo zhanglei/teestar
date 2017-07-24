@@ -32,8 +32,8 @@
           </li>
           {{if .IsLogin}}
           <li>
-            <a href="/user/{{.Username}}">
-              {{.Username}}
+            <a href="">
+              欢迎您，{{.Username}}
             </a>
           </li>
           <li>
