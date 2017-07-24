@@ -6,6 +6,7 @@ import (
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/context"
 	"github.com/astaxie/beego/session"
+	"github.com/hsluoyz/gitstar/api"
 )
 
 type ViewController struct {
@@ -108,27 +109,25 @@ func (c *ViewController) RegisterPage() {
 	}
 }
 
-////验证注册
-//func (c *ViewController) Register() {
-//	flash := beego.NewFlash()
-//	username, password := c.Input().Get("username"), c.Input().Get("password")
-//	if len(username) == 0 || len(password) == 0 {
-//		flash.Error("用户名或密码不能为空")
-//		flash.Store(&c.Controller)
-//		c.Redirect("/register", 302)
-//	} else if api.HasUser() {
-//		flash.Error("用户名已被注册")
-//		flash.Store(&c.Controller)
-//		c.Redirect("/register", 302)
-//	} else {
-//		var token = uuid.Rand().Hex()
-//		user := models.User{Username: username, Password: password, Avatar: "/static/imgs/avatar.png", Token: token}
-//		models.SaveUser(&user)
-//		// others are ordered as cookie's max age time, path,domain, secure and httponly.
-//		c.SetSecureCookie(beego.AppConfig.String("cookie.secure"), beego.AppConfig.String("cookie.token"), token, 30 * 24 * 60 * 60, "/", beego.AppConfig.String("cookie.domain"), false, true)
-//		c.Redirect("/", 302)
-//	}
-//}
+//验证注册
+func (c *ViewController) Register() {
+	flash := beego.NewFlash()
+	username, password := c.Input().Get("username"), c.Input().Get("password")
+	if len(username) == 0 || len(password) == 0 {
+		flash.Error("用户名或密码不能为空")
+		flash.Store(&c.Controller)
+		c.Redirect("/register", 302)
+	} else if api.HasUser(username) {
+		flash.Error("用户名已被注册")
+		flash.Store(&c.Controller)
+		c.Redirect("/register", 302)
+	} else {
+		api.AddUser(username)
+
+		setUsername(c.Ctx, username)
+		c.Redirect("/", 302)
+	}
+}
 
 ////登出
 //func (c *ViewController) Logout() {

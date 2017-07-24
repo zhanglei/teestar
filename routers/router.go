@@ -3,10 +3,12 @@ package routers
 import (
 	"github.com/astaxie/beego"
 	"github.com/hsluoyz/gitstar/controllers/api_controller"
+	"github.com/hsluoyz/gitstar/controllers/view_controller"
 )
 
 func init() {
 	initAPI()
+	initView()
 }
 
 func initAPI() {
@@ -27,4 +29,14 @@ func initAPI() {
 	beego.Router("/api/users/:user/targets/:target/pool", &api_controller.APIController{}, "get:GetUserTargetPool")
 	beego.Router("/api/users/:user/status", &api_controller.APIController{}, "get:GetUserStatus")
 	beego.Router("/api/users/:user/recommend", &api_controller.APIController{}, "get:GetUserRecommend")
+}
+
+func initView(){
+	//beego.Router("/", &view_controller.ViewController{}, "GET:Index")
+	//beego.Router("/login", &view_controller.ViewController{}, "GET:LoginPage")
+	//beego.Router("/login", &view_controller.ViewController{}, "POST:Login")
+	beego.Router("/register", &view_controller.ViewController{}, "GET:RegisterPage")
+	beego.Router("/register", &view_controller.ViewController{}, "POST:Register")
+	//beego.Router("/logout", &view_controller.ViewController{}, "GET:Logout")
+	//beego.Router("/about", &view_controller.ViewController{}, "GET:About")
 }
