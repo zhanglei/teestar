@@ -151,6 +151,7 @@ func (c *ViewController) ToSetting() {
 	if username != "" {
 		c.Data["IsLogin"] = true
 		c.Data["Username"] = username
+		c.Data["Hitter"] = api.GetUserHitter(username)
 	}
 
 	c.Data["PageTitle"] = "GitStar - 用户设置"
