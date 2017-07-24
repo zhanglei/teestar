@@ -29,7 +29,7 @@
 
     <div class="panel panel-default">
       <div class="panel-heading">
-        项目管理
+        项目管理（靠前的项目会被优先展示）
         <a href="/repo/add" class="pull-right">添加项目</a>
       </div>
       <div class="table-responsive">
@@ -39,7 +39,7 @@
           <tr>
             <td>{{$v}}</td>
             <td>
-              <a href="javascript:if(confirm('确认删除吗?')) location.href='/role/delete/{{$v}}'" class="btn btn-xs btn-danger">删除</a>
+              <a href="javascript:if(confirm('确认删除吗?')) location.href='/repo/delete/{{$v}}'" class="btn btn-xs btn-danger">删除</a>
             </td>
           </tr>
           {{end}}

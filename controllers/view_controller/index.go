@@ -229,3 +229,29 @@ func (c *ViewController) AddRepo() {
 	flash.Store(&c.Controller)
 	c.Redirect("/user/setting", 302)
 }
+
+func (c *ViewController) DeleteRepo() {
+	flash := beego.NewFlash()
+
+	username := getUsername(c.Ctx)
+	if username == "" {
+		flash.Error("请先登录")
+		flash.Store(&c.Controller)
+		c.Redirect("/login", 302)
+		return
+	}
+
+	repo := c.GetString(":repo")
+	if len(repo) == 0 {
+		flash.Error("项目不能为空")
+		flash.Store(&c.Controller)
+		c.Redirect("/user/setting", 302)
+		return
+	}
+
+	api.DeleteUserRepo(username, repo)
+
+	flash.Success("删除项目成功")
+	flash.Store(&c.Controller)
+	c.Redirect("/user/setting", 302)
+}
