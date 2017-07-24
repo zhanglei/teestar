@@ -145,3 +145,15 @@ func (c *ViewController) About() {
 	c.Layout = "layout/layout.tpl"
 	c.TplName = "about.tpl"
 }
+
+func (c *ViewController) ToSetting() {
+	username := getUsername(c.Ctx)
+	if username != "" {
+		c.Data["IsLogin"] = true
+		c.Data["Username"] = username
+	}
+
+	c.Data["PageTitle"] = "GitStar - 用户设置"
+	c.Layout = "layout/layout.tpl"
+	c.TplName = "user/setting.tpl"
+}
