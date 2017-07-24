@@ -10,23 +10,16 @@
         </ul>
       </div>
       <div class="panel-body paginate-bot">
-        {{range .Page.List}}
+        {{range .Recommend}}
         <div class="media">
           <div class="media-left">
-            <a href="/user/{{.User.Username}}"><img src="{{.User.Avatar}}" class="avatar" alt="{{.User.Username}}"></a>
           </div>
           <div class="media-body">
             <div class="title">
-              <a href="/topic/{{.Id}}">{{.Title}}</a>
+              <a target="_blank" href="https://github.com/{{.Repo}}">{{.Repo}}</a>
             </div>
             <p class="gray">
-              <span class="label label-primary">{{.Section.Name}}</span>
-              <span>•</span>
-              <span><a href="/user/{{.User.Username}}">{{.User.Username}}</a></span>
-              <span class="hidden-sm hidden-xs">•</span>
-              <span class="hidden-sm hidden-xs">{{.ReplyCount}}个回复</span>
-              <span class="hidden-sm hidden-xs">•</span>
-              <span class="hidden-sm hidden-xs">{{.View}}次浏览</span>
+              <a target="_blank" href="https://github.com/{{.Target}}"><span class="label label-primary">{{.Target}}</span></a>
               <span>•</span>
             </p>
           </div>

@@ -36,6 +36,8 @@ func (c *ViewController) Index() {
 	c.Data["IsLogin"] = true
 	c.Data["Username"] = username
 
+	c.Data["Recommend"] = api.GetUserRecommend(username)
+
 	c.Data["PageTitle"] = "GitStar - GitHub项目点赞"
 	c.Layout = "layout/layout.tpl"
 	c.TplName = "index.tpl"
