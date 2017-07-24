@@ -6,7 +6,7 @@
         {{template "components/flash_error.tpl" .}}
         <form action="/register" method="post">
           <div class="form-group">
-            <label for="username">用户名（与GitHub用户名一致）</label>
+            <label for="username">用户名（与GitHub用户名一致，不是邮箱）</label>
             <input type="text" id="username" name="username" class="form-control" placeholder="用户名">
           </div>
           <div class="form-group">
