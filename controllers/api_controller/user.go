@@ -32,6 +32,22 @@ func getOtherUsers(user string) []string {
 	return users
 }
 
+func hasUser(user string) bool {
+	var objUsers []User
+	err := adapter.engine.Find(&objUsers)
+	if err != nil {
+		panic(err)
+	}
+
+	for _, objUser := range objUsers {
+		if objUser.User == user {
+			return true
+		}
+	}
+
+	return false
+}
+
 func (c *APIController) GetUsers() {
 	users := getUsers()
 	c.Data["json"] = users
