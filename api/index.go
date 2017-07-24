@@ -6,10 +6,19 @@ import (
 	"github.com/google/go-github/github"
 )
 
+func NewAuthenticatedClient() *github.Client {
+	tp := github.BasicAuthTransport{
+		Username: "mytesttest@test.com",
+		Password: "1qaz2wsx",
+	}
+
+	return github.NewClient(tp.Client())
+}
+
 func ListRepos(user string) []string {
 	var res []string
 
-	client := github.NewClient(nil)
+	client := NewAuthenticatedClient()
 	ctx := context.Background()
 
 	repos, _, err := client.Repositories.List(ctx, user, nil)
@@ -28,7 +37,7 @@ func ListRepos(user string) []string {
 func ListStarringRepos(user string) []string {
 	res := []string{}
 
-	client := github.NewClient(nil)
+	client := NewAuthenticatedClient()
 	ctx := context.Background()
 
 	page := 1
