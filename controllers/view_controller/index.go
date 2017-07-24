@@ -1,11 +1,7 @@
 package view_controller
 
 import (
-	"encoding/json"
-
 	"github.com/astaxie/beego"
-	"github.com/astaxie/beego/context"
-	"github.com/astaxie/beego/session"
 	"github.com/hsluoyz/gitstar/api"
 )
 
@@ -13,49 +9,24 @@ type ViewController struct {
 	beego.Controller
 }
 
-var globalSessions *session.Manager
-
-func init() {
-	config := `{"cookieName":"gosessionid","gclifetime":9999999, "enableSetCookie":true}`
-	conf := new(session.ManagerConfig)
-	if err := json.Unmarshal([]byte(config), conf); err != nil {
-		panic(err)
-	}
-	globalSessions, _ = session.NewManager("memory", conf)
-	go globalSessions.GC()
-}
-
-func getUsername(ctx *context.Context) string {
-	sess, err := globalSessions.SessionStart(ctx.ResponseWriter, ctx.Request)
-	if err != nil {
-		panic(err)
-	}
-
-	username := sess.Get("username")
+func (c *ViewController) getUsername() string {
+	username := c.GetSession("username")
 	if username == nil {
 		return ""
 	}
 
-	return sess.Get("username").(string)
+	return username.(string)
 }
 
-func setUsername(ctx *context.Context, username string) {
-	sess, err := globalSessions.SessionStart(ctx.ResponseWriter, ctx.Request)
-	if err != nil {
-		panic(err)
-	}
-
-	err = sess.Set("username", username)
-	if err != nil {
-		panic(err)
-	}
+func (c *ViewController) setUsername(username string) {
+	c.SetSession("username", username)
 }
 
 //首页
 func (c *ViewController) Index() {
 	c.Data["PageTitle"] = "GitStar - GitHub项目点赞"
 
-	username := getUsername(c.Ctx)
+	username := c.getUsername()
 	if username != "" {
 		c.Data["IsLogin"] = true
 		c.Data["Username"] = username
@@ -67,7 +38,7 @@ func (c *ViewController) Index() {
 
 //登录页
 func (c *ViewController) LoginPage() {
-	username := getUsername(c.Ctx)
+	username := c.getUsername()
 	if username != "" {
 		c.Redirect("/", 302)
 	} else {
@@ -85,7 +56,7 @@ func (c *ViewController) Login() {
 
 	flag := api.HasUser(username)
 	if flag {
-		setUsername(c.Ctx, username)
+		c.setUsername(username)
 		c.Redirect("/", 302)
 	} else {
 		flash.Error("用户名或密码错误")
@@ -96,7 +67,7 @@ func (c *ViewController) Login() {
 
 //注册页
 func (c *ViewController) RegisterPage() {
-	username := getUsername(c.Ctx)
+	username := c.getUsername()
 	if username != "" {
 		c.Redirect("/", 302)
 	} else {
@@ -122,20 +93,20 @@ func (c *ViewController) Register() {
 	} else {
 		api.AddUser(username)
 
-		setUsername(c.Ctx, username)
+		c.setUsername(username)
 		c.Redirect("/", 302)
 	}
 }
 
 //登出
 func (c *ViewController) Logout() {
-	setUsername(c.Ctx, "")
+	c.setUsername("")
 	c.Redirect("/", 302)
 }
 
 //关于
 func (c *ViewController) About() {
-	username := getUsername(c.Ctx)
+	username := c.getUsername()
 	if username != "" {
 		c.Data["IsLogin"] = true
 		c.Data["Username"] = username
@@ -150,7 +121,7 @@ func (c *ViewController) SettingPage() {
 	beego.ReadFromRequest(&c.Controller)
 	flash := beego.NewFlash()
 
-	username := getUsername(c.Ctx)
+	username := c.getUsername()
 	if username == "" {
 		flash.Error("请先登录")
 		flash.Store(&c.Controller)
@@ -171,7 +142,7 @@ func (c *ViewController) SettingPage() {
 func (c *ViewController) Setting() {
 	flash := beego.NewFlash()
 
-	username := getUsername(c.Ctx)
+	username := c.getUsername()
 	if username == "" {
 		//flash.Error("请先登录")
 		//flash.Store(&c.Controller)
@@ -191,7 +162,7 @@ func (c *ViewController) AddRepoPage() {
 	beego.ReadFromRequest(&c.Controller)
 	flash := beego.NewFlash()
 
-	username := getUsername(c.Ctx)
+	username := c.getUsername()
 	if username == "" {
 		flash.Error("请先登录")
 		flash.Store(&c.Controller)
@@ -207,7 +178,7 @@ func (c *ViewController) AddRepoPage() {
 func (c *ViewController) AddRepo() {
 	flash := beego.NewFlash()
 
-	username := getUsername(c.Ctx)
+	username := c.getUsername()
 	if username == "" {
 		flash.Error("请先登录")
 		flash.Store(&c.Controller)
@@ -233,7 +204,7 @@ func (c *ViewController) AddRepo() {
 func (c *ViewController) DeleteRepo() {
 	flash := beego.NewFlash()
 
-	username := getUsername(c.Ctx)
+	username := c.getUsername()
 	if username == "" {
 		flash.Error("请先登录")
 		flash.Store(&c.Controller)
