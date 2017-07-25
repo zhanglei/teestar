@@ -15,6 +15,11 @@
           <li>完全记录与其他用户的Star历史</li>
           <li>所有与GitHub交互采用匿名用户/IP实现，不留下任何痕迹</li>
         </ul>
+        <p>我要捐赠，支持作者开发:
+        </p>
+        <img border="0" src="/static/imgs/donate_alipay.jpg" alt="支付宝捐赠">
+        <img border="0" src="/static/imgs/donate_weixin.png" alt="微信捐赠">
+
       </div>
     </div>
   </div>
