@@ -69,7 +69,7 @@ func CheckUserPassword(user string, password string) bool {
 func getCurrentTime() string {
 	timestamp := time.Now().Unix()
 	tm := time.Unix(timestamp, 0)
-	return tm.Format("2006-01-02 03:04:05 PM")
+	return tm.Format("2006-01-02 15:04:05")
 }
 
 func AddUser(user string, password string) bool {
