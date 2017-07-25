@@ -171,7 +171,9 @@ func (c *ViewController) SettingPage() {
 
 	c.Data["IsLogin"] = true
 	c.Data["Username"] = username
-	c.Data["Hitter"] = api.GetUserHitter(username)
+	userObj := api.GetUser(username)
+	c.Data["Hitter"] = userObj.Hitter
+	c.Data["QQ"] = userObj.QQ
 	c.Data["Repos"] = api.GetUserRepos(username)
 
 	c.Data["PageTitle"] = "GitStar - 用户设置"
@@ -200,6 +202,9 @@ func (c *ViewController) Setting() {
 	}
 
 	api.UpdateUserHitter(username, hitter)
+
+	qq := c.Input().Get("qq")
+	api.UpdateUserQQ(username, qq)
 
 	flash.Success("更新资料成功")
 	flash.Store(&c.Controller)

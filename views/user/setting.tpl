@@ -21,6 +21,8 @@
           <div class="form-group">
             <label for="email">GitHub点赞账号（即给别人点赞用的小号，如果与上面用户名（大号）相同，则留空即可）</label>
             <input type="text" class="form-control" name="hitter" id="hitter" value="{{.Hitter}}">
+            <label for="email">QQ号（可选填，当有新点赞需要处理时，管理员适时会在QQ群里进行@通知）</label>
+            <input type="text" class="form-control" name="qq" id="qq" value="{{.QQ}}">
           </div>
           <button type="submit" class="btn btn-default">保存设置</button> <a href="/" class="pull-right">已经设置完毕，带我去点赞</a>
         </form>

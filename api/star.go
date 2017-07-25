@@ -45,6 +45,20 @@ func UpdateUserStarringRepos(user string) bool {
 	return affected != 0
 }
 
+func GetUser(user string) *User {
+	var objUser = User{User: user}
+	has, err := adapter.engine.Get(&objUser)
+	if err != nil {
+		panic(err)
+	}
+
+	if has {
+		return &objUser
+	} else {
+		return nil
+	}
+}
+
 func GetUserHitter(user string) string {
 	var objUser = User{User: user}
 	has, err := adapter.engine.Get(&objUser)
@@ -62,6 +76,16 @@ func GetUserHitter(user string) string {
 func UpdateUserHitter(user string, hitter string) bool {
 	objUser := User{User: user, Hitter: hitter}
 	affected, err := adapter.engine.Id(user).Cols("hitter").Update(objUser)
+	if err != nil {
+		panic(err)
+	}
+
+	return affected != 0
+}
+
+func UpdateUserQQ(user string, qq string) bool {
+	objUser := User{User: user, QQ: qq}
+	affected, err := adapter.engine.Id(user).Cols("q_q").Update(objUser)
 	if err != nil {
 		panic(err)
 	}
