@@ -15,6 +15,16 @@ func GetUserRepos(user string) []string {
 	return repos
 }
 
+func HasUserRepo(user string, repo string) bool {
+	userRepo := UserRepo{User: user, Repo: repo}
+	has, err := adapter.engine.Get(&userRepo)
+	if err != nil {
+		panic(err)
+	}
+
+	return has
+}
+
 func AddUserRepo(user string, repo string) bool {
 	userRepo := UserRepo{User: user, Repo: repo}
 	has, err := adapter.engine.Get(&userRepo)

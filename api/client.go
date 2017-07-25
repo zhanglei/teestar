@@ -2,6 +2,7 @@ package api
 
 import (
 	"context"
+	"strings"
 
 	"github.com/google/go-github/github"
 )
@@ -71,6 +72,27 @@ func HasGitHubUser(user string) bool {
 	ctx := context.Background()
 
 	_, resp, err := client.Users.Get(ctx, user)
+	if err != nil {
+		if resp.Response.StatusCode == 404 {
+			return false
+		} else {
+			panic(err)
+		}
+	}
+
+	return true
+}
+
+func HasGitHubRepo(repo string) bool {
+	client := NewAuthenticatedClient()
+	ctx := context.Background()
+
+	tokens := strings.Split(repo, "/")
+	if len(tokens) != 2 {
+		return false
+	}
+
+	_, resp, err := client.Repositories.Get(ctx, tokens[0], tokens[1])
 	if err != nil {
 		if resp.Response.StatusCode == 404 {
 			return false

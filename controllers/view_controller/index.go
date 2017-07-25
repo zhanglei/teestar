@@ -273,6 +273,21 @@ func (c *ViewController) AddRepo() {
 	}
 
 	repo = formatRepoAddress(repo)
+
+	if api.HasUserRepo(username, repo) {
+		flash.Error("该项目已经存在")
+		flash.Store(&c.Controller)
+		c.Redirect("/repo/add", 302)
+		return
+	}
+
+	if !api.HasGitHubRepo(repo) {
+		flash.Error("项目地址不是合法的、已存在的GitHub项目地址")
+		flash.Store(&c.Controller)
+		c.Redirect("/repo/add", 302)
+		return
+	}
+
 	affected := api.AddUserRepo(username, repo)
 
 	if !affected {
