@@ -6,7 +6,7 @@
         {{template "../components/flash_error.tpl" .}}
         <form action="/repo/add" method="post">
           <div class="form-group">
-            <label for="name">项目地址（格式为：user_name/repo_name）</label>
+            <label for="name">项目地址（格式为：user_name/repo_name或者https://github.com/user_name/repo_name都可以）</label>
             <input type="text" id="name" name="name" class="form-control">
           </div>
           <button type="submit" class="btn btn-sm btn-default">添加</button>
