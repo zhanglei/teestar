@@ -231,6 +231,15 @@ func (c *ViewController) AddRepoPage() {
 	c.TplName = "repo/add.tpl"
 }
 
+func formatRepoAddress(repo string) string {
+	pos := strings.Index(repo, "github.com/")
+	if pos != -1 {
+		repo = repo[pos + len("github.com/"):]
+	}
+
+	return repo
+}
+
 func (c *ViewController) AddRepo() {
 	flash := beego.NewFlash()
 
@@ -250,7 +259,15 @@ func (c *ViewController) AddRepo() {
 		return
 	}
 
-	api.AddUserRepo(username, repo)
+	repo = formatRepoAddress(repo)
+	affected := api.AddUserRepo(username, repo)
+
+	if !affected {
+		flash.Error("该项目已经存在")
+		flash.Store(&c.Controller)
+		c.Redirect("/repo/add", 302)
+		return
+	}
 
 	flash.Success("添加项目成功")
 	flash.Store(&c.Controller)
