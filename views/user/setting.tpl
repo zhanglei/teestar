@@ -39,9 +39,9 @@
           <tbody>
           {{range $i, $v := .Repos}}
           <tr>
-            <td>{{$v}}</td>
+            <td><a target="_blank" href="https://github.com/{{$v}}">{{$v}}</a></td>
             <td>
-              <a href="javascript:if(confirm('确认删除吗?')) location.href='/repo/delete/{{$v}}'" class="btn btn-xs btn-danger">删除</a>
+              <a href="javascript:if(confirm('确认删除项目{{$v}}吗?')) location.href='/repo/delete/{{$v}}'" class="btn btn-xs btn-danger">删除</a>
             </td>
           </tr>
           {{end}}
