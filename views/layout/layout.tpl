@@ -23,7 +23,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" style="color:#fff;" href="/">GitStar - GitHub项目点赞</a>
+        <img class="navbar-brand" src="/static/imgs/star.png" alt="Logo"><a class="navbar-brand" style="color:#fff;" href="/">GitStar - GitHub项目点赞</a>
       </div>
       <div id="navbar" class="navbar-collapse collapse header-navbar">
         <ul class="nav navbar-nav navbar-right">
