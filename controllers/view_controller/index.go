@@ -157,6 +157,11 @@ func (c *ViewController) About() {
 	c.TplName = "about.tpl"
 }
 
+type EscapedRepo struct {
+	Repo        string
+	RepoEscaped string
+}
+
 func (c *ViewController) SettingPage() {
 	beego.ReadFromRequest(&c.Controller)
 	flash := beego.NewFlash()
@@ -174,7 +179,15 @@ func (c *ViewController) SettingPage() {
 	userObj := api.GetUser(username)
 	c.Data["Hitter"] = userObj.Hitter
 	c.Data["QQ"] = userObj.QQ
-	c.Data["Repos"] = api.GetUserRepos(username)
+	repos := api.GetUserRepos(username)
+	c.Data["Repos"] = repos
+
+	escapedRepos := []EscapedRepo{}
+	for _, repo := range repos {
+		escaped := strings.Replace(repo, "/", ".", -1)
+		escapedRepos = append(escapedRepos, EscapedRepo{Repo: repo, RepoEscaped: escaped})
+	}
+	c.Data["EscapedRepos"] = escapedRepos
 
 	c.Data["PageTitle"] = "GitStar - 用户设置"
 	c.Layout = "layout/layout.tpl"
@@ -293,7 +306,15 @@ func (c *ViewController) DeleteRepo() {
 		return
 	}
 
-	api.DeleteUserRepo(username, repo)
+	repo = strings.Replace(repo, ".", "/", -1)
+	affected := api.DeleteUserRepo(username, repo)
+
+	if !affected {
+		flash.Error("该项目不存在")
+		flash.Store(&c.Controller)
+		c.Redirect("/user/setting", 302)
+		return
+	}
 
 	flash.Success("删除项目成功")
 	flash.Store(&c.Controller)

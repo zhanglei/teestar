@@ -37,11 +37,11 @@
       <div class="table-responsive">
         <table class="table table-striped table-responsive">
           <tbody>
-          {{range $i, $v := .Repos}}
+          {{range .EscapedRepos}}
           <tr>
-            <td><a target="_blank" href="https://github.com/{{$v}}">{{$v}}</a></td>
+            <td><a target="_blank" href="https://github.com/{{.Repo}}">{{.Repo}}</a></td>
             <td>
-              <a href="javascript:if(confirm('确认删除项目{{$v}}吗?')) location.href='/repo/delete/{{$v}}'" class="btn btn-xs btn-danger">删除</a>
+              <a id="delete_repo" href="javascript:if(confirm('确认删除项目{{.Repo}}吗?')) location.href='/repo/delete/{{.RepoEscaped}}'" class="btn btn-xs btn-danger">删除</a>
             </td>
           </tr>
           {{end}}
