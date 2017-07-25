@@ -19,7 +19,7 @@
             <input type="text" disabled="" class="form-control" id="username" value="{{.Username}}">
           </div>
           <div class="form-group">
-            <label for="email">GitHub点赞账号（如果与用户名相同，则留空即可）</label>
+            <label for="email">GitHub点赞账号（即给别人点赞用的小号，如果与上面用户名（大号）相同，则留空即可）</label>
             <input type="text" class="form-control" name="hitter" id="hitter" value="{{.Hitter}}">
           </div>
           <button type="submit" class="btn btn-default">保存设置</button> <a href="/" class="pull-right">已经设置完毕，带我去点赞</a>
@@ -29,7 +29,7 @@
 
     <div class="panel panel-default">
       <div class="panel-heading">
-        项目管理（靠前的项目会被优先展示）
+        我需要被别人点赞的项目（靠前的项目会被优先展示）
         <a href="/repo/add" class="pull-right">添加项目</a>
       </div>
       <div class="table-responsive">
