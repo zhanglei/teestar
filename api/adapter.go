@@ -31,6 +31,7 @@ type User struct {
 	Hitter    string `xorm:"varchar(100)"`
 	QQ        string `xorm:"varchar(100)"`
 	CreatedAt string `xorm:"varchar(100)"`
+	Nickname  string `xorm:"varchar(100)"`
 }
 
 // Adapter represents the MySQL adapter for policy storage.
