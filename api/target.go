@@ -95,6 +95,8 @@ func GetUserRecommend(user string) []Entry {
 
 type Entry2 struct {
 	User         string
+	QQ           string
+	Nickname     string
 	Target       string
 	CanStarRepos []string
 	Score        int
@@ -106,9 +108,10 @@ func GetRecommend() []Entry2 {
 	users := GetUsers()
 	for _, user := range users {
 		statusList := GetUserStatus(user)
+		objUser := GetUser(user)
 		for _, status := range statusList {
 			if len(status.CanStarRepos) != 0 {
-				entries = append(entries, Entry2{User: user, Target: status.Target, CanStarRepos: status.CanStarRepos, Score: status.Score})
+				entries = append(entries, Entry2{User: user, QQ: objUser.QQ, Nickname: objUser.Nickname, Target: status.Target, CanStarRepos: status.CanStarRepos, Score: status.Score})
 			}
 		}
 	}
