@@ -43,3 +43,9 @@ func (c *APIController) GetUserRecommend() {
 	c.Data["json"] = api.GetUserRecommend(user)
 	c.ServeJSON()
 }
+
+func (c *APIController) GetRecommend() {
+	c.Data["json"] = api.GetRecommend()
+	c.ServeJSON()
+}
+
