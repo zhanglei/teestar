@@ -23,6 +23,8 @@
             <input type="text" class="form-control" name="hitter" id="hitter" value="{{.Hitter}}">
             <label for="email">QQ号（可选填，当有新点赞需要处理时，管理员适时会在QQ群里进行@通知）</label>
             <input type="text" class="form-control" name="qq" id="qq" value="{{.QQ}}">
+            <label for="email">QQ昵称</label>
+            <input type="text" class="form-control" name="nickname" id="nickname" value="{{.Nickname}}">
           </div>
           <button type="submit" class="btn btn-default">保存设置</button> <a href="/" class="pull-right">已经设置完毕，带我去点赞</a>
         </form>

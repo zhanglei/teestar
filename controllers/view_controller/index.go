@@ -179,6 +179,7 @@ func (c *ViewController) SettingPage() {
 	userObj := api.GetUser(username)
 	c.Data["Hitter"] = userObj.Hitter
 	c.Data["QQ"] = userObj.QQ
+	c.Data["Nickname"] = userObj.Nickname
 	repos := api.GetUserRepos(username)
 	c.Data["Repos"] = repos
 
@@ -226,6 +227,10 @@ func (c *ViewController) Setting() {
 	}
 
 	api.UpdateUserQQ(username, qq)
+
+	nickname := c.Input().Get("nickname")
+
+	api.UpdateUserNickname(username, nickname)
 
 	flash.Success("更新资料成功")
 	flash.Store(&c.Controller)

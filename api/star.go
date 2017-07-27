@@ -92,3 +92,13 @@ func UpdateUserQQ(user string, qq string) bool {
 
 	return affected != 0
 }
+
+func UpdateUserNickname(user string, nickname string) bool {
+	objUser := User{User: user, Nickname: nickname}
+	affected, err := adapter.engine.Id(user).Cols("nickname").Update(objUser)
+	if err != nil {
+		panic(err)
+	}
+
+	return affected != 0
+}
