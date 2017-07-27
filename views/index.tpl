@@ -21,7 +21,11 @@
             <p class="gray">
               <a target="_blank" href="https://github.com/{{.Target}}"><span class="label label-primary">{{.Target}}</span></a>
               <span>•</span>
+              {{if ge .Score 0}}
               <span class="hidden-sm hidden-xs">{{.Target}}还欠我{{.Score}}个赞</span>
+              {{else}}
+              <b><span class="hidden-sm hidden-xs">我还欠{{.Target}} {{.ScoreR}}个赞</span></b>
+              {{end}}
             </p>
           </div>
         </div>
