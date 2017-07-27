@@ -52,8 +52,9 @@ func GetUserTargetStatus(user string, target string) UserTargetStatus {
 	score := len(starredRepos) - len(starringRepos)
 
 	canStarRepos := GetSubtract(targetRepos, userStarringRepos)
+	canBeStarredRepos := GetSubtract(userRepos, targetStarringRepos)
 
-	return UserTargetStatus{Target: target, StarringRepos: starringRepos, StarredRepos: starredRepos, Score: score, CanStarRepos: canStarRepos}
+	return UserTargetStatus{Target: target, StarringRepos: starringRepos, StarredRepos: starredRepos, Score: score, CanStarRepos: canStarRepos, CanBeStarredRepos: canBeStarredRepos}
 }
 
 func GetUserTargetPool(user string, target string) []string {

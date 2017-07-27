@@ -1,11 +1,12 @@
 package api
 
 type UserTargetStatus struct {
-	Target        string
-	StarringRepos []string
-	StarredRepos  []string
-	Score         int
-	CanStarRepos  []string
+	Target            string
+	StarringRepos     []string
+	StarredRepos      []string
+	Score             int
+	CanStarRepos      []string
+	CanBeStarredRepos []string
 }
 
 type StatusList []*UserTargetStatus
