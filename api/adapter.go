@@ -68,7 +68,7 @@ func (a *Adapter) createDatabase() error {
 	}
 	defer engine.Close()
 
-	_, err = engine.Exec("CREATE DATABASE IF NOT EXISTS gitstar")
+	_, err = engine.Exec("CREATE DATABASE IF NOT EXISTS gitstar default charset utf8 COLLATE utf8_general_ci")
 	return err
 }
 
