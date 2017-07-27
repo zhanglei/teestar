@@ -217,6 +217,14 @@ func (c *ViewController) Setting() {
 	api.UpdateUserHitter(username, hitter)
 
 	qq := c.Input().Get("qq")
+
+	if qq != "" && !api.HasQQUser(qq) {
+		flash.Error("QQ号不是合法的、已存在的QQ号码")
+		flash.Store(&c.Controller)
+		c.Redirect("/user/setting", 302)
+		return
+	}
+
 	api.UpdateUserQQ(username, qq)
 
 	flash.Success("更新资料成功")
