@@ -5,13 +5,6 @@
         <a href="/">主页</a> / 个人设置
       </div>
       <div class="panel-body">
-        {{if .flash.success}}
-        <div class="alert alert-success alert-dismissible" role="alert">
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-            aria-hidden="true">&times;</span></button>
-          {{.flash.success}}
-        </div>
-        {{end}}
         {{template "../components/flash_error.tpl" .}}
         <form action="/user/setting" method="post">
           <div class="form-group">
