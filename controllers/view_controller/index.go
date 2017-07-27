@@ -219,6 +219,13 @@ func (c *ViewController) Setting() {
 
 	qq := c.Input().Get("qq")
 
+	if qq == "" {
+		flash.Error("请填写QQ号")
+		flash.Store(&c.Controller)
+		c.Redirect("/user/setting", 302)
+		return
+	}
+
 	if qq != "" && !api.HasQQUser(qq) {
 		flash.Error("QQ号不是合法的、已存在的QQ号码")
 		flash.Store(&c.Controller)
@@ -246,6 +253,14 @@ func (c *ViewController) AddRepoPage() {
 		flash.Error("请先登录")
 		flash.Store(&c.Controller)
 		c.Redirect("/login", 302)
+		return
+	}
+
+	objUser := api.GetUser(username)
+	if objUser.QQ == "" {
+		flash.Error("填写QQ号后才能添加项目")
+		flash.Store(&c.Controller)
+		c.Redirect("/user/setting", 302)
 		return
 	}
 
