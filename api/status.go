@@ -2,6 +2,8 @@ package api
 
 type UserTargetStatus struct {
 	Target            string
+	QQ                string
+	Nickname          string
 	StarringRepos     []string
 	StarredRepos      []string
 	Score             int
