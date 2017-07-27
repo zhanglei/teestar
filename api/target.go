@@ -108,6 +108,11 @@ func GetRecommend() []Entry2 {
 
 	users := GetUsers()
 	for _, user := range users {
+		repos := GetUserRepos(user)
+		if len(repos) == 0 {
+			continue
+		}
+
 		statusList := GetUserStatus(user)
 		objUser := GetUser(user)
 		for _, status := range statusList {
