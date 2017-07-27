@@ -49,3 +49,11 @@ func (c *APIController) GetRecommend() {
 	c.ServeJSON()
 }
 
+func (c *APIController) GetUserOwe() {
+	user := c.GetString(":user")
+
+	statusList := api.GetUserOwe(user)
+
+	c.Data["json"] = statusList
+	c.ServeJSON()
+}
