@@ -10,6 +10,7 @@
         </ul>
       </div>
       <div class="panel-body paginate-bot">
+        {{template "components/flash_error.tpl" .}}
         {{range .Recommend}}
         <div class="media">
           <div class="media-left">
