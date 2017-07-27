@@ -35,6 +35,10 @@ func (c *ViewController) Index() {
 		c.Redirect("/login", 302)
 		return
 	}
+
+	flash.Notice("管理员消息：目前可以采用以下API访问谁欠了我的Star：https://gitstar.cn/api/users/%s/owe，其中Target是对方的名字，QQ和Nickname是对方QQ号和昵称，Score表示对方欠我多少个Star，CanBeStarredRepos表示对方还能Star我的项目，可以通过QQ通知对方Star自己。相关UI界面还在开发中..", username)
+	c.Data["flash"] = flash.Data
+
 	c.Data["IsLogin"] = true
 	c.Data["Username"] = username
 
