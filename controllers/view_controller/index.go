@@ -1,10 +1,12 @@
 package view_controller
 
 import (
-	"github.com/astaxie/beego"
-	"github.com/hsluoyz/gitstar/api"
-	"strings"
 	"html/template"
+	"strings"
+
+	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/logs"
+	"github.com/hsluoyz/gitstar/api"
 )
 
 type ViewController struct {
@@ -46,6 +48,8 @@ func (c *ViewController) Index() {
 
 	c.Data["Recommend"] = api.GetUserRecommend(username)
 
+	logs.Info("[%s] viewed homepage", username)
+
 	c.Data["PageTitle"] = "GitStar - GitHub项目点赞"
 	c.Layout = "layout/layout.tpl"
 	c.TplName = "index.tpl"
@@ -64,6 +68,7 @@ func (c *ViewController) Update() {
 
 	api.UpdateUserStarringRepos(username)
 
+	logs.Info("[%s] updated his stars", username)
 	c.Redirect("/", 302)
 }
 
@@ -95,6 +100,8 @@ func (c *ViewController) Login() {
 	flag := api.CheckUserPassword(username, password)
 	if flag {
 		c.setUsername(username)
+
+		logs.Info("[%s] logged in", username)
 		c.Redirect("/", 302)
 	} else {
 		flash.Error("密码错误")
@@ -140,12 +147,17 @@ func (c *ViewController) Register() {
 		api.AddUser(username, password)
 
 		c.setUsername(username)
+
+		logs.Info("[%s] is registered as new user", username)
 		c.Redirect("/user/setting", 302)
 	}
 }
 
 //登出
 func (c *ViewController) Logout() {
+	username := c.getUsername()
+	logs.Info("[%s] logged off", username)
+
 	c.setUsername("")
 	c.Redirect("/", 302)
 }
@@ -157,6 +169,8 @@ func (c *ViewController) About() {
 		c.Data["IsLogin"] = true
 		c.Data["Username"] = username
 	}
+
+	logs.Info("[%s] viewed about", username)
 
 	c.Data["PageTitle"] = "GitStar - 关于"
 	c.Layout = "layout/layout.tpl"
@@ -195,6 +209,8 @@ func (c *ViewController) SettingPage() {
 		escapedRepos = append(escapedRepos, EscapedRepo{Repo: repo, RepoEscaped: escaped})
 	}
 	c.Data["EscapedRepos"] = escapedRepos
+
+	logs.Info("[%s] viewed setting", username)
 
 	c.Data["PageTitle"] = "GitStar - 用户设置"
 	c.Layout = "layout/layout.tpl"
@@ -244,6 +260,8 @@ func (c *ViewController) Setting() {
 	nickname := c.Input().Get("nickname")
 
 	api.UpdateUserNickname(username, nickname)
+
+	logs.Info("[%s] updated his setting", username)
 
 	flash.Success("更新资料成功")
 	flash.Store(&c.Controller)
@@ -331,6 +349,8 @@ func (c *ViewController) AddRepo() {
 		return
 	}
 
+	logs.Info("[%s] added repo: [%s]", username, repo)
+
 	flash.Success("添加项目成功")
 	flash.Store(&c.Controller)
 	c.Redirect("/user/setting", 302)
@@ -364,6 +384,8 @@ func (c *ViewController) DeleteRepo() {
 		c.Redirect("/user/setting", 302)
 		return
 	}
+
+	logs.Info("[%s] deleted repo: [%s]", username, repo)
 
 	flash.Success("删除项目成功")
 	flash.Store(&c.Controller)
