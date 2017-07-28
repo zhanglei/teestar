@@ -16,8 +16,10 @@
             <input type="text" class="form-control" name="hitter" id="hitter" value="{{.Hitter}}">
             <label for="email">QQ号（必填，当有新点赞需要处理时，管理员适时会在QQ群里进行@通知）</label>
             <input type="text" class="form-control" name="qq" id="qq" value="{{.QQ}}">
-            <label for="email">QQ昵称（推荐填写）</label>
+            <label>QQ昵称（推荐填写）</label>
             <input type="text" class="form-control" name="nickname" id="nickname" value="{{.Nickname}}">
+            <label>Email邮箱（可选填，将来每日Star进展会推送至该邮箱）</label>
+            <input type="text" class="form-control" name="email" id="email" value="{{.Email}}">
           </div>
           <button type="submit" class="btn btn-default">保存设置</button> <a href="/" class="pull-right">已经设置完毕，带我去点赞</a>
         </form>

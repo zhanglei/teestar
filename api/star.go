@@ -102,3 +102,13 @@ func UpdateUserNickname(user string, nickname string) bool {
 
 	return affected != 0
 }
+
+func UpdateUserEmail(user string, email string) bool {
+	objUser := User{User: user, Email: email}
+	affected, err := adapter.engine.Id(user).Cols("email").Update(objUser)
+	if err != nil {
+		panic(err)
+	}
+
+	return affected != 0
+}

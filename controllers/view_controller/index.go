@@ -204,6 +204,7 @@ func (c *ViewController) SettingPage() {
 	c.Data["Hitter"] = userObj.Hitter
 	c.Data["QQ"] = userObj.QQ
 	c.Data["Nickname"] = userObj.Nickname
+	c.Data["Email"] = userObj.Email
 	repos := api.GetUserRepos(username)
 	c.Data["Repos"] = repos
 
@@ -283,8 +284,10 @@ func (c *ViewController) Setting() {
 	api.UpdateUserQQ(username, qq)
 
 	nickname := c.Input().Get("nickname")
-
 	api.UpdateUserNickname(username, nickname)
+
+	email := c.Input().Get("email")
+	api.UpdateUserEmail(username, email)
 
 	logs.Info("[%s] updated his setting", username)
 
