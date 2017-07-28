@@ -50,6 +50,22 @@ func HasUser(user string) bool {
 	return false
 }
 
+func HasHitter(user string, hitter string) bool {
+	var objUsers []User
+	err := adapter.engine.Find(&objUsers)
+	if err != nil {
+		panic(err)
+	}
+
+	for _, objUser := range objUsers {
+		if objUser.User != user && objUser.Hitter == hitter {
+			return true
+		}
+	}
+
+	return false
+}
+
 func CheckUserPassword(user string, password string) bool {
 	var objUsers []User
 	err := adapter.engine.Find(&objUsers)
