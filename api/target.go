@@ -44,6 +44,7 @@ func GetUserTargetStatus(user string, target string) UserTargetStatus {
 	objTarget := GetUser(target)
 	qq := objTarget.QQ
 	nickname := objTarget.Nickname
+	hitter := objTarget.Hitter
 
 	targetRepos := GetUserRepos(target)
 	userStarringRepos := GetUserStarringRepos(user)
@@ -58,7 +59,7 @@ func GetUserTargetStatus(user string, target string) UserTargetStatus {
 	canStarRepos := GetSubtract(targetRepos, userStarringRepos)
 	canBeStarredRepos := GetSubtract(userRepos, targetStarringRepos)
 
-	return UserTargetStatus{Target: target, QQ: qq, Nickname: nickname, StarringRepos: starringRepos, StarredRepos: starredRepos, Score: score, CanStarRepos: canStarRepos, CanBeStarredRepos: canBeStarredRepos}
+	return UserTargetStatus{Target: target, QQ: qq, Nickname: nickname, Hitter: hitter, StarringRepos: starringRepos, StarredRepos: starredRepos, Score: score, CanStarRepos: canStarRepos, CanBeStarredRepos: canBeStarredRepos}
 }
 
 func GetUserTargetPool(user string, target string) []string {

@@ -4,6 +4,7 @@ type UserTargetStatus struct {
 	Target            string
 	QQ                string
 	Nickname          string
+	Hitter            string
 	StarringRepos     []string
 	StarredRepos      []string
 	Score             int
