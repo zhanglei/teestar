@@ -20,7 +20,7 @@
               <a target="_blank" href="https://github.com/{{.Repo}}">{{.Repo}}</a>
             </div>
             <p class="gray">
-              <a target="_blank" href="https://github.com/{{.Target}}"><span class="label label-primary">{{.Target}}</span></a>
+              <a target="_blank" href="/users/{{.Target}}"><span class="label label-primary">{{.Target}}</span></a>
               <span>•</span>
               {{if ge .Score 0}}
               <span class="hidden-sm hidden-xs">{{.Target}}还欠我{{.Score}}个赞</span>

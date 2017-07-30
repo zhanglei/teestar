@@ -419,3 +419,29 @@ func (c *ViewController) DeleteRepo() {
 	flash.Store(&c.Controller)
 	c.Redirect("/user/setting", 302)
 }
+
+func (c *ViewController) UserPage() {
+	beego.ReadFromRequest(&c.Controller)
+	flash := beego.NewFlash()
+
+	username := c.getUsername()
+	if username == "" {
+		flash.Error("请先登录")
+		flash.Store(&c.Controller)
+		c.Redirect("/login", 302)
+		return
+	}
+
+	target := c.GetString(":user")
+	objTarget := api.GetUser(target)
+	if objTarget != nil {
+		c.Data["TargetInfo"] = objTarget
+	}
+
+	c.Data["IsLogin"] = true
+	c.Data["Username"] = username
+
+	c.Data["PageTitle"] = "GitStar - 用户：" + target
+	c.Layout = "layout/layout.tpl"
+	c.TplName = "user/detail.tpl"
+}
