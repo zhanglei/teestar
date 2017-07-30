@@ -1,6 +1,7 @@
 package api
 
 type UserTargetStatus struct {
+	User              string
 	Target            string
 	QQ                string
 	Nickname          string
