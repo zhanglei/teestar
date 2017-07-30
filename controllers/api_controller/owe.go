@@ -10,3 +10,8 @@ func (c *APIController) GetUserOwe() {
 	c.Data["json"] = statusList
 	c.ServeJSON()
 }
+
+func (c *APIController) GetOwe() {
+	c.Data["json"] = api.GetOwe()
+	c.ServeJSON()
+}

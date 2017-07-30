@@ -23,3 +23,16 @@ func GetUserOwe(user string) StatusList {
 	sort.Sort(statusList)
 	return statusList
 }
+
+func GetOwe() StatusList {
+	users := GetUsers()
+	allStatusList := StatusList{}
+
+	for _, user := range users {
+		statusList := GetUserOwe(user)
+		allStatusList = append(allStatusList, statusList...)
+	}
+
+	sort.Sort(allStatusList)
+	return allStatusList
+}
