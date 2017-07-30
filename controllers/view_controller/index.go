@@ -44,7 +44,7 @@ func (c *ViewController) Index() {
 	c.Data["flash_data"] = template.HTML("目前可以采用以下API访问谁欠了我的Star：<a target=\"_blank\" href=\"/api/users/" + username + "/owe\">https://gitstar.cn/api/users/" + username + "/owe</a>，其中Target是对方的名字，QQ和Nickname是对方QQ号和昵称，Hitter是对方用的GitHub小号，Score表示对方欠我多少个Star，CanBeStarredRepos表示对方还能Star我的项目，可以通过QQ通知对方Star自己。相关UI界面还在开发中..")
 
 	c.Data["IsLogin"] = true
-	c.Data["Username"] = username
+	c.Data["UserInfo"] = api.GetUser(username)
 
 	c.Data["Recommend"] = api.GetUserRecommend(username)
 
@@ -171,7 +171,7 @@ func (c *ViewController) About() {
 	username := c.getUsername()
 	if username != "" {
 		c.Data["IsLogin"] = true
-		c.Data["Username"] = username
+		c.Data["UserInfo"] = api.GetUser(username)
 	}
 
 	logs.Info("[%s] viewed about", username)
@@ -199,12 +199,7 @@ func (c *ViewController) SettingPage() {
 	}
 
 	c.Data["IsLogin"] = true
-	c.Data["Username"] = username
-	userObj := api.GetUser(username)
-	c.Data["Hitter"] = userObj.Hitter
-	c.Data["QQ"] = userObj.QQ
-	c.Data["Nickname"] = userObj.Nickname
-	c.Data["Email"] = userObj.Email
+	c.Data["UserInfo"] = api.GetUser(username)
 	repos := api.GetUserRepos(username)
 	c.Data["Repos"] = repos
 
@@ -317,7 +312,7 @@ func (c *ViewController) AddRepoPage() {
 	}
 
 	c.Data["IsLogin"] = true
-	c.Data["Username"] = username
+	c.Data["UserInfo"] = api.GetUser(username)
 
 	c.Data["PageTitle"] = "GitStar - 添加项目"
 	c.Layout = "layout/layout.tpl"
@@ -441,7 +436,7 @@ func (c *ViewController) UserPage() {
 	logs.Info("[%s] viewed [%s]'s profile", username, target)
 
 	c.Data["IsLogin"] = true
-	c.Data["Username"] = username
+	c.Data["UserInfo"] = api.GetUser(username)
 
 	c.Data["PageTitle"] = "GitStar - 用户：" + target
 	c.Layout = "layout/layout.tpl"
@@ -470,7 +465,7 @@ func (c *ViewController) UsersPage() {
 	logs.Info("[%s] viewed user list", username)
 
 	c.Data["IsLogin"] = true
-	c.Data["Username"] = username
+	c.Data["UserInfo"] = api.GetUser(username)
 
 	c.Data["PageTitle"] = "GitStar - 用户列表"
 	c.Layout = "layout/layout.tpl"
