@@ -438,6 +438,8 @@ func (c *ViewController) UserPage() {
 		c.Data["TargetInfo"] = objTarget
 	}
 
+	logs.Info("[%s] viewed [%s]'s profile", username, target)
+
 	c.Data["IsLogin"] = true
 	c.Data["Username"] = username
 
