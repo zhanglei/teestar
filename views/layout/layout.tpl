@@ -27,6 +27,11 @@
       </div>
       <div id="navbar" class="navbar-collapse collapse header-navbar">
         <ul class="nav navbar-nav navbar-right">
+          {{if .UserInfo.IsAdmin}}
+          <li>
+            <a href="/users">用户列表</a>
+          </li>
+          {{end}}
           <li>
             <a href="/about">关于</a>
           </li>
