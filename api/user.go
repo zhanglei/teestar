@@ -89,7 +89,7 @@ func getCurrentTime() string {
 }
 
 func AddUser(user string, password string) bool {
-	objUser := User{User: user, Password: password, Hitter: "", CreatedAt: getCurrentTime()}
+	objUser := User{User: user, Password: password, Hitter: "", CreatedAt: getCurrentTime(), IsAdmin: false}
 	affected, err := adapter.engine.Insert(objUser)
 	if err != nil {
 		panic(err)

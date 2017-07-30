@@ -11,6 +11,7 @@
             <div>QQ号: {{.TargetInfo.QQ}}</div>
             <div>QQ昵称: {{.TargetInfo.Nickname}}</div>
             <div>入驻时间: {{.TargetInfo.CreatedAt}}</div>
+            <div>是否为管理员: {{.TargetInfo.IsAdmin}}</div>
           </div>
         </div>
       </div>

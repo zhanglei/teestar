@@ -33,6 +33,7 @@ type User struct {
 	CreatedAt string `xorm:"varchar(100)"`
 	Nickname  string `xorm:"varchar(100)"`
 	Email     string `xorm:"varchar(100)"`
+	IsAdmin   bool
 }
 
 // Adapter represents the MySQL adapter for policy storage.
