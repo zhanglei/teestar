@@ -1,0 +1,77 @@
+<div class="row">
+  <div class="col-md-9">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <ul class="nav nav-pills">
+        <li><a href="/">主页</a></li>
+        <li><a href="/owe">欠我赞的人</a></li>
+        <li class="active"><a href="/owes">欠赞排行</a></li>
+        </ul>
+      </div>
+      <div class="panel-body paginate-bot">
+        {{template "components/flash_error.tpl" .}}
+        {{range .Owe}}
+        <div class="media">
+          <div class="media-left">
+          </div>
+          <div class="media-body">
+            <div class="title">
+              <a target="_blank" href="/users/{{.Target}}">{{.Target}}还欠{{.User}} {{.Score}}个赞</a>
+            </div>
+            <p class="gray">
+              <a target="_blank" href="/users/{{.Target}}"><span class="label label-primary">{{.Target}}</span></a>
+              <span>•</span>
+              <span class="label label-warning">QQ：{{.QQ}}</span>
+              <span>•</span>
+              <span class="label label-danger">昵称：{{.Nickname}}</span>
+            </p>
+            <p class="gray">
+               <span class="hidden-sm hidden-xs"><a target="_blank" href="/users/{{.User}}">{{.User}}</a>已赞<a target="_blank" href="/users/{{.Target}}">{{.Target}}</a> {{len .StarringRepos}}个项目：{{range .StarringRepos}} <a target="_blank" href="https://github.com/{{.}}"><span class="label label-success">{{.}}</span></a> {{end}}</span>
+            </p>
+            <p class="gray">
+              <span class="hidden-sm hidden-xs"><a target="_blank" href="/users/{{.Target}}">{{.Target}}</a>已赞<a target="_blank" href="/users/{{.User}}">{{.User}}</a> {{len .StarredRepos}}个项目：{{range .StarredRepos}} <a target="_blank" href="https://github.com/{{.}}"><span class="label label-success">{{.}}</span></a> {{end}}</span>
+            </p>
+            <p class="gray">
+              <span class="hidden-sm hidden-xs"><a target="_blank" href="/users/{{.User}}">{{.User}}</a>还可以赞<a target="_blank" href="/users/{{.Target}}">{{.Target}}</a> {{len .CanStarRepos}}个项目：{{range .CanStarRepos}} <a target="_blank" href="https://github.com/{{.}}"><span class="label label-default">{{.}}</span></a> {{end}}</span>
+            </p>
+            <p class="gray">
+              <span class="hidden-sm hidden-xs"><a target="_blank" href="/users/{{.Target}}">{{.Target}}</a>还可以赞<a target="_blank" href="/users/{{.User}}">{{.User}}</a> {{len .CanBeStarredRepos}}个项目：{{range .CanBeStarredRepos}} <a target="_blank" href="https://github.com/{{.}}"><span class="label label-default">{{.}}</span></a> {{end}}</span>
+            </p>
+          </div>
+        </div>
+        <div class="divide mar-top-5"></div>
+        {{end}}
+        <ul id="page"></ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3 hidden-sm hidden-xs">
+    {{if .IsLogin}}
+      {{template "components/user_info.tpl" .}}
+      {{template "components/topic_create.tpl" .}}
+    {{else}}
+      {{template "components/welcome.tpl" .}}
+    {{end}}
+    {{template "components/otherbbs.tpl" .}}
+  </div>
+</div>
+<script type="text/javascript" src="/static/js/bootstrap-paginator.min.js"></script>
+<script type="text/javascript">
+  $(function () {
+    $("#tab_{{.S}}").addClass("active");
+    $("#page").bootstrapPaginator({
+      currentPage: '{{.Page.PageNo}}',
+      totalPages: '{{.Page.TotalPage}}',
+      bootstrapMajorVersion: 3,
+      size: "small",
+      onPageClicked: function(e,originalEvent,type,page){
+        var s = {{.S}};
+        if (s > 0) {
+          window.location.href = "/?p=" + page + "&s={{.S}}"
+        } else {
+          window.location.href = "/?p=" + page
+        }
+      }
+    });
+  });
+</script>

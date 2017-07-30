@@ -74,9 +74,33 @@ func (c *ViewController) OwePage() {
 
 	logs.Info("[%s] viewed owe page", username)
 
-	c.Data["PageTitle"] = "GitStar - 欠我Star的人"
+	c.Data["PageTitle"] = "GitStar - 欠我赞的人"
 	c.Layout = "layout/layout.tpl"
 	c.TplName = "owe.tpl"
+}
+
+func (c *ViewController) OwesPage() {
+	beego.ReadFromRequest(&c.Controller)
+	flash := beego.NewFlash()
+
+	username := c.getUsername()
+	if username == "" {
+		flash.Error("请先登录")
+		flash.Store(&c.Controller)
+		c.Redirect("/login", 302)
+		return
+	}
+
+	c.Data["IsLogin"] = true
+	c.Data["UserInfo"] = api.GetUser(username)
+
+	c.Data["Owe"] = api.GetOwe()
+
+	logs.Info("[%s] viewed owe ranking", username)
+
+	c.Data["PageTitle"] = "GitStar - 欠赞排行"
+	c.Layout = "layout/layout.tpl"
+	c.TplName = "owes.tpl"
 }
 
 func (c *ViewController) Update() {

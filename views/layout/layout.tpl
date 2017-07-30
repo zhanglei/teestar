@@ -33,6 +33,9 @@
           </li>
           {{end}}
           <li>
+          <a href="/owes">欠赞排行</a>
+          </li>
+          <li>
             <a href="/about">关于</a>
           </li>
           {{if .IsLogin}}
