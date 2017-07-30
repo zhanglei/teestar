@@ -54,4 +54,6 @@ func initView(){
 
 	beego.Router("/users/:user", &view_controller.ViewController{}, "GET:UserPage")
 	beego.Router("/users", &view_controller.ViewController{}, "GET:UsersPage")
+
+	beego.Router("/owe", &view_controller.ViewController{}, "GET:OwePage")
 }

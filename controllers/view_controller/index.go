@@ -41,7 +41,7 @@ func (c *ViewController) Index() {
 
 	flash.Notice("管理员消息：")
 	c.Data["flash"] = flash.Data
-	c.Data["flash_data"] = template.HTML("目前可以采用以下API访问谁欠了我的Star：<a target=\"_blank\" href=\"/api/users/" + username + "/owe\">https://gitstar.cn/api/users/" + username + "/owe</a>，其中Target是对方的名字，QQ和Nickname是对方QQ号和昵称，Hitter是对方用的GitHub小号，Score表示对方欠我多少个Star，CanBeStarredRepos表示对方还能Star我的项目，可以通过QQ通知对方Star自己。相关UI界面还在开发中..")
+	c.Data["flash_data"] = template.HTML("点击上面的“欠我赞的人”标签可以查看欠了我Star并且没有赞完我的项目的人，已经全部赞了我项目的人不会显示。")
 
 	c.Data["IsLogin"] = true
 	c.Data["UserInfo"] = api.GetUser(username)
@@ -53,6 +53,30 @@ func (c *ViewController) Index() {
 	c.Data["PageTitle"] = "GitStar - GitHub项目点赞"
 	c.Layout = "layout/layout.tpl"
 	c.TplName = "index.tpl"
+}
+
+func (c *ViewController) OwePage() {
+	beego.ReadFromRequest(&c.Controller)
+	flash := beego.NewFlash()
+
+	username := c.getUsername()
+	if username == "" {
+		flash.Error("请先登录")
+		flash.Store(&c.Controller)
+		c.Redirect("/login", 302)
+		return
+	}
+
+	c.Data["IsLogin"] = true
+	c.Data["UserInfo"] = api.GetUser(username)
+
+	c.Data["Owe"] = api.GetUserOwe(username)
+
+	logs.Info("[%s] viewed owe page", username)
+
+	c.Data["PageTitle"] = "GitStar - 欠我Star的人"
+	c.Layout = "layout/layout.tpl"
+	c.TplName = "owe.tpl"
 }
 
 func (c *ViewController) Update() {

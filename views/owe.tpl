@@ -3,28 +3,38 @@
     <div class="panel panel-default">
       <div class="panel-heading">
         <ul class="nav nav-pills">
-        <li class="active"><a href="/">主页</a></li>
-        <li><a href="/owe">欠我赞的人</a></li>
+        <li><a href="/">主页</a></li>
+        <li class="active"><a href="/owe">欠我赞的人</a></li>
         </ul>
       </div>
       <div class="panel-body paginate-bot">
         {{template "components/flash_error.tpl" .}}
-        {{range .Recommend}}
+        {{range .Owe}}
         <div class="media">
           <div class="media-left">
           </div>
           <div class="media-body">
             <div class="title">
-              <a target="_blank" href="https://github.com/{{.Repo}}">{{.Repo}}</a>
+              <a target="_blank" href="/users/{{.Target}}">{{.Target}}还欠我{{.Score}}个赞</a>
             </div>
             <p class="gray">
               <a target="_blank" href="/users/{{.Target}}"><span class="label label-primary">{{.Target}}</span></a>
               <span>•</span>
-              {{if ge .Score 0}}
-              <span class="hidden-sm hidden-xs">{{.Target}}还欠我{{.Score}}个赞</span>
-              {{else}}
-              <b><span class="hidden-sm hidden-xs">我还欠{{.Target}} {{.ScoreR}}个赞</span></b>
-              {{end}}
+              <span class="label label-warning">QQ：{{.QQ}}</span>
+              <span>•</span>
+              <span class="label label-danger">昵称：{{.Nickname}}</span>
+            </p>
+            <p class="gray">
+               <span class="hidden-sm hidden-xs">我已赞他{{len .StarringRepos}}个项目：{{range .StarringRepos}} <a target="_blank" href="https://github.com/{{.}}"><span class="label label-success">{{.}}</span></a> {{end}}</span>
+            </p>
+            <p class="gray">
+              <span class="hidden-sm hidden-xs">他已赞我{{len .StarredRepos}}个项目：{{range .StarredRepos}} <a target="_blank" href="https://github.com/{{.}}"><span class="label label-success">{{.}}</span></a> {{end}}</span>
+            </p>
+            <p class="gray">
+              <span class="hidden-sm hidden-xs">我还可以赞他{{len .CanStarRepos}}个项目：{{range .CanStarRepos}} <a target="_blank" href="https://github.com/{{.}}"><span class="label label-default">{{.}}</span></a> {{end}}</span>
+            </p>
+            <p class="gray">
+              <span class="hidden-sm hidden-xs">他还可以赞我{{len .CanBeStarredRepos}}个项目：{{range .CanBeStarredRepos}} <a target="_blank" href="https://github.com/{{.}}"><span class="label label-default">{{.}}</span></a> {{end}}</span>
             </p>
           </div>
         </div>
