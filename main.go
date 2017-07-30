@@ -8,6 +8,7 @@ import (
 func main() {
 	beego.BConfig.WebConfig.Session.SessionProvider="file"
 	beego.BConfig.WebConfig.Session.SessionProviderConfig = "./tmp"
+	beego.BConfig.WebConfig.Session.SessionGCMaxLifetime = 3600 * 24 * 365
 
 	beego.SetLogger("file", `{"filename":"logs/gitstar.log"}`)
 	beego.SetLogFuncCall(false)
