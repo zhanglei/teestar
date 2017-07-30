@@ -2,6 +2,17 @@ package api
 
 import "time"
 
+func GetUserObjects() []User {
+	var objUsers []User
+	err := adapter.engine.Find(&objUsers)
+	if err != nil {
+		panic(err)
+	}
+
+	return objUsers
+}
+
+
 func GetUsers() []string {
 	var objUsers []User
 	err := adapter.engine.Find(&objUsers)

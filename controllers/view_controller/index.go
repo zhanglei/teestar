@@ -447,3 +447,32 @@ func (c *ViewController) UserPage() {
 	c.Layout = "layout/layout.tpl"
 	c.TplName = "user/detail.tpl"
 }
+
+func (c *ViewController) UsersPage() {
+	beego.ReadFromRequest(&c.Controller)
+	flash := beego.NewFlash()
+
+	username := c.getUsername()
+	if username == "" {
+		flash.Error("请先登录")
+		flash.Store(&c.Controller)
+		c.Redirect("/login", 302)
+		return
+	}
+
+	users := api.GetUserObjects()
+
+	c.Data["UserInfos"] = users
+	c.Data["TotalCount"] = len(users)
+	c.Layout = "layout/layout.tpl"
+	c.TplName = "user/list.tpl"
+
+	logs.Info("[%s] viewed user list", username)
+
+	c.Data["IsLogin"] = true
+	c.Data["Username"] = username
+
+	c.Data["PageTitle"] = "GitStar - 用户列表"
+	c.Layout = "layout/layout.tpl"
+	c.TplName = "user/list.tpl"
+}
