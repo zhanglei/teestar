@@ -5,6 +5,7 @@
         用户列表
         <span class="pull-right">{{.TotalCount}}个用户</span>
       </div>
+      {{if .UserInfo.IsAdmin}}
       <div class="table-responsive">
         <table class="table table-striped">
           <tbody>
@@ -29,6 +30,11 @@
           </tbody>
         </table>
       </div>
+      {{else}}
+        <div class="panel panel-default">
+          <div class="panel-body">该页仅允许管理员查看</div>
+        </div>
+      {{end}}
       <div class="panel-body" style="padding: 0 15px;">
         <ul id="page"></ul>
       </div>
