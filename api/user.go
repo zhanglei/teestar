@@ -4,7 +4,7 @@ import "time"
 
 func GetUserObjects() []User {
 	var objUsers []User
-	err := adapter.engine.Find(&objUsers)
+	err := adapter.engine.Asc("created_at").Find(&objUsers)
 	if err != nil {
 		panic(err)
 	}
