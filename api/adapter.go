@@ -36,6 +36,11 @@ type User struct {
 	IsAdmin   bool
 }
 
+type Repo struct {
+	Name       string
+	Stargazers []string
+}
+
 // Adapter represents the MySQL adapter for policy storage.
 type Adapter struct {
 	driverName     string

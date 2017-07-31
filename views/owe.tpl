@@ -4,6 +4,7 @@
       <div class="panel-heading">
         <ul class="nav nav-pills">
         <li><a href="/">主页</a></li>
+        <li><a href="/repo">我的项目</a></li>
         <li class="active"><a href="/owe">欠我赞的人</a></li>
         </ul>
       </div>
@@ -15,7 +16,7 @@
           </div>
           <div class="media-body">
             <div class="title">
-              <a target="_blank" href="/users/{{.Target}}">{{.Target}}还欠我{{.Score}}个赞</a>
+              <a target="_blank" href="/users/{{.Target}}">{{.Target}}还欠我 <span class="label label-default">{{.Score}}</span> 个赞</a>
             </div>
             <p class="gray">
               <a target="_blank" href="/users/{{.Target}}"><span class="label label-primary">{{.Target}}</span></a>

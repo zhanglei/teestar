@@ -3,28 +3,27 @@
     <div class="panel panel-default">
       <div class="panel-heading">
         <ul class="nav nav-pills">
-        <li class="active"><a href="/">主页</a></li>
-        <li><a href="/repo">我的项目</a></li>
+        <li><a href="/">主页</a></li>
+        <li class="active"><a href="/repo">我的项目</a></li>
         <li><a href="/owe">欠我赞的人</a></li>
         </ul>
       </div>
       <div class="panel-body paginate-bot">
         {{template "components/flash_error.tpl" .}}
-        {{range .Recommend}}
+        {{range .Repos}}
         <div class="media">
           <div class="media-left">
           </div>
           <div class="media-body">
             <div class="title">
-              <a target="_blank" href="https://github.com/{{.Repo}}">{{.Repo}}</a>
+              <a target="_blank" href="https://github.com/{{.Name}}">{{.Name}}：获得 <span class="label label-default">{{len .Stargazers}}</span> 个赞</a>
             </div>
             <p class="gray">
-              <a target="_blank" href="/users/{{.Target}}"><span class="label label-primary">{{.Target}}</span></a>
-              <span>•</span>
-              {{if ge .Score 0}}
-              <span class="hidden-sm hidden-xs">{{.Target}}还欠我{{.Score}}个赞</span>
+              {{if ne (len .Stargazers) 0}}
+                被 {{range .Stargazers}}<a target="_blank" href="/users/{{.}}"><span class="label label-primary">{{.}}</span></a> {{end}}
+                等{{len .Stargazers}}人点赞
               {{else}}
-              <b><span class="hidden-sm hidden-xs">我还欠{{.Target}} {{.ScoreR}}个赞</span></b>
+                0人点赞
               {{end}}
             </p>
           </div>
