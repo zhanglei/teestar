@@ -4,7 +4,7 @@ import "sort"
 
 func GetUserOwe(user string) StatusList {
 	statusList := StatusList{}
-	otherUsers := GetOtherUsers(user)
+	otherUsers := GetOtherEnabledUsers(user)
 	for _, otherUser := range otherUsers {
 		status := GetUserTargetStatus(user, otherUser)
 		status.Score = -status.Score
