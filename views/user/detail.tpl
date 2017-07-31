@@ -12,9 +12,10 @@
             <div>QQ昵称: {{.TargetInfo.Nickname}}</div>
             <div>入驻时间: {{.TargetInfo.CreatedAt}}</div>
             <div>是否为管理员: {{.TargetInfo.IsAdmin}}</div>
-            <b><div>点赞次数: {{.UserStarringCount}}</div></b>
-            <b><div>被点赞次数: {{.UserStarredCount}}</div></b>
-            <b><div>欠赞次数: {{.UserOweCount}}</div></b>
+            <div>项目个数: {{.TargetRepoCount}}</div>
+            <b><div>点赞次数: {{.TargetStarringCount}}</div></b>
+            <b><div>被点赞次数: {{.TargetStarredCount}}</div></b>
+            <b><div>欠赞次数: {{.TargetOweCount}}</div></b>
           </div>
         </div>
       </div>

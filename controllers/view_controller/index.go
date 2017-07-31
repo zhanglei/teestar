@@ -485,11 +485,12 @@ func (c *ViewController) UserPage() {
 
 	c.Data["IsLogin"] = true
 	c.Data["UserInfo"] = api.GetUser(username)
-	userStarringCount := api.GetUserStarringCount(username)
-	userStarredCount := api.GetUserStarredCount(username)
-	c.Data["UserStarringCount"] = userStarringCount
-	c.Data["UserStarredCount"] = userStarredCount
-	c.Data["UserOweCount"] = userStarredCount - userStarringCount
+	targetStarringCount := api.GetUserStarringCount(target)
+	targetStarredCount := api.GetUserStarredCount(target)
+	c.Data["TargetRepoCount"] = len(api.GetUserRepos(target))
+	c.Data["TargetStarringCount"] = targetStarringCount
+	c.Data["TargetStarredCount"] = targetStarredCount
+	c.Data["TargetOweCount"] = targetStarredCount - targetStarringCount
 
 	c.Data["PageTitle"] = "GitStar - 用户：" + target
 	c.Layout = "layout/layout.tpl"
