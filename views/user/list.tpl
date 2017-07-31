@@ -16,6 +16,7 @@
             <td>QQ昵称</td>
             <td>入驻时间</td>
             <td>是否为管理员</td>
+            <td>是否已禁用</td>
           </tr>
           {{range .UserInfos}}
           <tr>
@@ -25,6 +26,7 @@
             <td>{{.Nickname}}</td>
             <td>{{.CreatedAt}}</td>
             <td>{{.IsAdmin}}</td>
+            <td>{{.IsDisabled}}</td>
           </tr>
           {{end}}
           </tbody>

@@ -39,12 +39,18 @@ func (c *ViewController) Index() {
 		return
 	}
 
+	objUser := api.GetUser(username)
+
+	if objUser.IsDisabled {
+		flash.Error("该账户已被管理员禁用，项目已处于隐藏状态。有问题请联系管理员，QQ群：646373152")
+	}
+
 	flash.Notice("管理员消息：")
 	c.Data["flash"] = flash.Data
 	c.Data["flash_data"] = template.HTML("点击上面的“欠我赞的人”标签可以查看欠了我Star并且没有赞完我的项目的人，已经全部赞了我项目的人不会显示。")
 
 	c.Data["IsLogin"] = true
-	c.Data["UserInfo"] = api.GetUser(username)
+	c.Data["UserInfo"] = objUser
 
 	c.Data["Recommend"] = api.GetUserRecommend(username)
 

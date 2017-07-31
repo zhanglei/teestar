@@ -26,14 +26,15 @@ type UserStarringRepo struct {
 }
 
 type User struct {
-	User      string `xorm:"varchar(100) unique pk"`
-	Password  string `xorm:"varchar(100)"`
-	Hitter    string `xorm:"varchar(100)"`
-	QQ        string `xorm:"varchar(100)"`
-	CreatedAt string `xorm:"varchar(100)"`
-	Nickname  string `xorm:"varchar(100)"`
-	Email     string `xorm:"varchar(100)"`
-	IsAdmin   bool
+	User       string `xorm:"varchar(100) unique pk"`
+	Password   string `xorm:"varchar(100)"`
+	Hitter     string `xorm:"varchar(100)"`
+	QQ         string `xorm:"varchar(100)"`
+	CreatedAt  string `xorm:"varchar(100)"`
+	Nickname   string `xorm:"varchar(100)"`
+	Email      string `xorm:"varchar(100)"`
+	IsAdmin    bool
+	IsDisabled bool
 }
 
 type Repo struct {
