@@ -22,6 +22,17 @@ func (c *APIController) UpdateUserStarringRepos() {
 	c.ServeJSON()
 }
 
+func (c *APIController) UpdateStarringRepos() {
+	affected := api.UpdateStarringRepos()
+
+	if affected {
+		c.Data["json"] = "ok"
+	} else {
+		c.Data["json"] = "not affected"
+	}
+	c.ServeJSON()
+}
+
 func (c *APIController) GetUserHitter() {
 	user := c.GetString(":user")
 

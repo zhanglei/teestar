@@ -45,6 +45,19 @@ func UpdateUserStarringRepos(user string) bool {
 	return affected != 0
 }
 
+func UpdateStarringRepos() bool {
+	affected := false
+	users := GetUsers()
+
+	for _, user := range users {
+		if UpdateUserStarringRepos(user) {
+			affected = true
+		}
+	}
+
+	return affected
+}
+
 func GetUser(user string) *User {
 	var objUser = User{User: user}
 	has, err := adapter.engine.Get(&objUser)

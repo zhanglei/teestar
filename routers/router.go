@@ -21,6 +21,7 @@ func initAPI() {
 
 	beego.Router("/api/users/:user/starring-repos", &api_controller.APIController{}, "get:GetUserStarringRepos")
 	beego.Router("/api/users/:user/starring-repos/update", &api_controller.APIController{}, "get:UpdateUserStarringRepos")
+	beego.Router("/api/users/starring-repos/update", &api_controller.APIController{}, "get:UpdateStarringRepos")
 	beego.Router("/api/users/:user/hitter", &api_controller.APIController{}, "get:GetUserHitter")
 	beego.Router("/api/users/:user/hitter/update/:hitter", &api_controller.APIController{}, "get:UpdateUserHitter")
 
