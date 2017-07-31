@@ -71,7 +71,7 @@ func GetUserTargetPool(user string, target string) []string {
 
 func GetUserStatus(user string) StatusList {
 	statusList := StatusList{}
-	otherUsers := GetOtherUsers(user)
+	otherUsers := GetOtherEnabledUsers(user)
 	for _, otherUser := range otherUsers {
 		status := GetUserTargetStatus(user, otherUser)
 		statusList = append(statusList, &status)
