@@ -13,14 +13,9 @@ func GetUserStarredCount(user string) int {
 	userRepos := GetUserRepos(user)
 	userStarringRepo := new(UserStarringRepo)
 
-	hitter := GetUserHitter(user)
-	if hitter == "" {
-		hitter = user
-	}
-
 	count := 0
 	for _, repo := range userRepos {
-		total, err := adapter.engine.Where("repo = ?", repo).And("user != ?", hitter).Count(userStarringRepo)
+		total, err := adapter.engine.Where("repo = ?", repo).And("user != ?", user).Count(userStarringRepo)
 		if err != nil {
 			panic(err)
 		}
@@ -44,16 +39,11 @@ func GetStargazers(user string, repo string) []string {
 }
 
 func GetRepoObjects(user string) []Repo {
-	hitter := GetUserHitter(user)
-	if hitter == "" {
-		hitter = user
-	}
-
 	objRepos := []Repo{}
 	repos := GetUserRepos(user)
 
 	for _, repo := range repos {
-		stargazers := GetStargazers(hitter, repo)
+		stargazers := GetStargazers(user, repo)
 		objRepo := Repo{Name: repo, Stargazers: stargazers}
 		objRepos = append(objRepos, objRepo)
 	}

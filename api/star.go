@@ -1,11 +1,6 @@
 package api
 
 func GetUserStarringRepos(user string) []string {
-	hitter := GetUserHitter(user)
-	if hitter != "" {
-		user = hitter
-	}
-
 	var userRepos []UserStarringRepo
 	err := adapter.engine.Find(&userRepos, &UserStarringRepo{User: user})
 	if err != nil {
@@ -21,17 +16,14 @@ func GetUserStarringRepos(user string) []string {
 }
 
 func UpdateUserStarringRepos(user string) bool {
-	hitter := GetUserHitter(user)
-	if hitter != "" {
-		user = hitter
-	}
+	hitter := GetUserOrHitter(user)
 
 	affected, err := adapter.engine.Delete(&UserStarringRepo{User: user})
 	if err != nil {
 		panic(err)
 	}
 
-	repos := ListStarringRepos(user)
+	repos := ListStarringRepos(hitter)
 	userRepos := []UserStarringRepo{}
 	for _, repo := range repos {
 		userRepos = append(userRepos, UserStarringRepo{User: user, Repo: repo})
@@ -84,6 +76,15 @@ func GetUserHitter(user string) string {
 	} else {
 		return ""
 	}
+}
+
+func GetUserOrHitter(user string) string {
+	hitter := GetUserHitter(user)
+	if hitter == "" {
+		hitter = user
+	}
+
+	return hitter
 }
 
 func UpdateUserHitter(user string, hitter string) bool {
