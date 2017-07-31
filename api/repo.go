@@ -1,5 +1,20 @@
 package api
 
+func GetAllRepos() []string {
+	var userRepos []UserRepo
+	err := adapter.engine.Find(&userRepos)
+	if err != nil {
+		panic(err)
+	}
+
+	repos := []string{}
+	for _, userRepo := range userRepos {
+		repos = append(repos, userRepo.Repo)
+	}
+
+	return repos
+}
+
 func GetUserRepos(user string) []string {
 	var userRepos []UserRepo
 	err := adapter.engine.Find(&userRepos, &UserRepo{User: user})

@@ -485,6 +485,11 @@ func (c *ViewController) UserPage() {
 
 	c.Data["IsLogin"] = true
 	c.Data["UserInfo"] = api.GetUser(username)
+	userStarringCount := api.GetUserStarringCount(username)
+	userStarredCount := api.GetUserStarredCount(username)
+	c.Data["UserStarringCount"] = userStarringCount
+	c.Data["UserStarredCount"] = userStarredCount
+	c.Data["UserOweCount"] = userStarredCount - userStarringCount
 
 	c.Data["PageTitle"] = "GitStar - 用户：" + target
 	c.Layout = "layout/layout.tpl"
