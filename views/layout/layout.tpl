@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="/static/css/pybbs.css">
   <script src="//cdn.bootcss.com/jquery/2.2.2/jquery.min.js"></script>
   <script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="/static/js/jquery.noreferrer.js"></script>
 </head>
 <body>
 <div class="wrapper">
