@@ -14,7 +14,7 @@ var Prototype = {
     var ua = navigator.userAgent;
     var isOpera = Object.prototype.toString.call(window.opera) == '[object Opera]';
     return {
-      IE:             !!window.attachEvent && !isOpera,
+      IE:             ua.indexOf('Trident') >-1 || (!!window.attachEvent && !isOpera),
       Opera:          isOpera,
       WebKit:         ua.indexOf('AppleWebKit/') > -1,
       Gecko:          ua.indexOf('Gecko') > -1 && ua.indexOf('KHTML') === -1,
