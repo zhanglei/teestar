@@ -76,7 +76,8 @@
 <div class="container">
   <br>
   <div class="text-center">
-    ©2017 GitStar.cn Powered by <a href="http://beego.me/" target="_blank">Beego</a>
+    <p>©2017 GitStar.cn. All Rights Reserved.</p>
+    {{if .IsLogin}}<a href="/referrer" rel="noreferrer">点击进入Referrer测试</a>{{end}}
   </div>
   <br>
 </div>
