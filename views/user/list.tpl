@@ -22,7 +22,7 @@
           {{range .UserInfos}}
           <tr>
             <td><a href="/users/{{.User}}" target="_blank">{{.User}}</a></td>
-            <td><a href="https://github.com/{{.Hitter}}" target="_blank">{{.Hitter}}</a></td>
+            <td><a href="https://github.com/{{.Hitter}}" rel="noreferrer" target="_blank">{{.Hitter}}</a></td>
             <td>{{.QQ}}</td>
             <td>{{.Nickname}}</td>
             <td>{{.CreatedAt}}</td>

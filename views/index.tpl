@@ -16,7 +16,7 @@
           </div>
           <div class="media-body">
             <div class="title">
-              <a target="_blank" href="https://github.com/{{.Repo}}">{{.Repo}}</a>
+              <a rel="noreferrer" target="_blank" href="https://github.com/{{.Repo}}">{{.Repo}}</a>
             </div>
             <p class="gray">
               <a target="_blank" href="/users/{{.Target}}"><span class="label label-primary">{{.Target}}</span></a>

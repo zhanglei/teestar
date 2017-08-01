@@ -27,16 +27,16 @@
               <span class="label label-danger">昵称：{{.Nickname}}</span>
             </p>
             <p class="gray">
-               <span class="hidden-sm hidden-xs"><a target="_blank" href="/users/{{.User}}">{{.User}}</a>已赞<a target="_blank" href="/users/{{.Target}}">{{.Target}}</a> {{len .StarringRepos}}个项目：{{range .StarringRepos}} <a target="_blank" href="https://github.com/{{.}}"><span class="label label-success">{{.}}</span></a> {{end}}</span>
+               <span class="hidden-sm hidden-xs"><a target="_blank" href="/users/{{.User}}">{{.User}}</a>已赞<a target="_blank" href="/users/{{.Target}}">{{.Target}}</a> {{len .StarringRepos}}个项目：{{range .StarringRepos}} <a rel="noreferrer" target="_blank" href="https://github.com/{{.}}"><span class="label label-success">{{.}}</span></a> {{end}}</span>
             </p>
             <p class="gray">
-              <span class="hidden-sm hidden-xs"><a target="_blank" href="/users/{{.Target}}">{{.Target}}</a>已赞<a target="_blank" href="/users/{{.User}}">{{.User}}</a> {{len .StarredRepos}}个项目：{{range .StarredRepos}} <a target="_blank" href="https://github.com/{{.}}"><span class="label label-success">{{.}}</span></a> {{end}}</span>
+              <span class="hidden-sm hidden-xs"><a target="_blank" href="/users/{{.Target}}">{{.Target}}</a>已赞<a target="_blank" href="/users/{{.User}}">{{.User}}</a> {{len .StarredRepos}}个项目：{{range .StarredRepos}} <a rel="noreferrer" target="_blank" href="https://github.com/{{.}}"><span class="label label-success">{{.}}</span></a> {{end}}</span>
             </p>
             <p class="gray">
-              <span class="hidden-sm hidden-xs"><a target="_blank" href="/users/{{.User}}">{{.User}}</a>还可以赞<a target="_blank" href="/users/{{.Target}}">{{.Target}}</a> {{len .CanStarRepos}}个项目：{{range .CanStarRepos}} <a target="_blank" href="https://github.com/{{.}}"><span class="label label-default">{{.}}</span></a> {{end}}</span>
+              <span class="hidden-sm hidden-xs"><a target="_blank" href="/users/{{.User}}">{{.User}}</a>还可以赞<a target="_blank" href="/users/{{.Target}}">{{.Target}}</a> {{len .CanStarRepos}}个项目：{{range .CanStarRepos}} <a rel="noreferrer" target="_blank" href="https://github.com/{{.}}"><span class="label label-default">{{.}}</span></a> {{end}}</span>
             </p>
             <p class="gray">
-              <span class="hidden-sm hidden-xs"><a target="_blank" href="/users/{{.Target}}">{{.Target}}</a>还可以赞<a target="_blank" href="/users/{{.User}}">{{.User}}</a> {{len .CanBeStarredRepos}}个项目：{{range .CanBeStarredRepos}} <a target="_blank" href="https://github.com/{{.}}"><span class="label label-default">{{.}}</span></a> {{end}}</span>
+              <span class="hidden-sm hidden-xs"><a target="_blank" href="/users/{{.Target}}">{{.Target}}</a>还可以赞<a target="_blank" href="/users/{{.User}}">{{.User}}</a> {{len .CanBeStarredRepos}}个项目：{{range .CanBeStarredRepos}} <a rel="noreferrer" target="_blank" href="https://github.com/{{.}}"><span class="label label-default">{{.}}</span></a> {{end}}</span>
             </p>
           </div>
         </div>

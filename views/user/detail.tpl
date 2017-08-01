@@ -6,8 +6,8 @@
         <div class="media">
           <div class="media-body">
             <h3 style="margin-top: 0">{{.TargetInfo.User}}</h3>
-            <p><i class="gray"><a href="https://github.com/{{.TargetInfo.User}}" target="_blank">https://github.com/{{.TargetInfo.User}}</a></i></p>
-            {{if .UserInfo.IsAdmin}}<div>GitHub小号: <a href="https://github.com/{{.TargetInfo.Hitter}}" target="_blank">{{.TargetInfo.Hitter}}</a></div>{{end}}
+            <p><i class="gray"><a href="https://github.com/{{.TargetInfo.User}}" rel="noreferrer" target="_blank">https://github.com/{{.TargetInfo.User}}</a></i></p>
+            {{if .UserInfo.IsAdmin}}<div>GitHub小号: <a href="https://github.com/{{.TargetInfo.Hitter}}" rel="noreferrer" target="_blank">{{.TargetInfo.Hitter}}</a></div>{{end}}
             <div>QQ号: {{.TargetInfo.QQ}}</div>
             <div>QQ昵称: {{.TargetInfo.Nickname}}</div>
             <div>入驻时间: {{.TargetInfo.CreatedAt}}</div>
