@@ -46,6 +46,7 @@
   </div>
 </div>
 <script type="text/javascript" src="/static/js/bootstrap-paginator.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery.noreferrer.js"></script>
 <script type="text/javascript">
   $(function () {
     $("#tab_{{.S}}").addClass("active");

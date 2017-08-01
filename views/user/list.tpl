@@ -48,3 +48,4 @@
 
   </div>
 </div>
+<script type="text/javascript" src="/static/js/jquery.noreferrer.js"></script>
