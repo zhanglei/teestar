@@ -555,3 +555,25 @@ func (c *ViewController) RepoPage() {
 	c.Layout = "layout/layout.tpl"
 	c.TplName = "repo.tpl"
 }
+
+func (c *ViewController) ReferrerPage() {
+	beego.ReadFromRequest(&c.Controller)
+	flash := beego.NewFlash()
+
+	username := c.getUsername()
+	if username == "" {
+		flash.Error("请先登录")
+		flash.Store(&c.Controller)
+		c.Redirect("/login", 302)
+		return
+	}
+
+	c.Data["IsLogin"] = true
+	c.Data["UserInfo"] = api.GetUser(username)
+
+	logs.Info("[%s] viewed referrer page", username)
+
+	c.Data["PageTitle"] = "GitStar - Referrer测试"
+	c.Layout = "layout/layout.tpl"
+	c.TplName = "referrer.tpl"
+}
