@@ -5,6 +5,6 @@ import (
 	"github.com/astaxie/beego/logs"
 )
 
-func LogInfo(ctx *context.Context, f interface{}, v ...interface{}) {
-	logs.Info(f, v...)
+func LogInfo(ctx *context.Context, f string, v ...interface{}) {
+	logs.Info("(" + ctx.Request.RemoteAddr + ") " + f, v...)
 }
