@@ -64,4 +64,5 @@ func initView(){
 	beego.Router("/repo", &view_controller.ViewController{}, "GET:RepoPage")
 
 	beego.Router("/referrer", &view_controller.ViewController{}, "GET:ReferrerPage")
+	beego.Router("/log", &view_controller.ViewController{}, "GET:LogPage")
 }

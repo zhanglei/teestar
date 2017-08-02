@@ -35,6 +35,9 @@
           <li>
             <a href="/users">用户列表</a>
           </li>
+          <li>
+            <a href="/log">系统日志</a>
+          </li>
           {{end}}
           <li>
           <a href="/referrer" rel="noreferrer">Referrer测试</a>

@@ -576,3 +576,26 @@ func (c *ViewController) ReferrerPage() {
 	c.Layout = "layout/layout.tpl"
 	c.TplName = "referrer.tpl"
 }
+
+func (c *ViewController) LogPage() {
+	beego.ReadFromRequest(&c.Controller)
+	flash := beego.NewFlash()
+
+	username := c.getUsername()
+	if username == "" {
+		flash.Error("请先登录")
+		flash.Store(&c.Controller)
+		c.Redirect("/login", 302)
+		return
+	}
+
+	c.Data["IsLogin"] = true
+	c.Data["UserInfo"] = api.GetUser(username)
+	c.Data["Log"] = util.ReadLog()
+
+	util.LogInfo(c.Ctx, "[%s] viewed log page", username)
+
+	c.Data["PageTitle"] = "GitStar - 系统日志"
+	c.Layout = "layout/layout.tpl"
+	c.TplName = "log.tpl"
+}
