@@ -5,8 +5,8 @@ import (
 	"strings"
 
 	"github.com/astaxie/beego"
-	"github.com/astaxie/beego/logs"
 	"github.com/hsluoyz/gitstar/api"
+	"github.com/hsluoyz/gitstar/util"
 )
 
 type ViewController struct {
@@ -54,7 +54,7 @@ func (c *ViewController) Index() {
 
 	c.Data["Recommend"] = api.GetUserRecommend(username)
 
-	logs.Info("[%s] viewed homepage", username)
+	util.LogInfo(c.Ctx, "[%s] viewed homepage", username)
 
 	c.Data["PageTitle"] = "GitStar - GitHub项目点赞"
 	c.Layout = "layout/layout.tpl"
@@ -78,7 +78,7 @@ func (c *ViewController) OwePage() {
 
 	c.Data["Owe"] = api.GetUserOwe(username)
 
-	logs.Info("[%s] viewed owe page", username)
+	util.LogInfo(c.Ctx, "[%s] viewed owe page", username)
 
 	c.Data["PageTitle"] = "GitStar - 欠我赞的人"
 	c.Layout = "layout/layout.tpl"
@@ -102,7 +102,7 @@ func (c *ViewController) OwesPage() {
 
 	c.Data["Owe"] = api.GetOwe()
 
-	logs.Info("[%s] viewed owe ranking", username)
+	util.LogInfo(c.Ctx, "[%s] viewed owe ranking", username)
 
 	c.Data["PageTitle"] = "GitStar - 欠赞排行"
 	c.Layout = "layout/layout.tpl"
@@ -122,7 +122,7 @@ func (c *ViewController) Update() {
 
 	api.UpdateUserStarringRepos(username)
 
-	logs.Info("[%s] updated his stars", username)
+	util.LogInfo(c.Ctx, "[%s] updated his stars", username)
 	c.Redirect("/", 302)
 }
 
@@ -155,7 +155,7 @@ func (c *ViewController) Login() {
 	if flag {
 		c.setUsername(username)
 
-		logs.Info("[%s] logged in", username)
+		util.LogInfo(c.Ctx, "[%s] logged in", username)
 		c.Redirect("/", 302)
 	} else {
 		flash.Error("密码错误")
@@ -206,7 +206,7 @@ func (c *ViewController) Register() {
 
 		c.setUsername(username)
 
-		logs.Info("[%s] is registered as new user", username)
+		util.LogInfo(c.Ctx, "[%s] is registered as new user", username)
 		c.Redirect("/user/setting", 302)
 	}
 }
@@ -214,7 +214,7 @@ func (c *ViewController) Register() {
 //登出
 func (c *ViewController) Logout() {
 	username := c.getUsername()
-	logs.Info("[%s] logged off", username)
+	util.LogInfo(c.Ctx, "[%s] logged off", username)
 
 	c.setUsername("")
 	c.Redirect("/", 302)
@@ -228,7 +228,7 @@ func (c *ViewController) About() {
 		c.Data["UserInfo"] = api.GetUser(username)
 	}
 
-	logs.Info("[%s] viewed about", username)
+	util.LogInfo(c.Ctx, "[%s] viewed about", username)
 
 	c.Data["PageTitle"] = "GitStar - 关于"
 	c.Layout = "layout/layout.tpl"
@@ -264,7 +264,7 @@ func (c *ViewController) SettingPage() {
 	}
 	c.Data["EscapedRepos"] = escapedRepos
 
-	logs.Info("[%s] viewed setting", username)
+	util.LogInfo(c.Ctx, "[%s] viewed setting", username)
 
 	c.Data["PageTitle"] = "GitStar - 用户设置"
 	c.Layout = "layout/layout.tpl"
@@ -338,7 +338,7 @@ func (c *ViewController) Setting() {
 	email := c.Input().Get("email")
 	api.UpdateUserEmail(username, email)
 
-	logs.Info("[%s] updated his setting", username)
+	util.LogInfo(c.Ctx, "[%s] updated his setting", username)
 
 	flash.Success("更新资料成功")
 	flash.Store(&c.Controller)
@@ -426,7 +426,7 @@ func (c *ViewController) AddRepo() {
 		return
 	}
 
-	logs.Info("[%s] added repo: [%s]", username, repo)
+	util.LogInfo(c.Ctx, "[%s] added repo: [%s]", username, repo)
 
 	flash.Success("添加项目成功")
 	flash.Store(&c.Controller)
@@ -462,7 +462,7 @@ func (c *ViewController) DeleteRepo() {
 		return
 	}
 
-	logs.Info("[%s] deleted repo: [%s]", username, repo)
+	util.LogInfo(c.Ctx, "[%s] deleted repo: [%s]", username, repo)
 
 	flash.Success("删除项目成功")
 	flash.Store(&c.Controller)
@@ -487,7 +487,7 @@ func (c *ViewController) UserPage() {
 		c.Data["TargetInfo"] = objTarget
 	}
 
-	logs.Info("[%s] viewed [%s]'s profile", username, target)
+	util.LogInfo(c.Ctx, "[%s] viewed [%s]'s profile", username, target)
 
 	c.Data["IsLogin"] = true
 	c.Data["UserInfo"] = api.GetUser(username)
@@ -522,7 +522,7 @@ func (c *ViewController) UsersPage() {
 	c.Layout = "layout/layout.tpl"
 	c.TplName = "user/list.tpl"
 
-	logs.Info("[%s] viewed user list", username)
+	util.LogInfo(c.Ctx, "[%s] viewed user list", username)
 
 	c.Data["IsLogin"] = true
 	c.Data["UserInfo"] = api.GetUser(username)
@@ -549,7 +549,7 @@ func (c *ViewController) RepoPage() {
 	repos := api.GetRepoObjects(username)
 	c.Data["Repos"] = repos
 
-	logs.Info("[%s] viewed repo page", username)
+	util.LogInfo(c.Ctx, "[%s] viewed repo page", username)
 
 	c.Data["PageTitle"] = "GitStar - 我的项目"
 	c.Layout = "layout/layout.tpl"
@@ -571,7 +571,7 @@ func (c *ViewController) ReferrerPage() {
 	c.Data["IsLogin"] = true
 	c.Data["UserInfo"] = api.GetUser(username)
 
-	logs.Info("[%s] viewed referrer page", username)
+	util.LogInfo(c.Ctx, "[%s] viewed referrer page", username)
 
 	c.Data["PageTitle"] = "GitStar - Referrer测试"
 	c.Layout = "layout/layout.tpl"
