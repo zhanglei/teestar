@@ -1,10 +1,10 @@
 <div class="panel panel-default">
     <script type="text/javascript">
-    $(document).ready(function(){
+    jQuery(document).ready(function(){
 
-      $("#update").click(function(){
-          $("#update").addClass("disabled")
-          $("#update").text("请等待本页自动刷新..")
+      jQuery("#update").click(function(){
+          jQuery("#update").addClass("disabled")
+          jQuery("#update").text("请等待本页自动刷新..")
       });
     });
     </script>
