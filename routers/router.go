@@ -7,6 +7,8 @@ import (
 )
 
 func init() {
+	beego.InsertFilter("/*", beego.BeforeRouter, FilterIP)
+
 	initAPI()
 	initView()
 }
