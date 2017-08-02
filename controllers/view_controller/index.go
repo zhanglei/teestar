@@ -50,6 +50,11 @@ func (c *ViewController) Index() {
 
 	c.Data["IsLogin"] = true
 	c.Data["UserInfo"] = objUser
+	userStarringCount := api.GetUserStarringCount(username)
+	userStarredCount := api.GetUserStarredCount(username)
+	c.Data["UserStarringCount"] = userStarringCount
+	c.Data["UserStarredCount"] = userStarredCount
+	c.Data["UserOweCount"] = userStarredCount - userStarringCount
 
 	c.Data["Recommend"] = api.GetUserRecommend(username)
 
@@ -74,6 +79,11 @@ func (c *ViewController) OwePage() {
 
 	c.Data["IsLogin"] = true
 	c.Data["UserInfo"] = api.GetUser(username)
+	userStarringCount := api.GetUserStarringCount(username)
+	userStarredCount := api.GetUserStarredCount(username)
+	c.Data["UserStarringCount"] = userStarringCount
+	c.Data["UserStarredCount"] = userStarredCount
+	c.Data["UserOweCount"] = userStarredCount - userStarringCount
 
 	c.Data["Owe"] = api.GetUserOwe(username)
 
@@ -545,6 +555,12 @@ func (c *ViewController) RepoPage() {
 
 	c.Data["IsLogin"] = true
 	c.Data["UserInfo"] = api.GetUser(username)
+	userStarringCount := api.GetUserStarringCount(username)
+	userStarredCount := api.GetUserStarredCount(username)
+	c.Data["UserStarringCount"] = userStarringCount
+	c.Data["UserStarredCount"] = userStarredCount
+	c.Data["UserOweCount"] = userStarredCount - userStarringCount
+
 	repos := api.GetRepoObjects(username)
 	c.Data["Repos"] = repos
 

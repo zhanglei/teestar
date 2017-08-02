@@ -6,6 +6,7 @@
         <li class="active"><a href="/">主页</a></li>
         <li><a href="/repo">我的项目</a></li>
         <li><a href="/owe">欠我赞的人</a></li>
+        <div class="pull-right">我的点赞: <span class="label label-primary">{{.UserStarringCount}}</span> &nbsp;&nbsp; 我被点赞: <span class="label label-primary">{{.UserStarredCount}}</span> &nbsp;&nbsp; 欠赞: <span class="label label-primary">{{.UserOweCount}}</span></div>
         </ul>
       </div>
       <div class="panel-body paginate-bot">
