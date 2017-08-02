@@ -14,6 +14,6 @@ var FilterIP = func(ctx *context.Context) {
 
 		w := ctx.ResponseWriter
 		w.WriteHeader(403)
-		w.Write([]byte("您所在的地区无法访问本网站, 如果仍存在问题，请联系管理员QQ群：646373152\n"))
+		w.Write([]byte("您所在的地区无法访问本网站, 如果需要添加白名单授权访问，请联系管理员，加入QQ群：646373152\n"))
 	}
 }
