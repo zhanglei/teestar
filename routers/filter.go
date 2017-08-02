@@ -10,7 +10,7 @@ var FilterIP = func(ctx *context.Context) {
 	clientIP := ctx.Request.Header.Get("x-forwarded-for")
 
 	if clientIP != "" && !api.IsMainland(clientIP) {
-		util.LogInfo(ctx, "[%s] request is denied to access")
+		util.LogInfo(ctx, "request is denied to access")
 
 		w := ctx.ResponseWriter
 		w.WriteHeader(403)
