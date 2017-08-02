@@ -36,6 +36,9 @@
             <a href="/users">用户列表</a>
           </li>
           <li>
+            <a href="/count">用户统计数据</a>
+          </li>
+          <li>
             <a href="/log">系统日志</a>
           </li>
           {{end}}

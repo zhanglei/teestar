@@ -2,7 +2,7 @@
   <div class="col-md-9">
     <div class="panel panel-default">
       <div class="panel-heading">
-        用户列表
+        用户统计数据
         <span class="pull-right">{{.TotalCount}}个用户</span>
       </div>
       {{if .UserInfo.IsAdmin}}
@@ -15,9 +15,10 @@
             <td>QQ号</td>
             <td>昵称</td>
             <td>入驻时间</td>
-            <td>是否为管理员</td>
-            <td>是否已禁用</td>
-            <td>Star缓存</td>
+            <td>项目数</td>
+            <td>点赞数</td>
+            <td>被赞数</td>
+            <td>欠赞数</td>
           </tr>
           {{range .UserInfos}}
           <tr>
@@ -26,9 +27,10 @@
             <td>{{.QQ}}</td>
             <td>{{.Nickname}}</td>
             <td>{{.CreatedAt}}</td>
-            <td>{{.IsAdmin}}</td>
-            <td>{{.IsDisabled}}</td>
-            <td><a target="_blank" href="api/users/{{.User}}/starring-repos/update">更新</a></td>
+            <td>{{.RepoCount}}</td>
+            <td>{{.StarringCount}}</td>
+            <td>{{.StarredCount}}</td>
+            <td>{{.OweCount}}</td>
           </tr>
           {{end}}
           </tbody>

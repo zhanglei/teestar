@@ -12,6 +12,29 @@ func GetUserObjects() []User {
 	return objUsers
 }
 
+func GetExtendedUserObjects() []ExtenedUser {
+	objUsers := GetUserObjects()
+
+	objExtendedUsers := []ExtenedUser{}
+	for _, objUser := range objUsers {
+		starringCount := GetUserStarringCount(objUser.User)
+		starredCount := GetUserStarredCount(objUser.User)
+
+		objExtendedUser := ExtenedUser{
+			User: objUser.User,
+			Hitter: objUser.Hitter,
+			QQ: objUser.QQ,
+			CreatedAt: objUser.CreatedAt,
+			Nickname: objUser.Nickname,
+			RepoCount: len(GetUserRepos(objUser.User)),
+			StarringCount: starringCount,
+			StarredCount: starredCount,
+			OweCount: starredCount - starringCount}
+		objExtendedUsers = append(objExtendedUsers, objExtendedUser)
+	}
+
+	return objExtendedUsers
+}
 
 func GetUsers() []string {
 	var objUsers []User

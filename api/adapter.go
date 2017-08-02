@@ -37,6 +37,18 @@ type User struct {
 	IsDisabled bool
 }
 
+type ExtenedUser struct {
+	User          string
+	Hitter        string
+	QQ            string
+	CreatedAt     string
+	Nickname      string
+	RepoCount     int
+	StarringCount int
+	StarredCount  int
+	OweCount      int
+}
+
 type Repo struct {
 	Name       string
 	Stargazers []string

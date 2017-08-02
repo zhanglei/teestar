@@ -528,8 +528,6 @@ func (c *ViewController) UsersPage() {
 
 	c.Data["UserInfos"] = users
 	c.Data["TotalCount"] = len(users)
-	c.Layout = "layout/layout.tpl"
-	c.TplName = "user/list.tpl"
 
 	util.LogInfo(c.Ctx, "[%s] viewed user list", username)
 
@@ -539,6 +537,33 @@ func (c *ViewController) UsersPage() {
 	c.Data["PageTitle"] = "GitStar - 用户列表"
 	c.Layout = "layout/layout.tpl"
 	c.TplName = "user/list.tpl"
+}
+
+func (c *ViewController) CountPage() {
+	beego.ReadFromRequest(&c.Controller)
+	flash := beego.NewFlash()
+
+	username := c.getUsername()
+	if username == "" {
+		flash.Error("请先登录")
+		flash.Store(&c.Controller)
+		c.Redirect("/login", 302)
+		return
+	}
+
+	users := api.GetExtendedUserObjects()
+
+	c.Data["UserInfos"] = users
+	c.Data["TotalCount"] = len(users)
+
+	util.LogInfo(c.Ctx, "[%s] viewed count page", username)
+
+	c.Data["IsLogin"] = true
+	c.Data["UserInfo"] = api.GetUser(username)
+
+	c.Data["PageTitle"] = "GitStar - 用户统计数据"
+	c.Layout = "layout/layout.tpl"
+	c.TplName = "user/count.tpl"
 }
 
 func (c *ViewController) RepoPage() {
