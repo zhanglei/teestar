@@ -26,7 +26,7 @@ func GetExtendedUserObjects() []ExtenedUser {
 			QQ: objUser.QQ,
 			CreatedAt: objUser.CreatedAt,
 			Nickname: objUser.Nickname,
-			RepoCount: len(GetUserRepos(objUser.User)),
+			RepoCount: GetUserRepoCount(objUser.User),
 			StarringCount: starringCount,
 			StarredCount: starredCount,
 			OweCount: starredCount - starringCount}

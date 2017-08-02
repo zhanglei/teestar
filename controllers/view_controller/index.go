@@ -502,7 +502,7 @@ func (c *ViewController) UserPage() {
 	c.Data["UserInfo"] = api.GetUser(username)
 	targetStarringCount := api.GetUserStarringCount(target)
 	targetStarredCount := api.GetUserStarredCount(target)
-	c.Data["TargetRepoCount"] = len(api.GetUserRepos(target))
+	c.Data["TargetRepoCount"] = api.GetUserRepoCount(target)
 	c.Data["TargetStarringCount"] = targetStarringCount
 	c.Data["TargetStarredCount"] = targetStarredCount
 	c.Data["TargetOweCount"] = targetStarredCount - targetStarringCount
