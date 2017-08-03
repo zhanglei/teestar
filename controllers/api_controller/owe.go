@@ -2,7 +2,7 @@ package api_controller
 
 import "github.com/hsluoyz/gitstar/api"
 
-func (c *APIController) GetUserOwe() {
+func (c *UsersController) GetUserOwe() {
 	user := c.GetString(":user")
 
 	statusList := api.GetUserOwe(user)

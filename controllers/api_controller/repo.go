@@ -7,11 +7,11 @@ import (
 	"github.com/hsluoyz/gitstar/api"
 )
 
-type APIController struct {
+type UsersController struct {
 	beego.Controller
 }
 
-func (c *APIController) GetUserAllRepos() {
+func (c *UsersController) GetUserAllRepos() {
 	user := c.GetString(":user")
 
 	repos := getAllUserAndOrganRepos(user)
@@ -19,14 +19,14 @@ func (c *APIController) GetUserAllRepos() {
 	c.ServeJSON()
 }
 
-func (c *APIController) GetUserRepos() {
+func (c *UsersController) GetUserRepos() {
 	user := c.GetString(":user")
 
 	c.Data["json"] = api.GetUserRepos(user)
 	c.ServeJSON()
 }
 
-func (c *APIController) AddUserRepo() {
+func (c *UsersController) AddUserRepo() {
 	user := c.GetString(":user")
 	repo := c.GetString(":repo")
 	repo = strings.Replace(repo, ".", "/", -1)
@@ -41,7 +41,7 @@ func (c *APIController) AddUserRepo() {
 	c.ServeJSON()
 }
 
-func (c *APIController) DeleteUserRepo() {
+func (c *UsersController) DeleteUserRepo() {
 	user := c.GetString(":user")
 	repo := c.GetString(":repo")
 	repo = strings.Replace(repo, ".", "/", -1)

@@ -2,14 +2,14 @@ package api_controller
 
 import "github.com/hsluoyz/gitstar/api"
 
-func (c *APIController) GetUserStarringRepos() {
+func (c *UsersController) GetUserStarringRepos() {
 	user := c.GetString(":user")
 
 	c.Data["json"] = api.GetUserStarringRepos(user)
 	c.ServeJSON()
 }
 
-func (c *APIController) UpdateUserStarringRepos() {
+func (c *UsersController) UpdateUserStarringRepos() {
 	user := c.GetString(":user")
 
 	affected := api.UpdateUserStarringRepos(user)
@@ -22,7 +22,7 @@ func (c *APIController) UpdateUserStarringRepos() {
 	c.ServeJSON()
 }
 
-func (c *APIController) GetUserHitter() {
+func (c *UsersController) GetUserHitter() {
 	user := c.GetString(":user")
 
 	hitter := api.GetUserHitter(user)
@@ -31,7 +31,7 @@ func (c *APIController) GetUserHitter() {
 	c.ServeJSON()
 }
 
-func (c *APIController) UpdateUserHitter() {
+func (c *UsersController) UpdateUserHitter() {
 	user := c.GetString(":user")
 	hitter := c.GetString(":hitter")
 

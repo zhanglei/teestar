@@ -2,7 +2,7 @@ package api_controller
 
 import "github.com/hsluoyz/gitstar/api"
 
-func (c *APIController) GetUserTarget() {
+func (c *UsersController) GetUserTarget() {
 	user := c.GetString(":user")
 	target := c.GetString(":target")
 
@@ -12,7 +12,7 @@ func (c *APIController) GetUserTarget() {
 	c.ServeJSON()
 }
 
-func (c *APIController) GetUserTargetStatus() {
+func (c *UsersController) GetUserTargetStatus() {
 	user := c.GetString(":user")
 	target := c.GetString(":target")
 
@@ -20,7 +20,7 @@ func (c *APIController) GetUserTargetStatus() {
 	c.ServeJSON()
 }
 
-func (c *APIController) GetUserTargetPool() {
+func (c *UsersController) GetUserTargetPool() {
 	user := c.GetString(":user")
 	target := c.GetString(":target")
 
@@ -28,7 +28,7 @@ func (c *APIController) GetUserTargetPool() {
 	c.ServeJSON()
 }
 
-func (c *APIController) GetUserStatus() {
+func (c *UsersController) GetUserStatus() {
 	user := c.GetString(":user")
 
 	statusList := api.GetUserStatus(user)
@@ -37,7 +37,7 @@ func (c *APIController) GetUserStatus() {
 	c.ServeJSON()
 }
 
-func (c *APIController) GetUserRecommend() {
+func (c *UsersController) GetUserRecommend() {
 	user := c.GetString(":user")
 
 	c.Data["json"] = api.GetUserRecommend(user)
