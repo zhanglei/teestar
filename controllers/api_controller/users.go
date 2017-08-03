@@ -12,6 +12,7 @@ func (c *UsersController) GetUser() {
 	user := c.GetString(":user")
 
 	objUser := api.GetUser(user)
+	objUser.Password = ""
 	c.Data["json"] = objUser
 	c.ServeJSON()
 }
