@@ -11,6 +11,17 @@ type UsersController struct {
 	beego.Controller
 }
 
+func getAllUserAndOrganRepos(user string) []string {
+	var repos []string
+
+	tokens := strings.Split(user, ",")
+	for _, token := range tokens {
+		repos = append(repos, api.ListRepos(token)...)
+	}
+
+	return repos
+}
+
 func (c *UsersController) GetUserAllRepos() {
 	user := c.GetString(":user")
 
