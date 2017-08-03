@@ -158,18 +158,15 @@ func (c *ViewController) Login() {
 		flash.Store(&c.Controller)
 		c.Redirect("/register", 302)
 		return
-	}
-
-	ok := api.CheckUserPassword(username, password)
-	if ok {
+	} else if !api.CheckUserPassword(username, password) {
+		flash.Error("密码错误")
+		flash.Store(&c.Controller)
+		c.Redirect("/login", 302)
+	} else {
 		c.setUsername(username)
 
 		util.LogInfo(c.Ctx, "[%s] logged in", username)
 		c.Redirect("/", 302)
-	} else {
-		flash.Error("密码错误")
-		flash.Store(&c.Controller)
-		c.Redirect("/login", 302)
 	}
 }
 
