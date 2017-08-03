@@ -25,3 +25,12 @@ func (c *UsersController) GetUserRecommend() {
 	c.Data["json"] = api.GetUserRecommend(user)
 	c.ServeJSON()
 }
+
+func (c *UsersController) GetUserOwe() {
+	user := c.GetString(":user")
+
+	statusList := api.GetUserOwe(user)
+
+	c.Data["json"] = statusList
+	c.ServeJSON()
+}

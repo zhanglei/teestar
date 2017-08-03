@@ -52,13 +52,11 @@ func initAPI() {
 
 	beego.Router("/api/users/:user/hitter", &api_controller.UsersController{}, "get:GetUserHitter")
 	beego.Router("/api/users/:user/hitter/update/:hitter", &api_controller.UsersController{}, "get:UpdateUserHitter")
-	
-	beego.Router("/api/users/:user/targets/:target/status", &api_controller.UsersController{}, "get:GetUserTargetStatus")
+
+	beego.Router("/api/users/:user/status/targets/:target", &api_controller.UsersController{}, "get:GetUserTargetStatus")
 	beego.Router("/api/users/:user/status", &api_controller.UsersController{}, "get:GetUserStatus")
-
-	beego.Router("/api/users/:user/recommend", &api_controller.UsersController{}, "get:GetUserRecommend")
-
-	beego.Router("/api/users/:user/owe", &api_controller.UsersController{}, "get:GetUserOwe")
+	beego.Router("/api/users/:user/status/recommend", &api_controller.UsersController{}, "get:GetUserRecommend")
+	beego.Router("/api/users/:user/status/owe", &api_controller.UsersController{}, "get:GetUserOwe")
 
 	beego.Router("/api/global/starring-repos/update", &api_controller.GlobalController{}, "get:UpdateStarringRepos")
 	beego.Router("/api/global/recommend", &api_controller.GlobalController{}, "get:GetRecommend")
