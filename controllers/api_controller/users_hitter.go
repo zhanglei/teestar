@@ -2,17 +2,20 @@ package api_controller
 
 import "github.com/hsluoyz/gitstar/api"
 
-func (c *UsersController) GetUserStarringRepos() {
+func (c *UsersController) GetUserHitter() {
 	user := c.GetString(":user")
 
-	c.Data["json"] = api.GetUserStarringRepos(user)
+	hitter := api.GetUserHitter(user)
+
+	c.Data["json"] = hitter
 	c.ServeJSON()
 }
 
-func (c *UsersController) UpdateUserStarringRepos() {
+func (c *UsersController) UpdateUserHitter() {
 	user := c.GetString(":user")
+	hitter := c.GetString(":hitter")
 
-	affected := api.UpdateUserStarringRepos(user)
+	affected := api.UpdateUserHitter(user, hitter)
 
 	if affected {
 		c.Data["json"] = "ok"
