@@ -5,6 +5,21 @@ import (
 	"github.com/hsluoyz/gitstar/util"
 )
 
+func (c *APIController) Register() {
+	username, password := c.Input().Get("username"), c.Input().Get("password")
+
+	msg := api.CheckUserRegister(username, password)
+	if msg == "" {
+		api.AddUser(username, password)
+
+		util.LogInfo(c.Ctx, "API: [%s] is registered as new user", username)
+		msg = "ok"
+	}
+
+	c.Data["json"] = msg
+	c.ServeJSON()
+}
+
 func (c *APIController) Login() {
 	msg := "ok"
 	username, password := c.Input().Get("username"), c.Input().Get("password")
