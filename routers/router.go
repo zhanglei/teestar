@@ -14,6 +14,8 @@ func init() {
 
 	initAPI()
 	initView()
+
+	beego.SetStaticPath("/swagger", "swagger")
 }
 
 func initCrossSite() {
