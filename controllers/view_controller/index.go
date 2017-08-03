@@ -160,8 +160,8 @@ func (c *ViewController) Login() {
 		return
 	}
 
-	flag := api.CheckUserPassword(username, password)
-	if flag {
+	ok := api.CheckUserPassword(username, password)
+	if ok {
 		c.setUsername(username)
 
 		util.LogInfo(c.Ctx, "[%s] logged in", username)
