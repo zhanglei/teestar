@@ -3,6 +3,7 @@ package api_controller
 import (
 	"github.com/hsluoyz/gitstar/api"
 	"github.com/hsluoyz/gitstar/util"
+	"github.com/astaxie/beego"
 )
 
 type Response struct {
@@ -11,7 +12,11 @@ type Response struct {
 	Data string
 }
 
-func (c *APIController) Register() {
+type RegisterController struct {
+	beego.Controller
+}
+
+func (c *RegisterController) Register() {
 	var resp Response
 	username, password := c.Input().Get("username"), c.Input().Get("password")
 
@@ -29,7 +34,7 @@ func (c *APIController) Register() {
 	c.ServeJSON()
 }
 
-func (c *APIController) Login() {
+func (c *RegisterController) Login() {
 	var resp Response
 	username, password := c.Input().Get("username"), c.Input().Get("password")
 
