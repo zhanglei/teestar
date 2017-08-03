@@ -190,24 +190,10 @@ func (c *ViewController) RegisterPage() {
 func (c *ViewController) Register() {
 	flash := beego.NewFlash()
 	username, password := c.Input().Get("username"), c.Input().Get("password")
-	if len(username) == 0 || len(password) == 0 {
-		flash.Error("用户名或密码不能为空")
-		flash.Store(&c.Controller)
-		c.Redirect("/register", 302)
-	} else if api.HasUser(username) {
-		flash.Error("用户名已被注册")
-		flash.Store(&c.Controller)
-		c.Redirect("/register", 302)
-	} else if api.HasHitter("", username) {
-		flash.Error("用户名已被其他用户注册为点赞小号")
-		flash.Store(&c.Controller)
-		c.Redirect("/register", 302)
-	} else if strings.Contains(username, "@") {
-		flash.Error("请不要使用邮箱，GitHub profile（如https://github.com/abc）中，abc是用户名")
-		flash.Store(&c.Controller)
-		c.Redirect("/register", 302)
-	} else if !api.HasGitHubUser(username) {
-		flash.Error("用户名不是合法的、已存在的GitHub用户名")
+
+	msg := api.CheckUserRegister(username, password)
+	if msg != "" {
+		flash.Error(msg)
 		flash.Store(&c.Controller)
 		c.Redirect("/register", 302)
 	} else {
