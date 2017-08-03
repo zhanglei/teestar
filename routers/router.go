@@ -41,7 +41,8 @@ func initAPI() {
 
 	beego.Router("/api/users", &api_controller.UsersController{}, "get:GetUsers")
 	beego.Router("/api/users/:user", &api_controller.UsersController{},"get:GetUser")
-    beego.Router("/api/users/:user/all-repos", &api_controller.UsersController{},"get:GetUserAllRepos")
+
+    beego.Router("/api/users/:user/repos/all", &api_controller.UsersController{},"get:GetUserAllRepos")
 	beego.Router("/api/users/:user/repos", &api_controller.UsersController{}, "get:GetUserRepos")
 	beego.Router("/api/users/:user/repos/add/:repo", &api_controller.UsersController{}, "get:AddUserRepo")
 	beego.Router("/api/users/:user/repos/delete/:repo", &api_controller.UsersController{}, "get:DeleteUserRepo")
