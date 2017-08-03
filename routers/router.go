@@ -36,8 +36,8 @@ func initCrossSite() {
 }
 
 func initAPI() {
-	beego.Router("/api/register", &api_controller.RegisterController{}, "POST:Register")
-	beego.Router("/api/login", &api_controller.RegisterController{}, "POST:Login")
+	beego.Router("/api/user/register", &api_controller.UserController{}, "POST:Register")
+	beego.Router("/api/user/login", &api_controller.UserController{}, "POST:Login")
 
 	beego.Router("/api/users", &api_controller.UsersController{}, "get:GetUsers")
 	beego.Router("/api/users/:user", &api_controller.UsersController{},"get:GetUser")

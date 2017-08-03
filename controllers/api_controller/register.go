@@ -12,11 +12,11 @@ type Response struct {
 	Data string
 }
 
-type RegisterController struct {
+type UserController struct {
 	beego.Controller
 }
 
-func (c *RegisterController) Register() {
+func (c *UserController) Register() {
 	var resp Response
 	username, password := c.Input().Get("username"), c.Input().Get("password")
 
@@ -34,7 +34,7 @@ func (c *RegisterController) Register() {
 	c.ServeJSON()
 }
 
-func (c *RegisterController) Login() {
+func (c *UserController) Login() {
 	var resp Response
 	username, password := c.Input().Get("username"), c.Input().Get("password")
 
