@@ -2,16 +2,6 @@ package api_controller
 
 import "github.com/hsluoyz/gitstar/api"
 
-func (c *UsersController) GetUserTarget() {
-	user := c.GetString(":user")
-	target := c.GetString(":target")
-
-	targetRepos := api.GetUserRepos(target)
-	userStarringRepos := api.GetUserStarringRepos(user)
-	c.Data["json"] = api.GetIntersect(targetRepos, userStarringRepos)
-	c.ServeJSON()
-}
-
 func (c *UsersController) GetUserTargetStatus() {
 	user := c.GetString(":user")
 	target := c.GetString(":target")

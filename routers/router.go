@@ -52,8 +52,7 @@ func initAPI() {
 
 	beego.Router("/api/users/:user/hitter", &api_controller.UsersController{}, "get:GetUserHitter")
 	beego.Router("/api/users/:user/hitter/update/:hitter", &api_controller.UsersController{}, "get:UpdateUserHitter")
-
-	beego.Router("/api/users/:user/targets/:target", &api_controller.UsersController{}, "get:GetUserTarget")
+	
 	beego.Router("/api/users/:user/targets/:target/status", &api_controller.UsersController{}, "get:GetUserTargetStatus")
 	beego.Router("/api/users/:user/status", &api_controller.UsersController{}, "get:GetUserStatus")
 
