@@ -29,6 +29,7 @@ func initCrossSite() {
 func initAPI() {
 	beego.Router("/api/users", &api_controller.APIController{}, "get:GetUsers")
 
+	beego.Router("/api/users/:user", &api_controller.APIController{},"get:GetUser")
     beego.Router("/api/users/:user/all-repos", &api_controller.APIController{},"get:GetUserAllRepos")
 	beego.Router("/api/users/:user/repos", &api_controller.APIController{}, "get:GetUserRepos")
 	beego.Router("/api/users/:user/repos/add/:repo", &api_controller.APIController{}, "get:AddUserRepo")
@@ -36,7 +37,7 @@ func initAPI() {
 
 	beego.Router("/api/users/:user/starring-repos", &api_controller.APIController{}, "get:GetUserStarringRepos")
 	beego.Router("/api/users/:user/starring-repos/update", &api_controller.APIController{}, "get:UpdateUserStarringRepos")
-	beego.Router("/api/users/starring-repos/update", &api_controller.APIController{}, "get:UpdateStarringRepos")
+	beego.Router("/api/starring-repos/update", &api_controller.APIController{}, "get:UpdateStarringRepos")
 	beego.Router("/api/users/:user/hitter", &api_controller.APIController{}, "get:GetUserHitter")
 	beego.Router("/api/users/:user/hitter/update/:hitter", &api_controller.APIController{}, "get:UpdateUserHitter")
 
@@ -46,10 +47,10 @@ func initAPI() {
 	beego.Router("/api/users/:user/status", &api_controller.APIController{}, "get:GetUserStatus")
 
 	beego.Router("/api/users/:user/recommend", &api_controller.APIController{}, "get:GetUserRecommend")
-	beego.Router("/api/users/recommend", &api_controller.APIController{}, "get:GetRecommend")
+	beego.Router("/api/recommend", &api_controller.APIController{}, "get:GetRecommend")
 
 	beego.Router("/api/users/:user/owe", &api_controller.APIController{}, "get:GetUserOwe")
-	beego.Router("/api/users/owe", &api_controller.APIController{}, "get:GetOwe")
+	beego.Router("/api/owe", &api_controller.APIController{}, "get:GetOwe")
 }
 
 func initView(){
