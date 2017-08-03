@@ -1,4 +1,4 @@
-package api_controller
+package api_controllers
 
 import (
 	"strings"
