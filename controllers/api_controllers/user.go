@@ -22,7 +22,7 @@ type UserController struct {
 // @Description register a new user
 // @Param   username     formData    string  true        "The username to register"
 // @Param   password     formData    string  true        "The password"
-// @Success 200 {object} controllers.api_controller.Response
+// @Success 200 {object} controllers.api_controller.Response The response object
 // @router /register [post]
 func (c *UserController) Register() {
 	var resp Response
@@ -46,7 +46,7 @@ func (c *UserController) Register() {
 // @Description login as a user
 // @Param   username     formData    string  true        "The username to login"
 // @Param   password     formData    string  true        "The password"
-// @Success 200 {object} controllers.api_controller.Response
+// @Success 200 {object} controllers.api_controller.Response The response object
 // @router /login [post]
 func (c *UserController) Login() {
 	var resp Response

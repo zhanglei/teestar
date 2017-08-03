@@ -11,7 +11,7 @@ type UsersController struct {
 }
 
 // @Title GetUsers
-// @Description get user list
+// @Description Get user list
 // @Success 200 {[]string}
 // @router / [get]
 func (c *UsersController) GetUsers() {
@@ -21,9 +21,9 @@ func (c *UsersController) GetUsers() {
 }
 
 // @Title GetUser
-// @Description get user
+// @Description Get a user
 // @Param   user     path    string  true        "The username"
-// @Success 200 {object} api.User
+// @Success 200 {object} api.User The user object
 // @router /:user [get]
 func (c *UsersController) GetUser() {
 	user := c.GetString(":user")
