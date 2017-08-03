@@ -1,3 +1,12 @@
 swagger: "2.0"
-info: {}
+info:
+  title: GitStar RESTful API
+  description: This is the RESTful API for GitStar.cn.
+  version: 1.0.0
+  termsOfService: http://beego.me/
+  contact:
+    email: hsluoyz@qq.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
 paths: {}

@@ -43,6 +43,9 @@
           </li>
           {{end}}
           <li>
+            <a href="/swagger/index.html">API文档</a>
+          </li>
+          <li>
           <a href="/referrer" rel="noreferrer">Referrer测试</a>
           </li>
           <li>
