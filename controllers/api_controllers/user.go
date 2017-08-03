@@ -18,7 +18,7 @@ type UserController struct {
 	beego.Controller
 }
 
-// @Title register
+// @Title Register
 // @Description register a new user
 // @Param   username     formData    string  true        "The username to register"
 // @Param   password     formData    string  true        "The password"
@@ -42,7 +42,7 @@ func (c *UserController) Register() {
 	c.ServeJSON()
 }
 
-// @Title login
+// @Title Login
 // @Description login as a user
 // @Param   username     formData    string  true        "The username to login"
 // @Param   password     formData    string  true        "The password"

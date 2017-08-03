@@ -3,13 +3,8 @@ package api_controllers
 import (
 	"strings"
 
-	"github.com/astaxie/beego"
 	"github.com/hsluoyz/gitstar/api"
 )
-
-type UsersController struct {
-	beego.Controller
-}
 
 func getAllUserAndOrganRepos(user string) []string {
 	var repos []string
