@@ -55,7 +55,6 @@ func initAPI() {
 
 	beego.Router("/api/users/:user/targets/:target", &api_controller.UsersController{}, "get:GetUserTarget")
 	beego.Router("/api/users/:user/targets/:target/status", &api_controller.UsersController{}, "get:GetUserTargetStatus")
-	beego.Router("/api/users/:user/targets/:target/pool", &api_controller.UsersController{}, "get:GetUserTargetPool")
 	beego.Router("/api/users/:user/status", &api_controller.UsersController{}, "get:GetUserStatus")
 
 	beego.Router("/api/users/:user/recommend", &api_controller.UsersController{}, "get:GetUserRecommend")

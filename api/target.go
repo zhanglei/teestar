@@ -62,13 +62,6 @@ func GetUserTargetStatus(user string, target string) UserTargetStatus {
 	return UserTargetStatus{User: user, Target: target, QQ: qq, Nickname: nickname, Hitter: hitter, StarringRepos: starringRepos, StarredRepos: starredRepos, Score: score, CanStarRepos: canStarRepos, CanBeStarredRepos: canBeStarredRepos}
 }
 
-func GetUserTargetPool(user string, target string) []string {
-	targetRepos := GetUserRepos(target)
-	userStarringRepos := GetUserStarringRepos(user)
-	poolRepos := GetSubtract(targetRepos, userStarringRepos)
-	return poolRepos
-}
-
 func GetUserStatus(user string) StatusList {
 	statusList := StatusList{}
 	otherUsers := GetOtherEnabledUsers(user)

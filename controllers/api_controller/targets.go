@@ -20,14 +20,6 @@ func (c *UsersController) GetUserTargetStatus() {
 	c.ServeJSON()
 }
 
-func (c *UsersController) GetUserTargetPool() {
-	user := c.GetString(":user")
-	target := c.GetString(":target")
-
-	c.Data["json"] = api.GetUserTargetPool(user, target)
-	c.ServeJSON()
-}
-
 func (c *UsersController) GetUserStatus() {
 	user := c.GetString(":user")
 
