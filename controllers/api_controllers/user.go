@@ -1,9 +1,10 @@
 package api_controllers
 
 import (
+	"github.com/astaxie/beego"
+
 	"github.com/hsluoyz/gitstar/api"
 	"github.com/hsluoyz/gitstar/util"
-	"github.com/astaxie/beego"
 )
 
 type Response struct {
@@ -12,10 +13,17 @@ type Response struct {
 	Data string
 }
 
+// User API
 type UserController struct {
 	beego.Controller
 }
 
+// @Title register
+// @Description register a new user
+// @Param   username     formData    string  true        "The username to register"
+// @Param   password     formData    string  true        "The password"
+// @Success 200 {object} controllers.api_controller.Response
+// @router /register [post]
 func (c *UserController) Register() {
 	var resp Response
 	username, password := c.Input().Get("username"), c.Input().Get("password")
@@ -34,6 +42,12 @@ func (c *UserController) Register() {
 	c.ServeJSON()
 }
 
+// @Title login
+// @Description login as a user
+// @Param   username     formData    string  true        "The username to login"
+// @Param   password     formData    string  true        "The password"
+// @Success 200 {object} controllers.api_controller.Response
+// @router /login [post]
 func (c *UserController) Login() {
 	var resp Response
 	username, password := c.Input().Get("username"), c.Input().Get("password")
