@@ -28,6 +28,22 @@ func CheckUserLogin(user string, password string) string {
 	}
 }
 
+func CheckUserUpdateHitter(user string, hitter string) string {
+	if hitter == "" {
+		return ""
+	} else if hitter == user {
+		return "不需要把点赞账号（小号）设置为与用户名（大号）一致，留空即表示用大号点赞"
+	} else if HasUser(hitter) {
+		return "点赞账号与其他用户的用户名（大号）重复，无法使用"
+	} else if HasHitter(user, hitter) {
+		return "点赞账号与其他用户的点赞账号（小号）重复，无法使用"
+	} else if !HasGitHubUser(hitter) {
+		return "点赞账号不是合法的、已存在的GitHub用户名"
+	} else {
+		return ""
+	}
+}
+
 func CheckUserChangePassword(user string, oldPassword string, newPassword string) string {
 	if !HasUser(user) {
 		return "用户不存在"

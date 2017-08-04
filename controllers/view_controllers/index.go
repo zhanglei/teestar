@@ -281,29 +281,9 @@ func (c *ViewController) Setting() {
 
 	hitter := c.Input().Get("hitter")
 
-	if hitter != "" && hitter == username {
-		flash.Error("不需要把点赞账号（小号）设置为与用户名（大号）一致，留空即表示用大号点赞")
-		flash.Store(&c.Controller)
-		c.Redirect("/user/setting", 302)
-		return
-	}
-
-	if hitter != "" && api.HasUser(hitter) {
-		flash.Error("点赞账号与其他用户的用户名（大号）重复，无法使用")
-		flash.Store(&c.Controller)
-		c.Redirect("/user/setting", 302)
-		return
-	}
-
-	if hitter != "" && api.HasHitter(username, hitter) {
-		flash.Error("点赞账号与其他用户的点赞账号（小号）重复，无法使用")
-		flash.Store(&c.Controller)
-		c.Redirect("/user/setting", 302)
-		return
-	}
-
-	if hitter != "" && !api.HasGitHubUser(hitter) {
-		flash.Error("点赞账号不是合法的、已存在的GitHub用户名")
+	msg := api.CheckUserUpdateHitter(username, hitter)
+	if msg != "" {
+		flash.Error(msg)
 		flash.Store(&c.Controller)
 		c.Redirect("/user/setting", 302)
 		return
