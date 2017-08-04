@@ -46,6 +46,24 @@
         </table>
       </div>
     </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        修改密码
+      </div>
+      <div class="panel-body">
+        <form action="/user/changepwd" method="post">
+          <div class="form-group">
+            <label for="oldpassword">旧密码</label>
+            <input type="password" class="form-control" name="oldpassword" id="oldpassword" value="">
+          </div>
+          <div class="form-group">
+            <label for="newpassword">新密码</label>
+            <input type="password" class="form-control" name="newpassword" id="newpassword" value="">
+          </div>
+          <button type="submit" class="btn btn-default">修改密码</button>
+        </form>
+      </div>
+    </div>
   </div>
   <div class="col-md-3 hidden-sm hidden-xs">
     {{template "../components/setting_help_info.tpl" .}}

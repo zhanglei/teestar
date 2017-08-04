@@ -28,6 +28,20 @@ func CheckUserLogin(user string, password string) string {
 	}
 }
 
+func CheckUserChangePassword(user string, oldPassword string, newPassword string) string {
+	if !HasUser(user) {
+		return "用户不存在"
+	} else if !CheckUserPassword(user, oldPassword) {
+		return "旧密码错误"
+	} else if oldPassword == newPassword {
+		return "新密码不能与旧密码一致"
+	} else if newPassword == "" {
+		return "新密码不能为空"
+	} else {
+		return ""
+	}
+}
+
 func CheckAddRepo(user string, repo string) string {
 	if !HasUser(user) {
 		return "用户不存在"

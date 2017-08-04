@@ -135,6 +135,16 @@ func CheckUserPassword(user string, password string) bool {
 	return false
 }
 
+func ChangeUserPassword(user string, password string) bool {
+	objUser := User{User: user, Password: password}
+	affected, err := adapter.engine.Id(user).Cols("password").Update(objUser)
+	if err != nil {
+		panic(err)
+	}
+
+	return affected != 0
+}
+
 func getCurrentTime() string {
 	timestamp := time.Now().Unix()
 	tm := time.Unix(timestamp, 0)

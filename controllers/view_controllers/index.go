@@ -342,6 +342,36 @@ func (c *ViewController) Setting() {
 	c.Redirect("/user/setting", 302)
 }
 
+func (c *ViewController) ChangeUserPassword() {
+	flash := beego.NewFlash()
+
+	username := c.getUsername()
+	if username == "" {
+		flash.Error("请先登录")
+		flash.Store(&c.Controller)
+		c.Redirect("/login", 302)
+		return
+	}
+
+	oldPassword := c.Input().Get("oldpassword")
+	newPassword := c.Input().Get("newpassword")
+
+	msg := api.CheckUserChangePassword(username, oldPassword, newPassword)
+	if msg != "" {
+		flash.Error(msg)
+		flash.Store(&c.Controller)
+		c.Redirect("/user/setting", 302)
+	} else {
+		api.ChangeUserPassword(username, newPassword)
+
+		util.LogInfo(c.Ctx, "[%s] changed his password", username)
+
+		flash.Success("修改密码成功")
+		flash.Store(&c.Controller)
+		c.Redirect("/user/setting", 302)
+	}
+}
+
 func (c *ViewController) AddRepoPage() {
 	beego.ReadFromRequest(&c.Controller)
 	flash := beego.NewFlash()
