@@ -1,6 +1,9 @@
 package api_controllers
 
-import "github.com/hsluoyz/gitstar/api"
+import (
+	"github.com/hsluoyz/gitstar/api"
+	"github.com/hsluoyz/gitstar/util"
+)
 
 // @Title GetUserHitter
 // @Description Get the hitter for a user
@@ -27,12 +30,18 @@ func (c *UsersController) UpdateUserHitter() {
 	user := c.GetString(":user")
 	hitter := c.GetString(":hitter")
 
-	affected := api.UpdateUserHitter(user, hitter)
-
-	if affected {
-		resp = Response{Code: 200, Msg: "ok", Data: ""}
+	msg := api.CheckUserUpdateHitter(user, hitter)
+	if msg != "" {
+		resp = Response{Code: 0, Msg: msg, Data: ""}
 	} else {
-		resp = Response{Code: 200, Msg: "not affected", Data: ""}
+		affected := api.UpdateUserHitter(user, hitter)
+		util.LogInfo(c.Ctx, "API: [%s] updated his hitter", user)
+
+		if affected {
+			resp = Response{Code: 200, Msg: "ok", Data: ""}
+		} else {
+			resp = Response{Code: 200, Msg: "not affected", Data: ""}
+		}
 	}
 
 	c.Data["json"] = resp
