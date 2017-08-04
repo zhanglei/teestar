@@ -283,15 +283,9 @@ func (c *ViewController) Setting() {
 
 	qq := c.Input().Get("qq")
 
-	if qq == "" {
-		flash.Error("请填写QQ号")
-		flash.Store(&c.Controller)
-		c.Redirect("/user/setting", 302)
-		return
-	}
-
-	if qq != "" && !api.HasQQUser(qq) {
-		flash.Error("QQ号不是合法的、已存在的QQ号码")
+	msg = api.CheckUserUpdateQQ(qq)
+	if msg != "" {
+		flash.Error(msg)
 		flash.Store(&c.Controller)
 		c.Redirect("/user/setting", 302)
 		return

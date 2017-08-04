@@ -44,6 +44,16 @@ func CheckUserUpdateHitter(user string, hitter string) string {
 	}
 }
 
+func CheckUserUpdateQQ(qq string) string {
+	if qq == "" {
+		return "请填写QQ号"
+	} else if !HasQQUser(qq) {
+		return "QQ号不是合法的、已存在的QQ号码"
+	} else {
+		return ""
+	}
+}
+
 func CheckUserChangePassword(user string, oldPassword string, newPassword string) string {
 	if !HasUser(user) {
 		return "用户不存在"
