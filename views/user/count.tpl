@@ -3,7 +3,7 @@
     <div class="panel panel-default">
       <div class="panel-heading">
         用户统计数据
-        <span class="pull-right">{{.TotalCount}}个用户</span>
+        <span class="pull-right">{{len .UserInfos}}个用户</span>
       </div>
       {{if .UserInfo.IsAdmin}}
       <div class="table-responsive">

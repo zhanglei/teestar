@@ -500,7 +500,6 @@ func (c *ViewController) UsersPage() {
 	users := api.GetUserObjects()
 
 	c.Data["UserInfos"] = users
-	c.Data["TotalCount"] = len(users)
 
 	util.LogInfo(c.Ctx, "[%s] viewed user list", username)
 
@@ -527,7 +526,6 @@ func (c *ViewController) CountPage() {
 	users := api.GetExtendedUserObjects()
 
 	c.Data["UserInfos"] = users
-	c.Data["TotalCount"] = len(users)
 
 	util.LogInfo(c.Ctx, "[%s] viewed count page", username)
 
