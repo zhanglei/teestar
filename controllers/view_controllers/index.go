@@ -1,6 +1,7 @@
 package view_controllers
 
 import (
+	"html/template"
 	"strings"
 
 	"github.com/astaxie/beego"
@@ -44,9 +45,17 @@ func (c *ViewController) Index() {
 		flash.Error("该账户已被管理员禁用，项目已处于隐藏状态。有问题请联系管理员，QQ群：646373152")
 	}
 
-	flash.Warning("管理员消息： 同一个人的项目是有优先级的，大家按照从上到下的顺序点哈，比如列表里显示一个人有1、2、3、4共四个项目，如果你只想赞两个，那就从上面开始点1、2，不要点下面的3、4。否则将来有可能将此行为按照无效点赞处理。")
-	c.Data["flash"] = flash.Data
-	// c.Data["flash_data"] = template.HTML("")
+	messages := api.GetSystemMessages()
+	for _, message := range messages {
+		if !message.IsHTML {
+			flash.Data[message.Type] = message.Text
+			c.Data["flash"] = flash.Data
+		} else {
+			flash.Data[message.Type] = " "
+			c.Data["flash"] = flash.Data
+			c.Data["flash_data"] = template.HTML(message.Text)
+		}
+	}
 
 	c.Data["IsLogin"] = true
 	c.Data["UserInfo"] = objUser
