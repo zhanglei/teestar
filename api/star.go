@@ -50,20 +50,6 @@ func UpdateStarringRepos() bool {
 	return affected
 }
 
-func GetUser(user string) *User {
-	var objUser = User{User: user}
-	has, err := adapter.engine.Get(&objUser)
-	if err != nil {
-		panic(err)
-	}
-
-	if has {
-		return &objUser
-	} else {
-		return nil
-	}
-}
-
 func GetUserHitter(user string) string {
 	var objUser = User{User: user}
 	has, err := adapter.engine.Get(&objUser)

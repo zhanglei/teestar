@@ -4,6 +4,20 @@ import (
 	"time"
 )
 
+func GetUser(user string) *User {
+	var objUser = User{User: user}
+	has, err := adapter.engine.Get(&objUser)
+	if err != nil {
+		panic(err)
+	}
+
+	if has {
+		return &objUser
+	} else {
+		return nil
+	}
+}
+
 func GetUserObjects() []User {
 	var objUsers []User
 	err := adapter.engine.Asc("created_at").Find(&objUsers)
