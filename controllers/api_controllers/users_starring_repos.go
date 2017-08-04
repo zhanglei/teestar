@@ -21,7 +21,7 @@ func (c *UsersController) GetUserStarringRepos() {
 // @Description update all the repos starred by the user into GitStar cache
 // @Param   user     path    string  true        "The username"
 // @Success 200 {object} controllers.api_controller.Response The Response object
-// @router /:user/starring-repos/update [get]
+// @router /:user/starring-repos/update [post]
 func (c *UsersController) UpdateUserStarringRepos() {
 	var resp Response
 	user := c.GetString(":user")

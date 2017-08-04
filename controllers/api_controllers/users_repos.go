@@ -57,15 +57,14 @@ func (c *UsersController) GetUserExtendedRepos() {
 
 // @Title AddUserRepo
 // @Description Add a repo for the user
-// @Param   user     path    string  true        "The username"
-// @Param   repo     path    string  true        "The repository name, like user_name.repo_name"
+// @Param   user     path      string  true    "The username"
+// @Param   repo     formData  string  true    "The repository name, like user_name/repo_name"
 // @Success 200 {object} controllers.api_controller.Response The Response object
-// @router /:user/repos/add/:repo [get]
+// @router /:user/repos/add [post]
 func (c *UsersController) AddUserRepo() {
 	var resp Response
 	user := c.GetString(":user")
-	repo := c.GetString(":repo")
-	repo = strings.Replace(repo, ".", "/", -1)
+	repo := c.Input().Get("repo")
 
 	msg := api.CheckAddRepo(user, repo)
 	if msg != "" {
@@ -84,15 +83,14 @@ func (c *UsersController) AddUserRepo() {
 
 // @Title DeleteUserRepo
 // @Description Delete a repo for the user
-// @Param   user     path    string  true        "The username"
-// @Param   repo     path    string  true        "The repository name, like user_name.repo_name"
+// @Param   user     path      string  true    "The username"
+// @Param   repo     formData  string  true    "The repository name, like user_name/repo_name"
 // @Success 200 {object} controllers.api_controller.Response The Response object
-// @router /:user/repos/delete/:repo [get]
+// @router /:user/repos/delete [post]
 func (c *UsersController) DeleteUserRepo() {
 	var resp Response
 	user := c.GetString(":user")
-	repo := c.GetString(":repo")
-	repo = strings.Replace(repo, ".", "/", -1)
+	repo := c.Input().Get("repo")
 
 	msg := api.CheckDeleteRepo(user, repo)
 	if msg != "" {

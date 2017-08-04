@@ -15,7 +15,7 @@ type GlobalController struct {
 // @Title UpdateStarringRepos
 // @Description update all the repos starred by each user into GitStar cache
 // @Success 200 {object} controllers.api_controller.Response The Response object
-// @router /starring-repos/update [get]
+// @router /starring-repos/update [post]
 func (c *GlobalController) UpdateStarringRepos() {
 	var resp Response
 
