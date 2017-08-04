@@ -153,13 +153,9 @@ func (c *ViewController) Login() {
 	flash := beego.NewFlash()
 	username, password := c.Input().Get("username"), c.Input().Get("password")
 
-	if !api.HasUser(username) {
-		flash.Error("用户名不存在，请先注册")
-		flash.Store(&c.Controller)
-		c.Redirect("/register", 302)
-		return
-	} else if !api.CheckUserPassword(username, password) {
-		flash.Error("密码错误")
+	msg := api.CheckUserLogin(username, password)
+	if msg != "" {
+		flash.Error(msg)
 		flash.Store(&c.Controller)
 		c.Redirect("/login", 302)
 	} else {
