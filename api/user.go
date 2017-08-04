@@ -14,15 +14,15 @@ func GetUserObjects() []User {
 	return objUsers
 }
 
-func GetExtendedUserObjects() []ExtenedUser {
+func GetExtendedUserObjects() []ExtendedUser {
 	objUsers := GetUserObjects()
 
-	objExtendedUsers := []ExtenedUser{}
+	objExtendedUsers := []ExtendedUser{}
 	for _, objUser := range objUsers {
 		starringCount := GetUserStarringCount(objUser.User)
 		starredCount := GetUserStarredCount(objUser.User)
 
-		objExtendedUser := ExtenedUser{
+		objExtendedUser := ExtendedUser{
 			User: objUser.User,
 			Hitter: objUser.Hitter,
 			QQ: objUser.QQ,

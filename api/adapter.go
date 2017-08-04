@@ -37,7 +37,7 @@ type User struct {
 	IsDisabled bool
 }
 
-type ExtenedUser struct {
+type ExtendedUser struct {
 	User          string
 	Hitter        string
 	QQ            string
