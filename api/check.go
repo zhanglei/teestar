@@ -29,7 +29,9 @@ func CheckUserLogin(user string, password string) string {
 }
 
 func CheckAddRepo(user string, repo string) string {
-	if len(repo) == 0 {
+	if !HasUser(user) {
+		return "用户不存在"
+	} else if len(repo) == 0 {
 		return "项目不能为空"
 	} else if HasUserRepo(user, repo) {
 		return "该项目已经存在"
@@ -41,7 +43,9 @@ func CheckAddRepo(user string, repo string) string {
 }
 
 func CheckDeleteRepo(user string, repo string) string {
-	if len(repo) == 0 {
+	if !HasUser(user) {
+		return "用户不存在"
+	} else if len(repo) == 0 {
 		return "项目不能为空"
 	} else if !HasUserRepo(user, repo) {
 		return "该项目不存在"

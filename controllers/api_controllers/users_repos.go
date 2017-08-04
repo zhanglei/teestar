@@ -54,12 +54,17 @@ func (c *UsersController) AddUserRepo() {
 	repo := c.GetString(":repo")
 	repo = strings.Replace(repo, ".", "/", -1)
 
-	affected := api.AddUserRepo(user, repo)
-
-	if affected {
-		resp = Response{Code: 200, Msg: "ok", Data: ""}
+	msg := api.CheckAddRepo(user, repo)
+	if msg != "" {
+		resp = Response{Code: 0, Msg: msg, Data: ""}
 	} else {
-		resp = Response{Code: 200, Msg: "not affected", Data: ""}
+		affected := api.AddUserRepo(user, repo)
+
+		if affected {
+			resp = Response{Code: 200, Msg: "ok", Data: ""}
+		} else {
+			resp = Response{Code: 200, Msg: "not affected", Data: ""}
+		}
 	}
 
 	c.Data["json"] = resp
@@ -78,12 +83,17 @@ func (c *UsersController) DeleteUserRepo() {
 	repo := c.GetString(":repo")
 	repo = strings.Replace(repo, ".", "/", -1)
 
-	affected := api.DeleteUserRepo(user, repo)
-
-	if affected {
-		resp = Response{Code: 200, Msg: "ok", Data: ""}
+	msg := api.CheckDeleteRepo(user, repo)
+	if msg != "" {
+		resp = Response{Code: 0, Msg: msg, Data: ""}
 	} else {
-		resp = Response{Code: 200, Msg: "not affected", Data: ""}
+		affected := api.DeleteUserRepo(user, repo)
+
+		if affected {
+			resp = Response{Code: 200, Msg: "ok", Data: ""}
+		} else {
+			resp = Response{Code: 200, Msg: "not affected", Data: ""}
+		}
 	}
 
 	c.Data["json"] = resp
