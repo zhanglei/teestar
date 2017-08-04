@@ -63,3 +63,30 @@ func (c *UserController) Login() {
 	c.Data["json"] = resp
 	c.ServeJSON()
 }
+
+// @Title ChangePassword
+// @Description change password
+// @Param   username     formData    string  true        "The username"
+// @Param   oldpassword     formData    string  true        "Old password"
+// @Param   newpassword     formData    string  true        "New password"
+// @Success 200 {object} controllers.api_controller.Response The response object
+// @router /changepwd [post]
+func (c *UserController) ChangePassword() {
+	var resp Response
+	username := c.Input().Get("username")
+	oldPassword := c.Input().Get("oldpassword")
+	newPassword := c.Input().Get("newpassword")
+
+	msg := api.CheckUserChangePassword(username, oldPassword, newPassword)
+	if msg != "" {
+		resp = Response{Code: 0, Msg: msg, Data: ""}
+	} else {
+		api.ChangeUserPassword(username, newPassword)
+
+		util.LogInfo(c.Ctx, "API: [%s] changed his password", username)
+		resp = Response{Code: 200, Msg: "修改密码成功", Data: username}
+	}
+
+	c.Data["json"] = resp
+	c.ServeJSON()
+}
