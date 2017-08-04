@@ -464,21 +464,13 @@ func (c *ViewController) UserPage() {
 	}
 
 	target := c.GetString(":user")
-	objTarget := api.GetUser(target)
-	if objTarget != nil {
-		c.Data["TargetInfo"] = objTarget
-	}
 
 	util.LogInfo(c.Ctx, "[%s] viewed [%s]'s profile", username, target)
 
 	c.Data["IsLogin"] = true
 	c.Data["UserInfo"] = api.GetUser(username)
-	targetStarringCount := api.GetUserStarringCount(target)
-	targetStarredCount := api.GetUserStarredCount(target)
-	c.Data["TargetRepoCount"] = api.GetUserRepoCount(target)
-	c.Data["TargetStarringCount"] = targetStarringCount
-	c.Data["TargetStarredCount"] = targetStarredCount
-	c.Data["TargetOweCount"] = targetStarredCount - targetStarringCount
+
+	c.Data["TargetInfo"] = api.GetExtendedUser(target)
 
 	c.Data["PageTitle"] = "GitStar - 用户：" + target
 	c.Layout = "layout/layout.tpl"

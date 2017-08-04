@@ -13,10 +13,10 @@
             <div>入驻时间: {{.TargetInfo.CreatedAt}}</div>
             {{if .UserInfo.IsAdmin}}<div>是否为管理员: {{.TargetInfo.IsAdmin}}</div>{{end}}
             <div>账户状态: {{if .TargetInfo.IsDisabled}}<font color="#FF0000">已被管理员禁用</font>{{else}}正常{{end}}</div>
-            <div>项目个数: {{.TargetRepoCount}}</div>
-            <b><div>点赞次数: {{.TargetStarringCount}}</div></b>
-            <b><div>被点赞次数: {{.TargetStarredCount}}</div></b>
-            <b><div>欠赞次数: {{.TargetOweCount}}</div></b>
+            <div>项目个数: {{.TargetInfo.RepoCount}}</div>
+            <b><div>点赞次数: {{.TargetInfo.StarringCount}}</div></b>
+            <b><div>被点赞次数: {{.TargetInfo.StarredCount}}</div></b>
+            <b><div>欠赞次数: {{.TargetInfo.OweCount}}</div></b>
           </div>
         </div>
       </div>
