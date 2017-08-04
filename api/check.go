@@ -39,3 +39,13 @@ func CheckAddRepo(user string, repo string) string {
 		return ""
 	}
 }
+
+func CheckDeleteRepo(user string, repo string) string {
+	if len(repo) == 0 {
+		return "项目不能为空"
+	} else if !HasUserRepo(user, repo) {
+		return "该项目不存在"
+	} else {
+		return ""
+	}
+}

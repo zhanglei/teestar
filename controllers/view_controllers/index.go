@@ -413,22 +413,17 @@ func (c *ViewController) DeleteRepo() {
 	}
 
 	repo := c.GetString(":repo")
-	if len(repo) == 0 {
-		flash.Error("项目不能为空")
-		flash.Store(&c.Controller)
-		c.Redirect("/user/setting", 302)
-		return
-	}
-
 	repo = strings.Replace(repo, ".", "/", -1)
-	affected := api.DeleteUserRepo(username, repo)
 
-	if !affected {
-		flash.Error("该项目不存在")
+	msg := api.CheckDeleteRepo(username, repo)
+	if msg != "" {
+		flash.Error(msg)
 		flash.Store(&c.Controller)
 		c.Redirect("/user/setting", 302)
 		return
 	}
+
+	api.DeleteUserRepo(username, repo)
 
 	util.LogInfo(c.Ctx, "[%s] deleted repo: [%s]", username, repo)
 
