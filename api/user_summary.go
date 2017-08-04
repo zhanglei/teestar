@@ -38,7 +38,7 @@ func GetRepoStargazers(user string, repo string) []string {
 	return stargazers
 }
 
-func GetRepoObjects(user string) []Repo {
+func GetUserRepoObjects(user string) []Repo {
 	objRepos := []Repo{}
 	repos := GetUserRepos(user)
 
