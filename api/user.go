@@ -33,6 +33,7 @@ func GetExtendedUser(user string) *ExtendedUser {
 		QQ: objUser.QQ,
 		CreatedAt: objUser.CreatedAt,
 		Nickname: objUser.Nickname,
+		Email: objUser.Email,
 		RepoCount: GetUserRepoCount(objUser.User),
 		StarringCount: starringCount,
 		StarredCount: starredCount,

@@ -43,6 +43,7 @@ type ExtendedUser struct {
 	QQ            string
 	CreatedAt     string
 	Nickname      string
+	Email         string
 	RepoCount     int
 	StarringCount int
 	StarredCount  int
