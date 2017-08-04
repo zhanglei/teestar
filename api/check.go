@@ -27,3 +27,15 @@ func CheckUserLogin(user string, password string) string {
 		return ""
 	}
 }
+
+func CheckAddRepo(user string, repo string) string {
+	if len(repo) == 0 {
+		return "项目不能为空"
+	} else if HasUserRepo(user, repo) {
+		return "该项目已经存在"
+	} else if !HasGitHubRepo(repo) {
+		return "项目地址不是合法的、已存在的GitHub项目地址"
+	} else {
+		return ""
+	}
+}
