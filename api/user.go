@@ -34,6 +34,8 @@ func GetExtendedUser(user string) *ExtendedUser {
 		CreatedAt: objUser.CreatedAt,
 		Nickname: objUser.Nickname,
 		Email: objUser.Email,
+		IsAdmin: objUser.IsAdmin,
+		IsDisabled: objUser.IsDisabled,
 		RepoCount: GetUserRepoCount(objUser.User),
 		StarringCount: starringCount,
 		StarredCount: starredCount,

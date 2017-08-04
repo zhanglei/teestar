@@ -44,6 +44,8 @@ type ExtendedUser struct {
 	CreatedAt     string
 	Nickname      string
 	Email         string
+	IsAdmin       bool
+	IsDisabled    bool
 	RepoCount     int
 	StarringCount int
 	StarredCount  int
