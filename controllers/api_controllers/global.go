@@ -12,7 +12,7 @@ type GlobalController struct {
 
 // @Title UpdateStarringRepos
 // @Description update all the repos starred by each user into GitStar cache
-// @Success 200 {object} controllers.api_controller.Response The response object
+// @Success 200 {object} controllers.api_controller.Response The Response object
 // @router /starring-repos/update [get]
 func (c *GlobalController) UpdateStarringRepos() {
 	var resp Response
@@ -40,9 +40,18 @@ func (c *GlobalController) GetRecommend() {
 
 // @Title GetOwe
 // @Description Get the details that each user owes another user stars
-// @Success 200 {object} []*api.UserTargetStatus The list of status objects
+// @Success 200 {object} []*api.UserTargetStatus The list of UserTargetStatus objects
 // @router /owe [get]
 func (c *GlobalController) GetOwe() {
 	c.Data["json"] = api.GetOwe()
+	c.ServeJSON()
+}
+
+// @Title GetSystemMessages
+// @Description Get the system messages from admin
+// @Success 200 {object} []api.Message The list of Message objects
+// @router /messages [get]
+func (c *GlobalController) GetSystemMessages() {
+	c.Data["json"] = api.GetSystemMessages()
 	c.ServeJSON()
 }
