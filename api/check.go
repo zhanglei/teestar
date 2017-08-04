@@ -61,6 +61,8 @@ func CheckUserChangePassword(user string, oldPassword string, newPassword string
 func CheckAddRepo(user string, repo string) string {
 	if !HasUser(user) {
 		return "用户不存在"
+	} else if GetUser(user).QQ == "" {
+		return "填写QQ号后才能添加项目"
 	} else if len(repo) == 0 {
 		return "项目不能为空"
 	} else if HasUserRepo(user, repo) {
