@@ -18,6 +18,29 @@ func GetUser(user string) *User {
 	}
 }
 
+func GetExtendedUser(user string) *ExtendedUser {
+	objUser := GetUser(user)
+	if objUser == nil {
+		return nil
+	}
+
+	starringCount := GetUserStarringCount(objUser.User)
+	starredCount := GetUserStarredCount(objUser.User)
+
+	objExtendedUser := ExtendedUser{
+		User: objUser.User,
+		Hitter: objUser.Hitter,
+		QQ: objUser.QQ,
+		CreatedAt: objUser.CreatedAt,
+		Nickname: objUser.Nickname,
+		RepoCount: GetUserRepoCount(objUser.User),
+		StarringCount: starringCount,
+		StarredCount: starredCount,
+		OweCount: starredCount - starringCount}
+
+	return &objExtendedUser
+}
+
 func GetUserObjects() []User {
 	var objUsers []User
 	err := adapter.engine.Asc("created_at").Find(&objUsers)
@@ -33,20 +56,7 @@ func GetExtendedUserObjects() []ExtendedUser {
 
 	objExtendedUsers := []ExtendedUser{}
 	for _, objUser := range objUsers {
-		starringCount := GetUserStarringCount(objUser.User)
-		starredCount := GetUserStarredCount(objUser.User)
-
-		objExtendedUser := ExtendedUser{
-			User: objUser.User,
-			Hitter: objUser.Hitter,
-			QQ: objUser.QQ,
-			CreatedAt: objUser.CreatedAt,
-			Nickname: objUser.Nickname,
-			RepoCount: GetUserRepoCount(objUser.User),
-			StarringCount: starringCount,
-			StarredCount: starredCount,
-			OweCount: starredCount - starringCount}
-		objExtendedUsers = append(objExtendedUsers, objExtendedUser)
+		objExtendedUsers = append(objExtendedUsers, *GetExtendedUser(objUser.User))
 	}
 
 	return objExtendedUsers
