@@ -26,7 +26,7 @@ func GetUserStarredCount(user string) int {
 	return count
 }
 
-func GetStargazers(user string, repo string) []string {
+func GetRepoStargazers(user string, repo string) []string {
 	var userRepos []UserStarringRepo
 	adapter.engine.Where("repo = ?", repo).And("user != ?", user).Find(&userRepos)
 
@@ -43,7 +43,7 @@ func GetRepoObjects(user string) []Repo {
 	repos := GetUserRepos(user)
 
 	for _, repo := range repos {
-		stargazers := GetStargazers(user, repo)
+		stargazers := GetRepoStargazers(user, repo)
 		objRepo := Repo{Name: repo, Stargazers: stargazers}
 		objRepos = append(objRepos, objRepo)
 	}
