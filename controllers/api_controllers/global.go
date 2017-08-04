@@ -1,6 +1,8 @@
 package api_controllers
 
 import (
+	"encoding/base64"
+
 	"github.com/astaxie/beego"
 	"github.com/hsluoyz/gitstar/api"
 )
@@ -49,9 +51,14 @@ func (c *GlobalController) GetOwe() {
 
 // @Title GetSystemMessages
 // @Description Get the system messages from admin
-// @Success 200 {object} []api.Message The list of Message objects
+// @Success 200 {object} []api.Message The list of Message objects, text is base64-encoded
 // @router /messages [get]
 func (c *GlobalController) GetSystemMessages() {
-	c.Data["json"] = api.GetSystemMessages()
+	messages := api.GetSystemMessages()
+	for i := range messages {
+		messages[i].Text = base64.StdEncoding.EncodeToString([]byte(messages[i].Text))
+	}
+
+	c.Data["json"] = messages
 	c.ServeJSON()
 }
