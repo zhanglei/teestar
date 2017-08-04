@@ -42,11 +42,23 @@ func (c *UsersController) GetUserRepos() {
 	c.ServeJSON()
 }
 
+// @Title GetUserExtendedRepos
+// @Description Get all the repos the user added in GitStar with extended information
+// @Param   user     path    string  true        "The username"
+// @Success 200 {object} api.Repo The Repo object
+// @router /:user/repos/extended [get]
+func (c *UsersController) GetUserExtendedRepos() {
+	user := c.GetString(":user")
+
+	c.Data["json"] = api.GetUserRepoObjects(user)
+	c.ServeJSON()
+}
+
 // @Title AddUserRepo
 // @Description Add a repo for the user
 // @Param   user     path    string  true        "The username"
 // @Param   repo     path    string  true        "The repository name, like user_name.repo_name"
-// @Success 200 {object} controllers.api_controller.Response The response object
+// @Success 200 {object} controllers.api_controller.Response The Response object
 // @router /:user/repos/add/:repo [get]
 func (c *UsersController) AddUserRepo() {
 	var resp Response
@@ -75,7 +87,7 @@ func (c *UsersController) AddUserRepo() {
 // @Description Delete a repo for the user
 // @Param   user     path    string  true        "The username"
 // @Param   repo     path    string  true        "The repository name, like user_name.repo_name"
-// @Success 200 {object} controllers.api_controller.Response The response object
+// @Success 200 {object} controllers.api_controller.Response The Response object
 // @router /:user/repos/delete/:repo [get]
 func (c *UsersController) DeleteUserRepo() {
 	var resp Response
