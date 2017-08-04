@@ -1,6 +1,9 @@
 package api_controllers
 
-import "github.com/hsluoyz/gitstar/api"
+import (
+	"github.com/hsluoyz/gitstar/api"
+	"github.com/hsluoyz/gitstar/util"
+)
 
 // @Title GetUserTargetStatus
 // @Description Get the status between the user and the target
@@ -24,9 +27,9 @@ func (c *UsersController) GetUserTargetStatus() {
 func (c *UsersController) GetUserStatus() {
 	user := c.GetString(":user")
 
-	statusList := api.GetUserStatus(user)
+	util.LogInfo(c.Ctx, "API: [%s] viewed status", user)
 
-	c.Data["json"] = statusList
+	c.Data["json"] = api.GetUserStatus(user)
 	c.ServeJSON()
 }
 
@@ -38,6 +41,8 @@ func (c *UsersController) GetUserStatus() {
 func (c *UsersController) GetUserRecommend() {
 	user := c.GetString(":user")
 
+	util.LogInfo(c.Ctx, "API: [%s] viewed recommend", user)
+
 	c.Data["json"] = api.GetUserRecommend(user)
 	c.ServeJSON()
 }
@@ -45,13 +50,13 @@ func (c *UsersController) GetUserRecommend() {
 // @Title GetUserOwe
 // @Description Get the details that owes user stars
 // @Param   user     path    string  true        "The username"
-// @Success 200 {object} []*api.UserTargetStatus The list of status objects
+// @Success 200 {object} []*api.UserTargetStatus The list of Status objects
 // @router /:user/status/owe [get]
 func (c *UsersController) GetUserOwe() {
 	user := c.GetString(":user")
 
-	statusList := api.GetUserOwe(user)
+	util.LogInfo(c.Ctx, "API: [%s] viewed owe", user)
 
-	c.Data["json"] = statusList
+	c.Data["json"] = api.GetUserOwe(user)
 	c.ServeJSON()
 }

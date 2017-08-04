@@ -4,6 +4,7 @@ import (
 	"strings"
 
 	"github.com/hsluoyz/gitstar/api"
+	"github.com/hsluoyz/gitstar/util"
 )
 
 func getAllUserAndOrganRepos(user string) []string {
@@ -70,13 +71,11 @@ func (c *UsersController) AddUserRepo() {
 	if msg != "" {
 		resp = Response{Code: 0, Msg: msg, Data: ""}
 	} else {
-		affected := api.AddUserRepo(user, repo)
+		api.AddUserRepo(user, repo)
 
-		if affected {
-			resp = Response{Code: 200, Msg: "ok", Data: ""}
-		} else {
-			resp = Response{Code: 200, Msg: "not affected", Data: ""}
-		}
+		util.LogInfo(c.Ctx, "API: [%s] added repo: [%s]", user, repo)
+
+		resp = Response{Code: 200, Msg: "添加项目成功", Data: ""}
 	}
 
 	c.Data["json"] = resp
@@ -99,13 +98,11 @@ func (c *UsersController) DeleteUserRepo() {
 	if msg != "" {
 		resp = Response{Code: 0, Msg: msg, Data: ""}
 	} else {
-		affected := api.DeleteUserRepo(user, repo)
+		api.DeleteUserRepo(user, repo)
 
-		if affected {
-			resp = Response{Code: 200, Msg: "ok", Data: ""}
-		} else {
-			resp = Response{Code: 200, Msg: "not affected", Data: ""}
-		}
+		util.LogInfo(c.Ctx, "API: [%s] deleted repo: [%s]", user, repo)
+
+		resp = Response{Code: 200, Msg: "删除项目成功", Data: ""}
 	}
 
 	c.Data["json"] = resp
