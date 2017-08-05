@@ -46,12 +46,12 @@
             <a href="/swagger/index.html">API文档</a>
           </li>
           <li>
-          <a href="/referrer" rel="noreferrer">Referrer测试</a>
-          </li>
-          <li>
           <a href="/owes">欠赞排行</a>
           </li>
           {{end}}
+          <li>
+          <a href="/qa">常见问题</a>
+          </li>
           <li>
             <a href="/about">关于</a>
           </li>

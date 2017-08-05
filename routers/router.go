@@ -92,6 +92,7 @@ func initView(){
 	beego.Router("/register", &view_controllers.ViewController{}, "POST:Register")
 	beego.Router("/logout", &view_controllers.ViewController{}, "GET:Logout")
 	beego.Router("/about", &view_controllers.ViewController{}, "GET:About")
+	beego.Router("/qa", &view_controllers.ViewController{}, "GET:QuestionAndAnswer")
 
 	beego.Router("/user/setting", &view_controllers.ViewController{}, "GET:SettingPage")
 	beego.Router("/user/setting", &view_controllers.ViewController{}, "POST:Setting")

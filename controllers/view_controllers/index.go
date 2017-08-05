@@ -222,6 +222,20 @@ func (c *ViewController) About() {
 	c.TplName = "about.tpl"
 }
 
+func (c *ViewController) QuestionAndAnswer() {
+	username := c.getUsername()
+	if username != "" {
+		c.Data["IsLogin"] = true
+		c.Data["UserInfo"] = api.GetUser(username)
+	}
+
+	util.LogInfo(c.Ctx, "[%s] viewed about", username)
+
+	c.Data["PageTitle"] = "GitStar - 常见问题"
+	c.Layout = "layout/layout.tpl"
+	c.TplName = "qa.tpl"
+}
+
 type EscapedRepo struct {
 	Repo        string
 	RepoEscaped string
