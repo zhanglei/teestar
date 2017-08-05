@@ -88,7 +88,7 @@
 <div class="container">
   <br>
   <div class="text-center">
-    <p>©2017 GitStar.cn. All Rights Reserved.</p>
+    <p>©2017 GitStar.cn 版权所有 京ICP备16031201号</p>
     {{if .IsLogin}}<a href="/referrer" rel="noreferrer">点击进入Referrer测试</a>{{end}}
   </div>
   <br>
