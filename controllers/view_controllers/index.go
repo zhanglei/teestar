@@ -229,7 +229,7 @@ func (c *ViewController) QuestionAndAnswer() {
 		c.Data["UserInfo"] = api.GetUser(username)
 	}
 
-	util.LogInfo(c.Ctx, "[%s] viewed about", username)
+	util.LogInfo(c.Ctx, "[%s] viewed qa", username)
 
 	c.Data["PageTitle"] = "GitStar - 常见问题"
 	c.Layout = "layout/layout.tpl"
