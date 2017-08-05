@@ -18,6 +18,20 @@ func GetUser(user string) *User {
 	}
 }
 
+func IsUserAdmin(user string) bool {
+	var objUser = User{User: user}
+	has, err := adapter.engine.Get(&objUser)
+	if err != nil {
+		panic(err)
+	}
+
+	if has {
+		return objUser.IsAdmin
+	} else {
+		return false
+	}
+}
+
 func GetExtendedUser(user string) *ExtendedUser {
 	objUser := GetUser(user)
 	if objUser == nil {
