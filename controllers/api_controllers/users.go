@@ -11,12 +11,52 @@ type UsersController struct {
 	beego.Controller
 }
 
+func (c *UsersController) getSessionUser() string {
+	user, ok := c.GetSecureCookie(CookieSecret, CookieKey)
+	if !ok {
+		return ""
+	}
+
+	return user
+}
+
+func (c *UsersController) setSessionUser(user string) {
+	c.SetSecureCookie(CookieSecret, CookieKey, user)
+}
+
+func (c *UsersController) requireLogin() bool {
+	if c.getSessionUser() == "" {
+		c.Ctx.ResponseWriter.WriteHeader(403)
+		c.Ctx.ResponseWriter.Write([]byte("请先登录"))
+		return true
+	}
+
+	return false
+}
+
+func (c *UsersController) requireAdmin() bool {
+	if c.requireLogin() {
+		return true
+	} else if !api.IsUserAdmin(c.getSessionUser()) {
+		c.Ctx.ResponseWriter.WriteHeader(403)
+		c.Ctx.ResponseWriter.Write([]byte("当前登录用户不是管理员，无权限执行此操作"))
+		return true
+	}
+
+	return false
+}
+
 // @Title GetUsers
 // @Description Get user list
 // @Success 200 {[]string}
 // @router / [get]
 func (c *UsersController) GetUsers() {
+	if c.requireAdmin() {
+		return
+	}
+
 	users := api.GetUsers()
+
 	c.Data["json"] = users
 	c.ServeJSON()
 }
@@ -27,6 +67,10 @@ func (c *UsersController) GetUsers() {
 // @Success 200 {object} api.User The User object
 // @router /:user [get]
 func (c *UsersController) GetUser() {
+	if c.requireLogin() {
+		return
+	}
+
 	user := c.GetString(":user")
 
 	objUser := api.GetUser(user)
@@ -41,6 +85,10 @@ func (c *UsersController) GetUser() {
 // @Success 200 {object} api.ExtendedUser The ExtendedUser object
 // @router /:user/extended [get]
 func (c *UsersController) GetExtendedUser() {
+	if c.requireLogin() {
+		return
+	}
+
 	user := c.GetString(":user")
 
 	objUser := api.GetExtendedUser(user)
