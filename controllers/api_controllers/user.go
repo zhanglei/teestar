@@ -42,6 +42,14 @@ func (c *UserController) setSessionUser(user string) {
 // @router /register [post]
 func (c *UserController) Register() {
 	var resp Response
+
+	if c.getSessionUser() != "" {
+		resp = Response{Code: 0, Msg: "请先注销当前用户后再注册", Data: c.getSessionUser()}
+		c.Data["json"] = resp
+		c.ServeJSON()
+		return
+	}
+
 	user, password := c.Input().Get("username"), c.Input().Get("password")
 
 	msg := api.CheckUserRegister(user, password)
@@ -68,6 +76,14 @@ func (c *UserController) Register() {
 // @router /login [post]
 func (c *UserController) Login() {
 	var resp Response
+
+	if c.getSessionUser() != "" {
+		resp = Response{Code: 0, Msg: "请先注销当前用户后再登录", Data: c.getSessionUser()}
+		c.Data["json"] = resp
+		c.ServeJSON()
+		return
+	}
+
 	user, password := c.Input().Get("username"), c.Input().Get("password")
 
 	msg := api.CheckUserLogin(user, password)
