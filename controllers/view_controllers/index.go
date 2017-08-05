@@ -13,17 +13,17 @@ type ViewController struct {
 	beego.Controller
 }
 
-func (c *ViewController) getUsername() string {
-	username := c.GetSession("username")
-	if username == nil {
+func (c *ViewController) getSessionUser() string {
+	user := c.GetSession("username")
+	if user == nil {
 		return ""
 	}
 
-	return username.(string)
+	return user.(string)
 }
 
-func (c *ViewController) setUsername(username string) {
-	c.SetSession("username", username)
+func (c *ViewController) setSessionUser(user string) {
+	c.SetSession("username", user)
 }
 
 //首页
@@ -31,15 +31,15 @@ func (c *ViewController) Index() {
 	beego.ReadFromRequest(&c.Controller)
 	flash := beego.NewFlash()
 
-	username := c.getUsername()
-	if username == "" {
+	user := c.getSessionUser()
+	if user == "" {
 		flash.Error("请先登录")
 		flash.Store(&c.Controller)
 		c.Redirect("/login", 302)
 		return
 	}
 
-	objUser := api.GetExtendedUser(username)
+	objUser := api.GetExtendedUser(user)
 
 	if objUser.IsDisabled {
 		flash.Error("该账户已被管理员禁用，项目已处于隐藏状态。有问题请联系管理员，QQ群：646373152")
@@ -60,9 +60,9 @@ func (c *ViewController) Index() {
 	c.Data["IsLogin"] = true
 	c.Data["UserInfo"] = objUser
 
-	c.Data["Recommend"] = api.GetUserRecommend(username)
+	c.Data["Recommend"] = api.GetUserRecommend(user)
 
-	util.LogInfo(c.Ctx, "[%s] viewed homepage", username)
+	util.LogInfo(c.Ctx, "[%s] viewed homepage", user)
 
 	c.Data["PageTitle"] = "GitStar - GitHub项目点赞"
 	c.Layout = "layout/layout.tpl"
@@ -73,8 +73,8 @@ func (c *ViewController) OwePage() {
 	beego.ReadFromRequest(&c.Controller)
 	flash := beego.NewFlash()
 
-	username := c.getUsername()
-	if username == "" {
+	user := c.getSessionUser()
+	if user == "" {
 		flash.Error("请先登录")
 		flash.Store(&c.Controller)
 		c.Redirect("/login", 302)
@@ -82,11 +82,11 @@ func (c *ViewController) OwePage() {
 	}
 
 	c.Data["IsLogin"] = true
-	c.Data["UserInfo"] = api.GetExtendedUser(username)
+	c.Data["UserInfo"] = api.GetExtendedUser(user)
 
-	c.Data["Owe"] = api.GetUserOwe(username)
+	c.Data["Owe"] = api.GetUserOwe(user)
 
-	util.LogInfo(c.Ctx, "[%s] viewed owe page", username)
+	util.LogInfo(c.Ctx, "[%s] viewed owe page", user)
 
 	c.Data["PageTitle"] = "GitStar - 欠我赞的人"
 	c.Layout = "layout/layout.tpl"
@@ -97,8 +97,8 @@ func (c *ViewController) OwesPage() {
 	beego.ReadFromRequest(&c.Controller)
 	flash := beego.NewFlash()
 
-	username := c.getUsername()
-	if username == "" {
+	user := c.getSessionUser()
+	if user == "" {
 		flash.Error("请先登录")
 		flash.Store(&c.Controller)
 		c.Redirect("/login", 302)
@@ -106,11 +106,11 @@ func (c *ViewController) OwesPage() {
 	}
 
 	c.Data["IsLogin"] = true
-	c.Data["UserInfo"] = api.GetUser(username)
+	c.Data["UserInfo"] = api.GetUser(user)
 
 	c.Data["Owe"] = api.GetOwe()
 
-	util.LogInfo(c.Ctx, "[%s] viewed owe ranking", username)
+	util.LogInfo(c.Ctx, "[%s] viewed owe ranking", user)
 
 	c.Data["PageTitle"] = "GitStar - 欠赞排行"
 	c.Layout = "layout/layout.tpl"
@@ -120,24 +120,24 @@ func (c *ViewController) OwesPage() {
 func (c *ViewController) Update() {
 	flash := beego.NewFlash()
 
-	username := c.getUsername()
-	if username == "" {
+	user := c.getSessionUser()
+	if user == "" {
 		flash.Error("请先登录")
 		flash.Store(&c.Controller)
 		c.Redirect("/login", 302)
 		return
 	}
 
-	api.UpdateUserStarringRepos(username)
+	api.UpdateUserStarringRepos(user)
 
-	util.LogInfo(c.Ctx, "[%s] updated his stars", username)
+	util.LogInfo(c.Ctx, "[%s] updated his stars", user)
 	c.Redirect("/", 302)
 }
 
 //登录页
 func (c *ViewController) LoginPage() {
-	username := c.getUsername()
-	if username != "" {
+	user := c.getSessionUser()
+	if user != "" {
 		c.Redirect("/", 302)
 	} else {
 		beego.ReadFromRequest(&c.Controller)
@@ -150,25 +150,25 @@ func (c *ViewController) LoginPage() {
 //验证登录
 func (c *ViewController) Login() {
 	flash := beego.NewFlash()
-	username, password := c.Input().Get("username"), c.Input().Get("password")
+	user, password := c.Input().Get("username"), c.Input().Get("password")
 
-	msg := api.CheckUserLogin(username, password)
+	msg := api.CheckUserLogin(user, password)
 	if msg != "" {
 		flash.Error(msg)
 		flash.Store(&c.Controller)
 		c.Redirect("/login", 302)
 	} else {
-		c.setUsername(username)
+		c.setSessionUser(user)
 
-		util.LogInfo(c.Ctx, "[%s] logged in", username)
+		util.LogInfo(c.Ctx, "[%s] logged in", user)
 		c.Redirect("/", 302)
 	}
 }
 
 //注册页
 func (c *ViewController) RegisterPage() {
-	username := c.getUsername()
-	if username != "" {
+	user := c.getSessionUser()
+	if user != "" {
 		c.Redirect("/", 302)
 	} else {
 		beego.ReadFromRequest(&c.Controller)
@@ -181,41 +181,41 @@ func (c *ViewController) RegisterPage() {
 //验证注册
 func (c *ViewController) Register() {
 	flash := beego.NewFlash()
-	username, password := c.Input().Get("username"), c.Input().Get("password")
+	user, password := c.Input().Get("username"), c.Input().Get("password")
 
-	msg := api.CheckUserRegister(username, password)
+	msg := api.CheckUserRegister(user, password)
 	if msg != "" {
 		flash.Error(msg)
 		flash.Store(&c.Controller)
 		c.Redirect("/register", 302)
 	} else {
-		api.AddUser(username, password)
+		api.AddUser(user, password)
 
-		c.setUsername(username)
+		c.setSessionUser(user)
 
-		util.LogInfo(c.Ctx, "[%s] is registered as new user", username)
+		util.LogInfo(c.Ctx, "[%s] is registered as new user", user)
 		c.Redirect("/user/setting", 302)
 	}
 }
 
 //登出
 func (c *ViewController) Logout() {
-	username := c.getUsername()
-	util.LogInfo(c.Ctx, "[%s] logged off", username)
+	user := c.getSessionUser()
+	util.LogInfo(c.Ctx, "[%s] logged off", user)
 
-	c.setUsername("")
+	c.setSessionUser("")
 	c.Redirect("/", 302)
 }
 
 //关于
 func (c *ViewController) About() {
-	username := c.getUsername()
-	if username != "" {
+	user := c.getSessionUser()
+	if user != "" {
 		c.Data["IsLogin"] = true
-		c.Data["UserInfo"] = api.GetUser(username)
+		c.Data["UserInfo"] = api.GetUser(user)
 	}
 
-	util.LogInfo(c.Ctx, "[%s] viewed about", username)
+	util.LogInfo(c.Ctx, "[%s] viewed about", user)
 
 	c.Data["PageTitle"] = "GitStar - 关于"
 	c.Layout = "layout/layout.tpl"
@@ -223,13 +223,13 @@ func (c *ViewController) About() {
 }
 
 func (c *ViewController) QuestionAndAnswer() {
-	username := c.getUsername()
-	if username != "" {
+	user := c.getSessionUser()
+	if user != "" {
 		c.Data["IsLogin"] = true
-		c.Data["UserInfo"] = api.GetUser(username)
+		c.Data["UserInfo"] = api.GetUser(user)
 	}
 
-	util.LogInfo(c.Ctx, "[%s] viewed qa", username)
+	util.LogInfo(c.Ctx, "[%s] viewed qa", user)
 
 	c.Data["PageTitle"] = "GitStar - 常见问题"
 	c.Layout = "layout/layout.tpl"
@@ -245,8 +245,8 @@ func (c *ViewController) SettingPage() {
 	beego.ReadFromRequest(&c.Controller)
 	flash := beego.NewFlash()
 
-	username := c.getUsername()
-	if username == "" {
+	user := c.getSessionUser()
+	if user == "" {
 		flash.Error("请先登录")
 		flash.Store(&c.Controller)
 		c.Redirect("/login", 302)
@@ -254,8 +254,8 @@ func (c *ViewController) SettingPage() {
 	}
 
 	c.Data["IsLogin"] = true
-	c.Data["UserInfo"] = api.GetUser(username)
-	repos := api.GetUserRepos(username)
+	c.Data["UserInfo"] = api.GetUser(user)
+	repos := api.GetUserRepos(user)
 	c.Data["Repos"] = repos
 
 	escapedRepos := []EscapedRepo{}
@@ -265,7 +265,7 @@ func (c *ViewController) SettingPage() {
 	}
 	c.Data["EscapedRepos"] = escapedRepos
 
-	util.LogInfo(c.Ctx, "[%s] viewed setting", username)
+	util.LogInfo(c.Ctx, "[%s] viewed setting", user)
 
 	c.Data["PageTitle"] = "GitStar - 用户设置"
 	c.Layout = "layout/layout.tpl"
@@ -275,8 +275,8 @@ func (c *ViewController) SettingPage() {
 func (c *ViewController) Setting() {
 	flash := beego.NewFlash()
 
-	username := c.getUsername()
-	if username == "" {
+	user := c.getSessionUser()
+	if user == "" {
 		flash.Error("请先登录")
 		flash.Store(&c.Controller)
 		c.Redirect("/login", 302)
@@ -285,7 +285,7 @@ func (c *ViewController) Setting() {
 
 	hitter := c.Input().Get("hitter")
 
-	msg := api.CheckUserUpdateHitter(username, hitter)
+	msg := api.CheckUserUpdateHitter(user, hitter)
 	if msg != "" {
 		flash.Error(msg)
 		flash.Store(&c.Controller)
@@ -293,7 +293,7 @@ func (c *ViewController) Setting() {
 		return
 	}
 
-	api.UpdateUserHitter(username, hitter)
+	api.UpdateUserHitter(user, hitter)
 
 	qq := c.Input().Get("qq")
 
@@ -305,15 +305,15 @@ func (c *ViewController) Setting() {
 		return
 	}
 
-	api.UpdateUserQQ(username, qq)
+	api.UpdateUserQQ(user, qq)
 
 	nickname := c.Input().Get("nickname")
-	api.UpdateUserNickname(username, nickname)
+	api.UpdateUserNickname(user, nickname)
 
 	email := c.Input().Get("email")
-	api.UpdateUserEmail(username, email)
+	api.UpdateUserEmail(user, email)
 
-	util.LogInfo(c.Ctx, "[%s] updated his setting", username)
+	util.LogInfo(c.Ctx, "[%s] updated his setting", user)
 
 	flash.Success("更新资料成功")
 	flash.Store(&c.Controller)
@@ -323,8 +323,8 @@ func (c *ViewController) Setting() {
 func (c *ViewController) ChangeUserPassword() {
 	flash := beego.NewFlash()
 
-	username := c.getUsername()
-	if username == "" {
+	user := c.getSessionUser()
+	if user == "" {
 		flash.Error("请先登录")
 		flash.Store(&c.Controller)
 		c.Redirect("/login", 302)
@@ -334,15 +334,15 @@ func (c *ViewController) ChangeUserPassword() {
 	oldPassword := c.Input().Get("oldpassword")
 	newPassword := c.Input().Get("newpassword")
 
-	msg := api.CheckUserChangePassword(username, oldPassword, newPassword)
+	msg := api.CheckUserChangePassword(user, oldPassword, newPassword)
 	if msg != "" {
 		flash.Error(msg)
 		flash.Store(&c.Controller)
 		c.Redirect("/user/setting", 302)
 	} else {
-		api.ChangeUserPassword(username, newPassword)
+		api.ChangeUserPassword(user, newPassword)
 
-		util.LogInfo(c.Ctx, "[%s] changed his password", username)
+		util.LogInfo(c.Ctx, "[%s] changed his password", user)
 
 		flash.Success("修改密码成功")
 		flash.Store(&c.Controller)
@@ -354,15 +354,15 @@ func (c *ViewController) AddRepoPage() {
 	beego.ReadFromRequest(&c.Controller)
 	flash := beego.NewFlash()
 
-	username := c.getUsername()
-	if username == "" {
+	user := c.getSessionUser()
+	if user == "" {
 		flash.Error("请先登录")
 		flash.Store(&c.Controller)
 		c.Redirect("/login", 302)
 		return
 	}
 
-	objUser := api.GetUser(username)
+	objUser := api.GetUser(user)
 	if objUser.QQ == "" {
 		flash.Error("填写QQ号后才能添加项目")
 		flash.Store(&c.Controller)
@@ -371,7 +371,7 @@ func (c *ViewController) AddRepoPage() {
 	}
 
 	c.Data["IsLogin"] = true
-	c.Data["UserInfo"] = api.GetUser(username)
+	c.Data["UserInfo"] = api.GetUser(user)
 
 	c.Data["PageTitle"] = "GitStar - 添加项目"
 	c.Layout = "layout/layout.tpl"
@@ -390,8 +390,8 @@ func formatRepoAddress(repo string) string {
 func (c *ViewController) AddRepo() {
 	flash := beego.NewFlash()
 
-	username := c.getUsername()
-	if username == "" {
+	user := c.getSessionUser()
+	if user == "" {
 		flash.Error("请先登录")
 		flash.Store(&c.Controller)
 		c.Redirect("/login", 302)
@@ -401,7 +401,7 @@ func (c *ViewController) AddRepo() {
 	repo := c.GetString("name")
 	repo = formatRepoAddress(repo)
 
-	msg := api.CheckAddRepo(username, repo)
+	msg := api.CheckAddRepo(user, repo)
 	if msg != "" {
 		flash.Error(msg)
 		flash.Store(&c.Controller)
@@ -409,9 +409,9 @@ func (c *ViewController) AddRepo() {
 		return
 	}
 
-	api.AddUserRepo(username, repo)
+	api.AddUserRepo(user, repo)
 
-	util.LogInfo(c.Ctx, "[%s] added repo: [%s]", username, repo)
+	util.LogInfo(c.Ctx, "[%s] added repo: [%s]", user, repo)
 
 	flash.Success("添加项目成功")
 	flash.Store(&c.Controller)
@@ -421,8 +421,8 @@ func (c *ViewController) AddRepo() {
 func (c *ViewController) DeleteRepo() {
 	flash := beego.NewFlash()
 
-	username := c.getUsername()
-	if username == "" {
+	user := c.getSessionUser()
+	if user == "" {
 		flash.Error("请先登录")
 		flash.Store(&c.Controller)
 		c.Redirect("/login", 302)
@@ -432,7 +432,7 @@ func (c *ViewController) DeleteRepo() {
 	repo := c.GetString(":repo")
 	repo = strings.Replace(repo, ".", "/", -1)
 
-	msg := api.CheckDeleteRepo(username, repo)
+	msg := api.CheckDeleteRepo(user, repo)
 	if msg != "" {
 		flash.Error(msg)
 		flash.Store(&c.Controller)
@@ -440,9 +440,9 @@ func (c *ViewController) DeleteRepo() {
 		return
 	}
 
-	api.DeleteUserRepo(username, repo)
+	api.DeleteUserRepo(user, repo)
 
-	util.LogInfo(c.Ctx, "[%s] deleted repo: [%s]", username, repo)
+	util.LogInfo(c.Ctx, "[%s] deleted repo: [%s]", user, repo)
 
 	flash.Success("删除项目成功")
 	flash.Store(&c.Controller)
@@ -453,8 +453,8 @@ func (c *ViewController) UserPage() {
 	beego.ReadFromRequest(&c.Controller)
 	flash := beego.NewFlash()
 
-	username := c.getUsername()
-	if username == "" {
+	user := c.getSessionUser()
+	if user == "" {
 		flash.Error("请先登录")
 		flash.Store(&c.Controller)
 		c.Redirect("/login", 302)
@@ -463,10 +463,10 @@ func (c *ViewController) UserPage() {
 
 	target := c.GetString(":user")
 
-	util.LogInfo(c.Ctx, "[%s] viewed [%s]'s profile", username, target)
+	util.LogInfo(c.Ctx, "[%s] viewed [%s]'s profile", user, target)
 
 	c.Data["IsLogin"] = true
-	c.Data["UserInfo"] = api.GetUser(username)
+	c.Data["UserInfo"] = api.GetUser(user)
 
 	c.Data["TargetInfo"] = api.GetExtendedUser(target)
 
@@ -479,8 +479,8 @@ func (c *ViewController) UsersPage() {
 	beego.ReadFromRequest(&c.Controller)
 	flash := beego.NewFlash()
 
-	username := c.getUsername()
-	if username == "" {
+	user := c.getSessionUser()
+	if user == "" {
 		flash.Error("请先登录")
 		flash.Store(&c.Controller)
 		c.Redirect("/login", 302)
@@ -491,10 +491,10 @@ func (c *ViewController) UsersPage() {
 
 	c.Data["UserInfos"] = users
 
-	util.LogInfo(c.Ctx, "[%s] viewed user list", username)
+	util.LogInfo(c.Ctx, "[%s] viewed user list", user)
 
 	c.Data["IsLogin"] = true
-	c.Data["UserInfo"] = api.GetUser(username)
+	c.Data["UserInfo"] = api.GetUser(user)
 
 	c.Data["PageTitle"] = "GitStar - 用户列表"
 	c.Layout = "layout/layout.tpl"
@@ -505,8 +505,8 @@ func (c *ViewController) CountPage() {
 	beego.ReadFromRequest(&c.Controller)
 	flash := beego.NewFlash()
 
-	username := c.getUsername()
-	if username == "" {
+	user := c.getSessionUser()
+	if user == "" {
 		flash.Error("请先登录")
 		flash.Store(&c.Controller)
 		c.Redirect("/login", 302)
@@ -517,10 +517,10 @@ func (c *ViewController) CountPage() {
 
 	c.Data["UserInfos"] = users
 
-	util.LogInfo(c.Ctx, "[%s] viewed count page", username)
+	util.LogInfo(c.Ctx, "[%s] viewed count page", user)
 
 	c.Data["IsLogin"] = true
-	c.Data["UserInfo"] = api.GetUser(username)
+	c.Data["UserInfo"] = api.GetUser(user)
 
 	c.Data["PageTitle"] = "GitStar - 用户统计数据"
 	c.Layout = "layout/layout.tpl"
@@ -531,8 +531,8 @@ func (c *ViewController) RepoPage() {
 	beego.ReadFromRequest(&c.Controller)
 	flash := beego.NewFlash()
 
-	username := c.getUsername()
-	if username == "" {
+	user := c.getSessionUser()
+	if user == "" {
 		flash.Error("请先登录")
 		flash.Store(&c.Controller)
 		c.Redirect("/login", 302)
@@ -540,12 +540,12 @@ func (c *ViewController) RepoPage() {
 	}
 
 	c.Data["IsLogin"] = true
-	c.Data["UserInfo"] = api.GetExtendedUser(username)
+	c.Data["UserInfo"] = api.GetExtendedUser(user)
 
-	repos := api.GetUserRepoObjects(username)
+	repos := api.GetUserRepoObjects(user)
 	c.Data["Repos"] = repos
 
-	util.LogInfo(c.Ctx, "[%s] viewed repo page", username)
+	util.LogInfo(c.Ctx, "[%s] viewed repo page", user)
 
 	c.Data["PageTitle"] = "GitStar - 我的项目"
 	c.Layout = "layout/layout.tpl"
@@ -556,8 +556,8 @@ func (c *ViewController) ReferrerPage() {
 	beego.ReadFromRequest(&c.Controller)
 	flash := beego.NewFlash()
 
-	username := c.getUsername()
-	if username == "" {
+	user := c.getSessionUser()
+	if user == "" {
 		flash.Error("请先登录")
 		flash.Store(&c.Controller)
 		c.Redirect("/login", 302)
@@ -565,9 +565,9 @@ func (c *ViewController) ReferrerPage() {
 	}
 
 	c.Data["IsLogin"] = true
-	c.Data["UserInfo"] = api.GetUser(username)
+	c.Data["UserInfo"] = api.GetUser(user)
 
-	util.LogInfo(c.Ctx, "[%s] viewed referrer page", username)
+	util.LogInfo(c.Ctx, "[%s] viewed referrer page", user)
 
 	c.Data["PageTitle"] = "GitStar - Referrer测试"
 	c.Layout = "layout/layout.tpl"
@@ -578,8 +578,8 @@ func (c *ViewController) LogPage() {
 	beego.ReadFromRequest(&c.Controller)
 	flash := beego.NewFlash()
 
-	username := c.getUsername()
-	if username == "" {
+	user := c.getSessionUser()
+	if user == "" {
 		flash.Error("请先登录")
 		flash.Store(&c.Controller)
 		c.Redirect("/login", 302)
@@ -587,10 +587,10 @@ func (c *ViewController) LogPage() {
 	}
 
 	c.Data["IsLogin"] = true
-	c.Data["UserInfo"] = api.GetUser(username)
+	c.Data["UserInfo"] = api.GetUser(user)
 	c.Data["Log"] = util.ReadLog()
 
-	util.LogInfo(c.Ctx, "[%s] viewed log page", username)
+	util.LogInfo(c.Ctx, "[%s] viewed log page", user)
 
 	c.Data["PageTitle"] = "GitStar - 系统日志"
 	c.Layout = "layout/layout.tpl"
