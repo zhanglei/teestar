@@ -24,6 +24,10 @@ func getAllUserAndOrganRepos(user string) []string {
 // @Success 200 {[]string}
 // @router /:user/repos/all [get]
 func (c *UsersController) GetUserAllRepos() {
+	if c.requireLogin() {
+		return
+	}
+
 	user := c.GetString(":user")
 
 	repos := getAllUserAndOrganRepos(user)
@@ -37,6 +41,10 @@ func (c *UsersController) GetUserAllRepos() {
 // @Success 200 {[]string}
 // @router /:user/repos [get]
 func (c *UsersController) GetUserRepos() {
+	if c.requireLogin() {
+		return
+	}
+
 	user := c.GetString(":user")
 
 	c.Data["json"] = api.GetUserRepos(user)
@@ -49,6 +57,10 @@ func (c *UsersController) GetUserRepos() {
 // @Success 200 {object} api.Repo The Repo object
 // @router /:user/repos/extended [get]
 func (c *UsersController) GetUserExtendedRepos() {
+	if c.requireLogin() {
+		return
+	}
+
 	user := c.GetString(":user")
 
 	c.Data["json"] = api.GetUserRepoObjects(user)

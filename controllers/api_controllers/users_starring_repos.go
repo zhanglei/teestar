@@ -11,6 +11,10 @@ import (
 // @Success 200 {[]string}
 // @router /:user/starring-repos [get]
 func (c *UsersController) GetUserStarringRepos() {
+	if c.requireLogin() {
+		return
+	}
+
 	user := c.GetString(":user")
 
 	c.Data["json"] = api.GetUserStarringRepos(user)
@@ -23,6 +27,10 @@ func (c *UsersController) GetUserStarringRepos() {
 // @Success 200 {object} controllers.api_controller.Response The Response object
 // @router /:user/starring-repos/update [post]
 func (c *UsersController) UpdateUserStarringRepos() {
+	if c.requireLogin() {
+		return
+	}
+
 	var resp Response
 	user := c.GetString(":user")
 

@@ -113,6 +113,10 @@ func (c *UserController) Logout() {
 func (c *UserController) ChangePassword() {
 	var resp Response
 	user := c.Input().Get("username")
+	if c.requireUser(user) {
+		return
+	}
+
 	oldPassword := c.Input().Get("oldpassword")
 	newPassword := c.Input().Get("newpassword")
 

@@ -3,13 +3,12 @@ package api_controllers
 import (
 	"encoding/base64"
 
-	"github.com/astaxie/beego"
 	"github.com/hsluoyz/gitstar/api"
 )
 
 // Global API
 type GlobalController struct {
-	beego.Controller
+	APIController
 }
 
 // @Title UpdateStarringRepos
@@ -17,6 +16,10 @@ type GlobalController struct {
 // @Success 200 {object} controllers.api_controller.Response The Response object
 // @router /starring-repos/update [post]
 func (c *GlobalController) UpdateStarringRepos() {
+	if c.requireLogin() {
+		return
+	}
+
 	var resp Response
 
 	affected := api.UpdateStarringRepos()
@@ -36,6 +39,10 @@ func (c *GlobalController) UpdateStarringRepos() {
 // @Success 200 {object} []api.Entry2 The list of Entry2 objects
 // @router /recommend [get]
 func (c *GlobalController) GetRecommend() {
+	if c.requireLogin() {
+		return
+	}
+
 	c.Data["json"] = api.GetRecommend()
 	c.ServeJSON()
 }
@@ -45,6 +52,10 @@ func (c *GlobalController) GetRecommend() {
 // @Success 200 {object} []*api.UserTargetStatus The list of UserTargetStatus objects
 // @router /owe [get]
 func (c *GlobalController) GetOwe() {
+	if c.requireLogin() {
+		return
+	}
+
 	c.Data["json"] = api.GetOwe()
 	c.ServeJSON()
 }
@@ -54,6 +65,10 @@ func (c *GlobalController) GetOwe() {
 // @Success 200 {object} []api.Message The list of Message objects, text is base64-encoded
 // @router /messages [get]
 func (c *GlobalController) GetSystemMessages() {
+	if c.requireLogin() {
+		return
+	}
+
 	messages := api.GetSystemMessages()
 	for i := range messages {
 		messages[i].Text = base64.StdEncoding.EncodeToString([]byte(messages[i].Text))

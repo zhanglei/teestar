@@ -12,6 +12,10 @@ import (
 // @Success 200 {object} api.UserTargetStatus The Status object
 // @router /:user/status/targets/:target [get]
 func (c *UsersController) GetUserTargetStatus() {
+	if c.requireLogin() {
+		return
+	}
+
 	user := c.GetString(":user")
 	target := c.GetString(":target")
 
@@ -25,6 +29,10 @@ func (c *UsersController) GetUserTargetStatus() {
 // @Success 200 {object} []*api.UserTargetStatus The list of Status objects
 // @router /:user/status [get]
 func (c *UsersController) GetUserStatus() {
+	if c.requireLogin() {
+		return
+	}
+
 	user := c.GetString(":user")
 
 	util.LogInfo(c.Ctx, "API: [%s] viewed status", user)
@@ -39,6 +47,10 @@ func (c *UsersController) GetUserStatus() {
 // @Success 200 {object} []api.Entry The list of Entry objects
 // @router /:user/status/recommend [get]
 func (c *UsersController) GetUserRecommend() {
+	if c.requireLogin() {
+		return
+	}
+
 	user := c.GetString(":user")
 
 	util.LogInfo(c.Ctx, "API: [%s] viewed recommend", user)
@@ -53,6 +65,10 @@ func (c *UsersController) GetUserRecommend() {
 // @Success 200 {object} []*api.UserTargetStatus The list of Status objects
 // @router /:user/status/owe [get]
 func (c *UsersController) GetUserOwe() {
+	if c.requireLogin() {
+		return
+	}
+
 	user := c.GetString(":user")
 
 	util.LogInfo(c.Ctx, "API: [%s] viewed owe", user)
