@@ -62,8 +62,12 @@ func (c *UsersController) GetUserExtendedRepos() {
 // @Success 200 {object} controllers.api_controller.Response The Response object
 // @router /:user/repos/add [post]
 func (c *UsersController) AddUserRepo() {
-	var resp Response
 	user := c.GetString(":user")
+	if c.requireUser(user) {
+		return
+	}
+
+	var resp Response
 	repo := c.Input().Get("repo")
 
 	msg := api.CheckAddRepo(user, repo)
@@ -88,8 +92,12 @@ func (c *UsersController) AddUserRepo() {
 // @Success 200 {object} controllers.api_controller.Response The Response object
 // @router /:user/repos/delete [post]
 func (c *UsersController) DeleteUserRepo() {
-	var resp Response
 	user := c.GetString(":user")
+	if c.requireUser(user) {
+		return
+	}
+
+	var resp Response
 	repo := c.Input().Get("repo")
 
 	msg := api.CheckDeleteRepo(user, repo)
