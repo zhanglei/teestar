@@ -1,8 +1,6 @@
 package api_controllers
 
 import (
-	"github.com/astaxie/beego"
-
 	"github.com/hsluoyz/gitstar/api"
 	"github.com/hsluoyz/gitstar/util"
 )
@@ -18,20 +16,7 @@ var CookieKey    string = "gitstar_username"
 
 // User API
 type UserController struct {
-	beego.Controller
-}
-
-func (c *UserController) getSessionUser() string {
-	user, ok := c.GetSecureCookie(CookieSecret, CookieKey)
-	if !ok {
-		return ""
-	}
-
-	return user
-}
-
-func (c *UserController) setSessionUser(user string) {
-	c.SetSecureCookie(CookieSecret, CookieKey, user)
+	APIController
 }
 
 // @Title Register
