@@ -34,6 +34,18 @@ func (c *UsersController) requireLogin() bool {
 	return false
 }
 
+func (c *UsersController) requireUser(user string) bool {
+	if c.requireLogin() {
+		return true
+	} else if c.getSessionUser() != user {
+		c.Ctx.ResponseWriter.WriteHeader(403)
+		c.Ctx.ResponseWriter.Write([]byte("当前登录用户无权限为其他用户执行此操作"))
+		return true
+	}
+
+	return false
+}
+
 func (c *UsersController) requireAdmin() bool {
 	if c.requireLogin() {
 		return true
@@ -106,8 +118,12 @@ func (c *UsersController) GetExtendedUser() {
 // @Success 200 {object} controllers.api_controller.Response The Response object
 // @router /:user/update [post]
 func (c *UsersController) UpdateUser() {
-	var resp Response
 	user := c.GetString(":user")
+	if c.requireUser(user) {
+		return
+	}
+
+	var resp Response
 	hitter := c.Input().Get("hitter")
 	qq := c.Input().Get("qq")
 	nickname := c.Input().Get("nickname")
