@@ -21,6 +21,22 @@
         </div>
       </div>
     </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        他的项目
+      </div>
+      <div class="table-responsive">
+        <table class="table table-striped table-responsive">
+          <tbody>
+          {{range .TargetRepos}}
+          <tr>
+            <td><a rel="noreferrer" target="_blank" href="https://github.com/{{.Name}}">{{.Name}}：获得 <span class="label label-default">{{len .Stargazers}}</span> 个赞</a></td>
+          </tr>
+          {{end}}
+          </tbody>
+        </table>
+      </div>
+    </div>
     {{else}}
     <div class="panel panel-default">
       <div class="panel-body">用户不存在</div>

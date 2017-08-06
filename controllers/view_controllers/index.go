@@ -470,6 +470,7 @@ func (c *ViewController) UserPage() {
 	c.Data["UserInfo"] = api.GetUser(user)
 
 	c.Data["TargetInfo"] = api.GetExtendedUser(target)
+	c.Data["TargetRepos"] = api.GetUserRepoObjects(target)
 
 	c.Data["PageTitle"] = "GitStar - 用户：" + target
 	c.Layout = "layout/layout.tpl"
@@ -543,8 +544,7 @@ func (c *ViewController) RepoPage() {
 	c.Data["IsLogin"] = true
 	c.Data["UserInfo"] = api.GetExtendedUser(user)
 
-	repos := api.GetUserRepoObjects(user)
-	c.Data["Repos"] = repos
+	c.Data["Repos"] = api.GetUserRepoObjects(user)
 
 	util.LogInfo(c.Ctx, "[%s] viewed repo page", user)
 
