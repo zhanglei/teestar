@@ -5,24 +5,21 @@ import (
 	"github.com/hsluoyz/gitstar/api"
 )
 
-var CookieSecret string = "gitstar1qaz2wsx"
-var CookieKey    string = "gitstar_username"
-
 type BaseController struct {
 	beego.Controller
 }
 
 func (c *BaseController) GetSessionUser() string {
-	user, ok := c.GetSecureCookie(CookieSecret, CookieKey)
-	if !ok {
+	user := c.GetSession("username")
+	if user == nil {
 		return ""
 	}
 
-	return user
+	return user.(string)
 }
 
 func (c *BaseController) SetSessionUser(user string) {
-	c.SetSecureCookie(CookieSecret, CookieKey, user)
+	c.SetSession("username", user)
 }
 
 func (c *BaseController) RequireLogin() bool {
