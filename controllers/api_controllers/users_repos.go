@@ -24,7 +24,7 @@ func getAllUserAndOrganRepos(user string) []string {
 // @Success 200 {[]string}
 // @router /:user/repos/all [get]
 func (c *UsersController) GetUserAllRepos() {
-	if c.requireLogin() {
+	if c.RequireLogin() {
 		return
 	}
 
@@ -41,7 +41,7 @@ func (c *UsersController) GetUserAllRepos() {
 // @Success 200 {[]string}
 // @router /:user/repos [get]
 func (c *UsersController) GetUserRepos() {
-	if c.requireLogin() {
+	if c.RequireLogin() {
 		return
 	}
 
@@ -57,7 +57,7 @@ func (c *UsersController) GetUserRepos() {
 // @Success 200 {object} api.Repo The Repo object
 // @router /:user/repos/extended [get]
 func (c *UsersController) GetUserExtendedRepos() {
-	if c.requireLogin() {
+	if c.RequireLogin() {
 		return
 	}
 
@@ -75,7 +75,7 @@ func (c *UsersController) GetUserExtendedRepos() {
 // @router /:user/repos/add [post]
 func (c *UsersController) AddUserRepo() {
 	user := c.GetString(":user")
-	if c.requireUser(user) {
+	if c.RequireUser(user) {
 		return
 	}
 
@@ -105,7 +105,7 @@ func (c *UsersController) AddUserRepo() {
 // @router /:user/repos/delete [post]
 func (c *UsersController) DeleteUserRepo() {
 	user := c.GetString(":user")
-	if c.requireUser(user) {
+	if c.RequireUser(user) {
 		return
 	}
 

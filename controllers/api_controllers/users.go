@@ -15,7 +15,7 @@ type UsersController struct {
 // @Success 200 {[]string}
 // @router / [get]
 func (c *UsersController) GetUsers() {
-	if c.requireAdmin() {
+	if c.RequireAdmin() {
 		return
 	}
 
@@ -31,7 +31,7 @@ func (c *UsersController) GetUsers() {
 // @Success 200 {object} api.User The User object
 // @router /:user [get]
 func (c *UsersController) GetUser() {
-	if c.requireLogin() {
+	if c.RequireLogin() {
 		return
 	}
 
@@ -49,7 +49,7 @@ func (c *UsersController) GetUser() {
 // @Success 200 {object} api.ExtendedUser The ExtendedUser object
 // @router /:user/extended [get]
 func (c *UsersController) GetExtendedUser() {
-	if c.requireLogin() {
+	if c.RequireLogin() {
 		return
 	}
 
@@ -71,7 +71,7 @@ func (c *UsersController) GetExtendedUser() {
 // @router /:user/update [post]
 func (c *UsersController) UpdateUser() {
 	user := c.GetString(":user")
-	if c.requireUser(user) {
+	if c.RequireUser(user) {
 		return
 	}
 

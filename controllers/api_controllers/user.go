@@ -11,9 +11,6 @@ type Response struct {
 	Data string
 }
 
-var CookieSecret string = "gitstar1qaz2wsx"
-var CookieKey    string = "gitstar_username"
-
 // User API
 type UserController struct {
 	BaseController
@@ -28,8 +25,8 @@ type UserController struct {
 func (c *UserController) Register() {
 	var resp Response
 
-	if c.getSessionUser() != "" {
-		resp = Response{Code: 0, Msg: "请先注销当前用户后再注册", Data: c.getSessionUser()}
+	if c.GetSessionUser() != "" {
+		resp = Response{Code: 0, Msg: "请先注销当前用户后再注册", Data: c.GetSessionUser()}
 		c.Data["json"] = resp
 		c.ServeJSON()
 		return
@@ -43,7 +40,7 @@ func (c *UserController) Register() {
 	} else {
 		api.AddUser(user, password)
 
-		c.setSessionUser(user)
+		c.SetSessionUser(user)
 
 		util.LogInfo(c.Ctx, "API: [%s] is registered as new user", user)
 		resp = Response{Code: 200, Msg: "注册成功", Data: user}
@@ -62,8 +59,8 @@ func (c *UserController) Register() {
 func (c *UserController) Login() {
 	var resp Response
 
-	if c.getSessionUser() != "" {
-		resp = Response{Code: 0, Msg: "请先注销当前用户后再登录", Data: c.getSessionUser()}
+	if c.GetSessionUser() != "" {
+		resp = Response{Code: 0, Msg: "请先注销当前用户后再登录", Data: c.GetSessionUser()}
 		c.Data["json"] = resp
 		c.ServeJSON()
 		return
@@ -75,7 +72,7 @@ func (c *UserController) Login() {
 	if msg != "" {
 		resp = Response{Code: 0, Msg: msg, Data: ""}
 	} else {
-		c.setSessionUser(user)
+		c.SetSessionUser(user)
 
 		util.LogInfo(c.Ctx, "API: [%s] logged in", user)
 		resp = Response{Code: 200, Msg: "登录成功", Data: user}
@@ -92,10 +89,10 @@ func (c *UserController) Login() {
 func (c *UserController) Logout() {
 	var resp Response
 
-	user := c.getSessionUser()
+	user := c.GetSessionUser()
 	util.LogInfo(c.Ctx, "API: [%s] logged off", user)
 
-	c.setSessionUser("")
+	c.SetSessionUser("")
 
 	resp = Response{Code: 200, Msg: "注销成功", Data: user}
 
@@ -113,7 +110,7 @@ func (c *UserController) Logout() {
 func (c *UserController) ChangePassword() {
 	var resp Response
 	user := c.Input().Get("username")
-	if c.requireUser(user) {
+	if c.RequireUser(user) {
 		return
 	}
 

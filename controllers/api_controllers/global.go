@@ -16,7 +16,7 @@ type GlobalController struct {
 // @Success 200 {object} controllers.api_controller.Response The Response object
 // @router /starring-repos/update [post]
 func (c *GlobalController) UpdateStarringRepos() {
-	if c.requireLogin() {
+	if c.RequireLogin() {
 		return
 	}
 
@@ -39,7 +39,7 @@ func (c *GlobalController) UpdateStarringRepos() {
 // @Success 200 {object} []api.Entry2 The list of Entry2 objects
 // @router /recommend [get]
 func (c *GlobalController) GetRecommend() {
-	if c.requireLogin() {
+	if c.RequireLogin() {
 		return
 	}
 
@@ -52,7 +52,7 @@ func (c *GlobalController) GetRecommend() {
 // @Success 200 {object} []*api.UserTargetStatus The list of UserTargetStatus objects
 // @router /owe [get]
 func (c *GlobalController) GetOwe() {
-	if c.requireLogin() {
+	if c.RequireLogin() {
 		return
 	}
 
@@ -65,7 +65,7 @@ func (c *GlobalController) GetOwe() {
 // @Success 200 {object} []api.Message The list of Message objects, text is base64-encoded
 // @router /messages [get]
 func (c *GlobalController) GetSystemMessages() {
-	if c.requireLogin() {
+	if c.RequireLogin() {
 		return
 	}
 

@@ -11,7 +11,7 @@ import (
 // @Success 200 {[]string}
 // @router /:user/starring-repos [get]
 func (c *UsersController) GetUserStarringRepos() {
-	if c.requireLogin() {
+	if c.RequireLogin() {
 		return
 	}
 
@@ -27,7 +27,7 @@ func (c *UsersController) GetUserStarringRepos() {
 // @Success 200 {object} controllers.api_controller.Response The Response object
 // @router /:user/starring-repos/update [post]
 func (c *UsersController) UpdateUserStarringRepos() {
-	if c.requireLogin() {
+	if c.RequireLogin() {
 		return
 	}
 
@@ -50,7 +50,7 @@ func (c *UsersController) UpdateUserStarringRepos() {
 // @Success 200 {object} controllers.api_controller.Response The Response object
 // @router /:user/starring-repos/update [get]
 func (c *UsersController) UpdateUserStarringRepos2() {
-	if c.requireLogin() {
+	if c.RequireLogin() {
 		return
 	}
 

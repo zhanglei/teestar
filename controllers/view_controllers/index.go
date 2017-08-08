@@ -14,7 +14,7 @@ type ViewController struct {
 	beego.Controller
 }
 
-func (c *ViewController) getSessionUser() string {
+func (c *ViewController) GetSessionUser() string {
 	user, ok := c.GetSecureCookie(api_controllers.CookieSecret, api_controllers.CookieKey)
 	if !ok {
 		return ""
@@ -23,7 +23,7 @@ func (c *ViewController) getSessionUser() string {
 	return user
 }
 
-func (c *ViewController) setSessionUser(user string) {
+func (c *ViewController) SetSessionUser(user string) {
 	c.SetSecureCookie(api_controllers.CookieSecret, api_controllers.CookieKey, user)
 }
 
@@ -32,7 +32,7 @@ func (c *ViewController) Index() {
 	beego.ReadFromRequest(&c.Controller)
 	flash := beego.NewFlash()
 
-	user := c.getSessionUser()
+	user := c.GetSessionUser()
 	if user == "" {
 		flash.Error("请先登录")
 		flash.Store(&c.Controller)
@@ -74,7 +74,7 @@ func (c *ViewController) OwePage() {
 	beego.ReadFromRequest(&c.Controller)
 	flash := beego.NewFlash()
 
-	user := c.getSessionUser()
+	user := c.GetSessionUser()
 	if user == "" {
 		flash.Error("请先登录")
 		flash.Store(&c.Controller)
@@ -98,7 +98,7 @@ func (c *ViewController) OwesPage() {
 	beego.ReadFromRequest(&c.Controller)
 	flash := beego.NewFlash()
 
-	user := c.getSessionUser()
+	user := c.GetSessionUser()
 	if user == "" {
 		flash.Error("请先登录")
 		flash.Store(&c.Controller)
@@ -121,7 +121,7 @@ func (c *ViewController) OwesPage() {
 func (c *ViewController) Update() {
 	flash := beego.NewFlash()
 
-	user := c.getSessionUser()
+	user := c.GetSessionUser()
 	if user == "" {
 		flash.Error("请先登录")
 		flash.Store(&c.Controller)
@@ -137,7 +137,7 @@ func (c *ViewController) Update() {
 
 //登录页
 func (c *ViewController) LoginPage() {
-	user := c.getSessionUser()
+	user := c.GetSessionUser()
 	if user != "" {
 		c.Redirect("/", 302)
 	} else {
@@ -159,7 +159,7 @@ func (c *ViewController) Login() {
 		flash.Store(&c.Controller)
 		c.Redirect("/login", 302)
 	} else {
-		c.setSessionUser(user)
+		c.SetSessionUser(user)
 
 		util.LogInfo(c.Ctx, "[%s] logged in", user)
 		c.Redirect("/", 302)
@@ -168,7 +168,7 @@ func (c *ViewController) Login() {
 
 //注册页
 func (c *ViewController) RegisterPage() {
-	user := c.getSessionUser()
+	user := c.GetSessionUser()
 	if user != "" {
 		c.Redirect("/", 302)
 	} else {
@@ -192,7 +192,7 @@ func (c *ViewController) Register() {
 	} else {
 		api.AddUser(user, password)
 
-		c.setSessionUser(user)
+		c.SetSessionUser(user)
 
 		util.LogInfo(c.Ctx, "[%s] is registered as new user", user)
 		c.Redirect("/user/setting", 302)
@@ -201,16 +201,16 @@ func (c *ViewController) Register() {
 
 //登出
 func (c *ViewController) Logout() {
-	user := c.getSessionUser()
+	user := c.GetSessionUser()
 	util.LogInfo(c.Ctx, "[%s] logged off", user)
 
-	c.setSessionUser("")
+	c.SetSessionUser("")
 	c.Redirect("/", 302)
 }
 
 //关于
 func (c *ViewController) About() {
-	user := c.getSessionUser()
+	user := c.GetSessionUser()
 	if user != "" {
 		c.Data["IsLogin"] = true
 		c.Data["UserInfo"] = api.GetUser(user)
@@ -224,7 +224,7 @@ func (c *ViewController) About() {
 }
 
 func (c *ViewController) QuestionAndAnswer() {
-	user := c.getSessionUser()
+	user := c.GetSessionUser()
 	if user != "" {
 		c.Data["IsLogin"] = true
 		c.Data["UserInfo"] = api.GetUser(user)
@@ -246,7 +246,7 @@ func (c *ViewController) SettingPage() {
 	beego.ReadFromRequest(&c.Controller)
 	flash := beego.NewFlash()
 
-	user := c.getSessionUser()
+	user := c.GetSessionUser()
 	if user == "" {
 		flash.Error("请先登录")
 		flash.Store(&c.Controller)
@@ -276,7 +276,7 @@ func (c *ViewController) SettingPage() {
 func (c *ViewController) Setting() {
 	flash := beego.NewFlash()
 
-	user := c.getSessionUser()
+	user := c.GetSessionUser()
 	if user == "" {
 		flash.Error("请先登录")
 		flash.Store(&c.Controller)
@@ -324,7 +324,7 @@ func (c *ViewController) Setting() {
 func (c *ViewController) ChangeUserPassword() {
 	flash := beego.NewFlash()
 
-	user := c.getSessionUser()
+	user := c.GetSessionUser()
 	if user == "" {
 		flash.Error("请先登录")
 		flash.Store(&c.Controller)
@@ -355,7 +355,7 @@ func (c *ViewController) AddRepoPage() {
 	beego.ReadFromRequest(&c.Controller)
 	flash := beego.NewFlash()
 
-	user := c.getSessionUser()
+	user := c.GetSessionUser()
 	if user == "" {
 		flash.Error("请先登录")
 		flash.Store(&c.Controller)
@@ -391,7 +391,7 @@ func formatRepoAddress(repo string) string {
 func (c *ViewController) AddRepo() {
 	flash := beego.NewFlash()
 
-	user := c.getSessionUser()
+	user := c.GetSessionUser()
 	if user == "" {
 		flash.Error("请先登录")
 		flash.Store(&c.Controller)
@@ -422,7 +422,7 @@ func (c *ViewController) AddRepo() {
 func (c *ViewController) DeleteRepo() {
 	flash := beego.NewFlash()
 
-	user := c.getSessionUser()
+	user := c.GetSessionUser()
 	if user == "" {
 		flash.Error("请先登录")
 		flash.Store(&c.Controller)
@@ -454,7 +454,7 @@ func (c *ViewController) UserPage() {
 	beego.ReadFromRequest(&c.Controller)
 	flash := beego.NewFlash()
 
-	user := c.getSessionUser()
+	user := c.GetSessionUser()
 	if user == "" {
 		flash.Error("请先登录")
 		flash.Store(&c.Controller)
@@ -481,7 +481,7 @@ func (c *ViewController) UsersPage() {
 	beego.ReadFromRequest(&c.Controller)
 	flash := beego.NewFlash()
 
-	user := c.getSessionUser()
+	user := c.GetSessionUser()
 	if user == "" {
 		flash.Error("请先登录")
 		flash.Store(&c.Controller)
@@ -507,7 +507,7 @@ func (c *ViewController) CountPage() {
 	beego.ReadFromRequest(&c.Controller)
 	flash := beego.NewFlash()
 
-	user := c.getSessionUser()
+	user := c.GetSessionUser()
 	if user == "" {
 		flash.Error("请先登录")
 		flash.Store(&c.Controller)
@@ -533,7 +533,7 @@ func (c *ViewController) RepoPage() {
 	beego.ReadFromRequest(&c.Controller)
 	flash := beego.NewFlash()
 
-	user := c.getSessionUser()
+	user := c.GetSessionUser()
 	if user == "" {
 		flash.Error("请先登录")
 		flash.Store(&c.Controller)
@@ -557,7 +557,7 @@ func (c *ViewController) ReferrerPage() {
 	beego.ReadFromRequest(&c.Controller)
 	flash := beego.NewFlash()
 
-	user := c.getSessionUser()
+	user := c.GetSessionUser()
 	if user == "" {
 		flash.Error("请先登录")
 		flash.Store(&c.Controller)
@@ -579,7 +579,7 @@ func (c *ViewController) LogPage() {
 	beego.ReadFromRequest(&c.Controller)
 	flash := beego.NewFlash()
 
-	user := c.getSessionUser()
+	user := c.GetSessionUser()
 	if user == "" {
 		flash.Error("请先登录")
 		flash.Store(&c.Controller)
