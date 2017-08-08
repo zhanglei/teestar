@@ -7,7 +7,7 @@ import (
 
 // Users API
 type UsersController struct {
-	APIController
+	BaseController
 }
 
 // @Title GetUsers

@@ -16,7 +16,7 @@ var CookieKey    string = "gitstar_username"
 
 // User API
 type UserController struct {
-	APIController
+	BaseController
 }
 
 // @Title Register

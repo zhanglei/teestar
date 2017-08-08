@@ -5,11 +5,11 @@ import (
 	"github.com/hsluoyz/gitstar/api"
 )
 
-type APIController struct {
+type BaseController struct {
 	beego.Controller
 }
 
-func (c *APIController) getSessionUser() string {
+func (c *BaseController) getSessionUser() string {
 	user, ok := c.GetSecureCookie(CookieSecret, CookieKey)
 	if !ok {
 		return ""
@@ -18,11 +18,11 @@ func (c *APIController) getSessionUser() string {
 	return user
 }
 
-func (c *APIController) setSessionUser(user string) {
+func (c *BaseController) setSessionUser(user string) {
 	c.SetSecureCookie(CookieSecret, CookieKey, user)
 }
 
-func (c *APIController) requireLogin() bool {
+func (c *BaseController) requireLogin() bool {
 	if c.getSessionUser() == "" {
 		c.Ctx.ResponseWriter.WriteHeader(403)
 		c.Ctx.ResponseWriter.Write([]byte("请先登录"))
@@ -32,7 +32,7 @@ func (c *APIController) requireLogin() bool {
 	return false
 }
 
-func (c *APIController) requireUser(user string) bool {
+func (c *BaseController) requireUser(user string) bool {
 	if c.requireLogin() {
 		return true
 	} else if c.getSessionUser() != user {
@@ -44,7 +44,7 @@ func (c *APIController) requireUser(user string) bool {
 	return false
 }
 
-func (c *APIController) requireAdmin() bool {
+func (c *BaseController) requireAdmin() bool {
 	if c.requireLogin() {
 		return true
 	} else if !api.IsUserAdmin(c.getSessionUser()) {

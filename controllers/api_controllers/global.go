@@ -8,7 +8,7 @@ import (
 
 // Global API
 type GlobalController struct {
-	APIController
+	BaseController
 }
 
 // @Title UpdateStarringRepos
