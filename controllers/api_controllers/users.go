@@ -2,12 +2,13 @@ package api_controllers
 
 import (
 	"github.com/hsluoyz/gitstar/api"
+	"github.com/hsluoyz/gitstar/controllers"
 	"github.com/hsluoyz/gitstar/util"
 )
 
 // Users API
 type UsersController struct {
-	BaseController
+	controllers.BaseController
 }
 
 // @Title GetUsers

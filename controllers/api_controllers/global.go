@@ -4,11 +4,12 @@ import (
 	"encoding/base64"
 
 	"github.com/hsluoyz/gitstar/api"
+	"github.com/hsluoyz/gitstar/controllers"
 )
 
 // Global API
 type GlobalController struct {
-	BaseController
+	controllers.BaseController
 }
 
 // @Title UpdateStarringRepos

@@ -6,25 +6,12 @@ import (
 
 	"github.com/astaxie/beego"
 	"github.com/hsluoyz/gitstar/api"
-	"github.com/hsluoyz/gitstar/controllers/api_controllers"
+	"github.com/hsluoyz/gitstar/controllers"
 	"github.com/hsluoyz/gitstar/util"
 )
 
 type ViewController struct {
-	beego.Controller
-}
-
-func (c *ViewController) GetSessionUser() string {
-	user, ok := c.GetSecureCookie(api_controllers.CookieSecret, api_controllers.CookieKey)
-	if !ok {
-		return ""
-	}
-
-	return user
-}
-
-func (c *ViewController) SetSessionUser(user string) {
-	c.SetSecureCookie(api_controllers.CookieSecret, api_controllers.CookieKey, user)
+	controllers.BaseController
 }
 
 //首页

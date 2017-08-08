@@ -2,6 +2,7 @@ package api_controllers
 
 import (
 	"github.com/hsluoyz/gitstar/api"
+	"github.com/hsluoyz/gitstar/controllers"
 	"github.com/hsluoyz/gitstar/util"
 )
 
@@ -13,7 +14,7 @@ type Response struct {
 
 // User API
 type UserController struct {
-	BaseController
+	controllers.BaseController
 }
 
 // @Title Register
