@@ -2,7 +2,7 @@
   <div class="col-md-9">
     <div class="panel panel-default">
       <div class="panel-heading"><a href="/">主页</a> / 常见问题</div>
-      <div class="panel-body topic-detail-content">
+      <div class="panel-body">
         <div class="alert alert-success alert-dismissible" role="alert"><b>1、我的项目是怎么被他人点赞的？</b></div>
         <p>只要我们添加了自己的GitHub项目到平台内，平台便会自动向所有人推送你的GitHub项目。（如何添加项目：右上角“设置”-“个人资料”内）
         </p>
