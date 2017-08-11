@@ -18,6 +18,7 @@
             <td>是否为管理员</td>
             <td>是否已禁用</td>
             <td>Star缓存</td>
+            <td>Follow缓存</td>
           </tr>
           {{range .UserInfos}}
           <tr>
@@ -29,6 +30,7 @@
             <td>{{.IsAdmin}}</td>
             <td>{{.IsDisabled}}</td>
             <td><a target="_blank" href="api/users/{{.User}}/starring-repos/update">更新</a></td>
+            <td><a target="_blank" href="api/users/{{.User}}/following-users/update">更新</a></td>
           </tr>
           {{end}}
           </tbody>

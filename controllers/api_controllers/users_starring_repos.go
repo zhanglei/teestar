@@ -66,3 +66,26 @@ func (c *UsersController) UpdateUserStarringRepos2() {
 	c.Data["json"] = resp
 	c.ServeJSON()
 }
+
+// @Title UpdateUserFollowingTargets2
+// @Description update all the users followed by the user into GitStar cache
+// @Param   user     path    string  true        "The username"
+// @Success 200 {object} controllers.api_controller.Response The Response object
+// @router /:user/following-users/update [get]
+func (c *UsersController) UpdateUserFollowingTargets2() {
+	if c.RequireLogin() {
+		return
+	}
+
+	var resp Response
+	user := c.GetString(":user")
+
+	api.UpdateUserFollowingTargets(user)
+
+	util.LogInfo(c.Ctx, "API: [%s] updated his following", user)
+
+	resp = Response{Code: 200, Msg: "更新加粉缓存成功", Data: ""}
+
+	c.Data["json"] = resp
+	c.ServeJSON()
+}

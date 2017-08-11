@@ -20,7 +20,7 @@
             <input type="text" {{if .UserInfo.IsDisabled}}disabled=""{{end}} class="form-control" name="nickname" id="nickname" value="{{.UserInfo.Nickname}}">
             <label>Email邮箱（可选填，将来每日Star进展会推送至该邮箱）</label>
             <input type="text" {{if .UserInfo.IsDisabled}}disabled=""{{end}} class="form-control" name="email" id="email" value="{{.UserInfo.Email}}">
-            <label>是否参与账户互粉(Follow)（不参与则不会被圈粉主页展示）</label>
+            <label>是否参与账户互粉(Follow)（必须设置QQ号后才能参与，不参与则不会被圈粉主页展示）</label>
             <div class="switch switch-large"><input type="checkbox" name="followable" id="followable" {{if .UserInfo.IsFollowable}} checked {{else}} unchecked {{end}}></div>
           </div>
           <button type="submit" class="btn btn-default">保存设置</button> <a href="/" class="pull-right">已经设置完毕，带我去点赞</a>
