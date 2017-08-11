@@ -41,6 +41,10 @@ func GetExtendedUser(user string) *ExtendedUser {
 	starringCount := GetUserStarringCount(objUser.User)
 	starredCount := GetUserStarredCount(objUser.User)
 
+	followStatus := GetUserFollowStatus(user)
+	followingCount := len(followStatus.FollowingTargets)
+	followedCount := len(followStatus.FollowedTargets)
+
 	objExtendedUser := ExtendedUser{
 		User: objUser.User,
 		Hitter: objUser.Hitter,
@@ -50,10 +54,14 @@ func GetExtendedUser(user string) *ExtendedUser {
 		Email: objUser.Email,
 		IsAdmin: objUser.IsAdmin,
 		IsDisabled: objUser.IsDisabled,
+		IsFollowable: objUser.IsFollowable,
 		RepoCount: GetUserRepoCount(objUser.User),
 		StarringCount: starringCount,
 		StarredCount: starredCount,
-		OweCount: starredCount - starringCount}
+		OweCount: starredCount - starringCount,
+		FollowingCount: followingCount,
+		FollowedCount: followedCount,
+		FollowOweCount: followedCount - followingCount}
 
 	return &objExtendedUser
 }

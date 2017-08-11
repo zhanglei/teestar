@@ -12,11 +12,15 @@
             <div>QQ昵称: {{.TargetInfo.Nickname}}</div>
             <div>入驻时间: {{.TargetInfo.CreatedAt}}</div>
             {{if .UserInfo.IsAdmin}}<div>是否为管理员: {{.TargetInfo.IsAdmin}}</div>{{end}}
+            <div>是否参加账户互粉: {{.TargetInfo.IsFollowable}}
             <div>账户状态: {{if .TargetInfo.IsDisabled}}<font color="#FF0000">已被管理员禁用</font>{{else}}正常{{end}}</div>
             <div>项目个数: {{.TargetInfo.RepoCount}}</div>
             <b><div>点赞次数: {{.TargetInfo.StarringCount}}</div></b>
             <b><div>被点赞次数: {{.TargetInfo.StarredCount}}</div></b>
             <b><div>欠赞次数: {{.TargetInfo.OweCount}}</div></b>
+            <div>他粉的人: {{.TargetInfo.FollowingCount}}</div>
+            <div>他的粉丝: {{.TargetInfo.FollowedCount}}</div>
+            <div>欠粉次数: {{.TargetInfo.FollowOweCount}}</div>
           </div>
         </div>
       </div>

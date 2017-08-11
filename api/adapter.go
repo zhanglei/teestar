@@ -44,18 +44,22 @@ type UserFollowingTarget struct {
 }
 
 type ExtendedUser struct {
-	User          string
-	Hitter        string
-	QQ            string
-	CreatedAt     string
-	Nickname      string
-	Email         string
-	IsAdmin       bool
-	IsDisabled    bool
-	RepoCount     int
-	StarringCount int
-	StarredCount  int
-	OweCount      int
+	User           string
+	Hitter         string
+	QQ             string
+	CreatedAt      string
+	Nickname       string
+	Email          string
+	IsAdmin        bool
+	IsDisabled     bool
+	IsFollowable   bool
+	RepoCount      int
+	StarringCount  int
+	StarredCount   int
+	OweCount       int
+	FollowingCount int
+	FollowedCount  int
+	FollowOweCount int
 }
 
 type Repo struct {
@@ -133,6 +137,11 @@ func (a *Adapter) createTable() {
 	}
 
 	err = a.engine.Sync2(new(User))
+	if err != nil {
+		panic(err)
+	}
+
+	err = a.engine.Sync2(new(UserFollowingTarget))
 	if err != nil {
 		panic(err)
 	}
