@@ -56,6 +56,30 @@ func (c *ViewController) Index() {
 	c.TplName = "index/index.tpl"
 }
 
+func (c *ViewController) RepoPage() {
+	beego.ReadFromRequest(&c.Controller)
+	flash := beego.NewFlash()
+
+	user := c.GetSessionUser()
+	if user == "" {
+		flash.Error("请先登录")
+		flash.Store(&c.Controller)
+		c.Redirect("/login", 302)
+		return
+	}
+
+	c.Data["IsLogin"] = true
+	c.Data["UserInfo"] = api.GetExtendedUser(user)
+
+	c.Data["Repos"] = api.GetUserRepoObjects(user)
+
+	util.LogInfo(c.Ctx, "[%s] viewed repo page", user)
+
+	c.Data["PageTitle"] = "GitStar - 我的项目"
+	c.Layout = "layout/layout.tpl"
+	c.TplName = "index/repo.tpl"
+}
+
 func (c *ViewController) OwePage() {
 	beego.ReadFromRequest(&c.Controller)
 	flash := beego.NewFlash()
@@ -119,28 +143,4 @@ func (c *ViewController) Update() {
 
 	util.LogInfo(c.Ctx, "[%s] updated his stars", user)
 	c.Redirect("/", 302)
-}
-
-func (c *ViewController) RepoPage() {
-	beego.ReadFromRequest(&c.Controller)
-	flash := beego.NewFlash()
-
-	user := c.GetSessionUser()
-	if user == "" {
-		flash.Error("请先登录")
-		flash.Store(&c.Controller)
-		c.Redirect("/login", 302)
-		return
-	}
-
-	c.Data["IsLogin"] = true
-	c.Data["UserInfo"] = api.GetExtendedUser(user)
-
-	c.Data["Repos"] = api.GetUserRepoObjects(user)
-
-	util.LogInfo(c.Ctx, "[%s] viewed repo page", user)
-
-	c.Data["PageTitle"] = "GitStar - 我的项目"
-	c.Layout = "layout/layout.tpl"
-	c.TplName = "index/repo.tpl"
 }
