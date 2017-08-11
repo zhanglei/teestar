@@ -120,7 +120,24 @@ func GetOtherEnabledUsers(user string) []string {
 
 	users := []string{}
 	for _, objUser := range objUsers {
-		if objUser.User != user && objUser.IsDisabled == false {
+		if objUser.User != user && !objUser.IsDisabled {
+			users = append(users, objUser.User)
+		}
+	}
+
+	return users
+}
+
+func GetOtherFollowableUsers(user string) []string {
+	var objUsers []User
+	err := adapter.engine.Find(&objUsers)
+	if err != nil {
+		panic(err)
+	}
+
+	users := []string{}
+	for _, objUser := range objUsers {
+		if objUser.User != user && !objUser.IsDisabled && objUser.IsFollowable {
 			users = append(users, objUser.User)
 		}
 	}
