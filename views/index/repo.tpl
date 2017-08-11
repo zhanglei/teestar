@@ -41,7 +41,7 @@
   <div class="col-md-3 hidden-sm hidden-xs">
     {{if .IsLogin}}
       {{template "components/user_info.tpl" .}}
-      {{template "components/topic_create.tpl" .}}
+      {{template "components/star_button.tpl" .}}
     {{else}}
       {{template "components/welcome.tpl" .}}
     {{end}}

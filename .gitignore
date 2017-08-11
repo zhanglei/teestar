@@ -17,3 +17,8 @@
 *.iml
 tmp/
 logs/
+
+lastupdate.tmp
+commentsRouter*.go
+*.exe~
+swagger.zip
