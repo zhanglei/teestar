@@ -39,7 +39,7 @@ func UpdateUserStarringRepos(user string) bool {
 
 func UpdateStarringRepos() bool {
 	affected := false
-	users := GetUsers()
+	users := GetActiveUsers()
 
 	for _, user := range users {
 		if UpdateUserStarringRepos(user) {
