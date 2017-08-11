@@ -1,5 +1,7 @@
 package api
 
+import "sort"
+
 func GetUserFollowingTargets(user string) []string {
 	var userTargets []UserFollowingTarget
 	err := adapter.engine.Find(&userTargets, &UserFollowingTarget{User: user})
@@ -122,16 +124,17 @@ func GetUserFollowedStatus(user string) []FollowEntry {
 	return followEntries
 }
 
-func GetUserCanFollowStatus(user string) []FollowEntry {
+func GetUserCanFollowStatus(user string) FollowEntryList {
 	otherUsers := GetOtherFollowableUsers(user)
 	followingTargets := GetIntersect(otherUsers, GetUserFollowingTargets(user))
 	canFollowTargets := GetSubtract(otherUsers, followingTargets)
 
-	followEntries := []FollowEntry{}
+	followEntryList := FollowEntryList{}
 	for _, target := range canFollowTargets {
 		followed := IsUserFollowingTarget(target, user)
-		followEntries = append(followEntries, FollowEntry{User: target, Followed: followed})
+		followEntryList = append(followEntryList, &FollowEntry{User: target, Followed: followed})
 	}
 
-	return followEntries
+	sort.Sort(followEntryList)
+	return followEntryList
 }
