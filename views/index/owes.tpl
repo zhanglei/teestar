@@ -7,6 +7,9 @@
         <li><a href="/repo">我的项目</a></li>
         <li><a href="/owe">欠我赞的人</a></li>
         <li class="active"><a href="/owes">欠赞排行</a></li>
+        <li><a href="/follow">互粉主页</a></li>
+        <li><a href="/follower">我的粉丝</a></li>
+        <li><a href="/follow_owe">欠我粉的人</a></li>
         </ul>
       </div>
       <div class="panel-body paginate-bot">

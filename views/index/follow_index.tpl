@@ -5,8 +5,8 @@
         <ul class="nav nav-pills">
         <li><a href="/">主页</a></li>
         <li><a href="/repo">我的项目</a></li>
-        <li class="active"><a href="/owe">欠我赞的人</a></li>
-        <li><a href="/follow">互粉主页</a></li>
+        <li><a href="/owe">欠我赞的人</a></li>
+        <li class="active"><a href="/follow">互粉主页</a></li>
         <li><a href="/follower">我的粉丝</a></li>
         <li><a href="/follow_owe">欠我粉的人</a></li>
         <div class="pull-right">我的点赞: <span class="label label-primary">{{.UserInfo.StarringCount}}</span> &nbsp;&nbsp; 我被点赞: <span class="label label-primary">{{.UserInfo.StarredCount}}</span> &nbsp;&nbsp; 欠赞: <span class="label label-primary">{{.UserInfo.OweCount}}</span></div>
@@ -14,32 +14,22 @@
       </div>
       <div class="panel-body paginate-bot">
         {{template "components/flash_error.tpl" .}}
-        {{range .Owe}}
+        {{range .Recommend}}
         <div class="media">
           <div class="media-left">
           </div>
           <div class="media-body">
             <div class="title">
-              <a target="_blank" href="/users/{{.Target}}">{{.Target}}还欠我 <span class="label label-default">{{.Score}}</span> 个赞</a>
+              <a rel="noreferrer" target="_blank" href="https://github.com/{{.Repo}}">{{.Repo}}</a>
             </div>
             <p class="gray">
               <a target="_blank" href="/users/{{.Target}}"><span class="label label-primary">{{.Target}}</span></a>
               <span>•</span>
-              <span class="label label-warning">QQ：{{.QQ}}</span>
-              <span>•</span>
-              <span class="label label-danger">昵称：{{.Nickname}}</span>
-            </p>
-            <p class="gray">
-               <span class="hidden-sm hidden-xs">我已赞他{{len .StarringRepos}}个项目：{{range .StarringRepos}} <a rel="noreferrer" target="_blank" href="https://github.com/{{.}}"><span class="label label-success">{{.}}</span></a> {{end}}</span>
-            </p>
-            <p class="gray">
-              <span class="hidden-sm hidden-xs">他已赞我{{len .StarredRepos}}个项目：{{range .StarredRepos}} <a rel="noreferrer" target="_blank" href="https://github.com/{{.}}"><span class="label label-success">{{.}}</span></a> {{end}}</span>
-            </p>
-            <p class="gray">
-              <span class="hidden-sm hidden-xs">我还可以赞他{{len .CanStarRepos}}个项目：{{range .CanStarRepos}} <a rel="noreferrer" target="_blank" href="https://github.com/{{.}}"><span class="label label-default">{{.}}</span></a> {{end}}</span>
-            </p>
-            <p class="gray">
-              <span class="hidden-sm hidden-xs">他还可以赞我{{len .CanBeStarredRepos}}个项目：{{range .CanBeStarredRepos}} <a rel="noreferrer" target="_blank" href="https://github.com/{{.}}"><span class="label label-default">{{.}}</span></a> {{end}}</span>
+              {{if ge .Score 0}}
+              <span class="hidden-sm hidden-xs">{{.Target}}还欠我{{.Score}}个赞</span>
+              {{else}}
+              <b><span class="hidden-sm hidden-xs">我还欠{{.Target}} {{.ScoreR}}个赞</span></b>
+              {{end}}
             </p>
           </div>
         </div>

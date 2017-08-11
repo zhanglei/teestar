@@ -112,4 +112,8 @@ func initView(){
 
 	beego.Router("/referrer", &view_controllers.ViewController{}, "GET:ReferrerPage")
 	beego.Router("/log", &view_controllers.ViewController{}, "GET:LogPage")
+
+	beego.Router("/follow", &view_controllers.ViewController{}, "GET:FollowIndex")
+	beego.Router("/follower", &view_controllers.ViewController{}, "GET:FollowerPage")
+	beego.Router("/follow_owe", &view_controllers.ViewController{}, "GET:FollowOwePage")
 }

@@ -100,9 +100,23 @@ func GetUserFollowedStatus(user string) []FollowEntry {
 	followedTargets = GetIntersect(otherUsers, followedTargets)
 
 	followEntries := []FollowEntry{}
-	for _, followedTarget := range followedTargets {
-		followed := followingTargetsMap.Has(followedTarget)
-		followEntries = append(followEntries, FollowEntry{User: followedTarget, Followed: followed})
+	for _, target := range followedTargets {
+		followed := followingTargetsMap.Has(target)
+		followEntries = append(followEntries, FollowEntry{User: target, Followed: followed})
+	}
+
+	return followEntries
+}
+
+func GetUserCanFollowStatus(user string) []FollowEntry {
+	otherUsers := GetOtherFollowableUsers(user)
+	followingTargets := GetIntersect(otherUsers, GetUserFollowingTargets(user))
+	canFollowTargets := GetSubtract(otherUsers, followingTargets)
+
+	followEntries := []FollowEntry{}
+	for _, target := range canFollowTargets {
+		followed := IsUserFollowingTarget(target, user)
+		followEntries = append(followEntries, FollowEntry{User: target, Followed: followed})
 	}
 
 	return followEntries
