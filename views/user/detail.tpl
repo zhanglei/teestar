@@ -48,9 +48,9 @@
       <div class="table-responsive">
         <table class="table table-striped table-responsive">
           <tbody>
-          {{range .TargetFollowStatus.FollowedTargets}}
+          {{range .TargetFollowedStatus}}
           <tr>
-            <td><a target="_blank" href="/users/{{.}}">{{.}}</a></td>
+            <td><a target="_blank" href="/users/{{.User}}">{{.User}}</a> {{if .Followed}}[互粉]{{end}}</td>
           </tr>
           {{end}}
           </tbody>

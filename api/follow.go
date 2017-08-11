@@ -82,3 +82,28 @@ func GetUserFollowStatus(user string) UserFollowStatus {
 
 	return userFollowStatus
 }
+
+func GetUserFollowedStatus(user string) []FollowEntry {
+	otherUsers := GetOtherFollowableUsers(user)
+	followingTargets := GetIntersect(otherUsers, GetUserFollowingTargets(user))
+	followingTargetsMap := NewSet()
+	for _, target := range followingTargets {
+		followingTargetsMap.Add(target)
+	}
+
+	followedTargets := []string{}
+	for _, target := range otherUsers {
+		if IsUserFollowingTarget(target, user) {
+			followedTargets = append(followedTargets, target)
+		}
+	}
+	followedTargets = GetIntersect(otherUsers, followedTargets)
+
+	followEntries := []FollowEntry{}
+	for _, followedTarget := range followedTargets {
+		followed := followingTargetsMap.Has(followedTarget)
+		followEntries = append(followEntries, FollowEntry{User: followedTarget, Followed: followed})
+	}
+
+	return followEntries
+}
