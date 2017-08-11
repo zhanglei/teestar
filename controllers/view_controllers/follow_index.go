@@ -83,3 +83,20 @@ func (c *ViewController) FollowOwePage() {
 	c.Layout = "layout/layout.tpl"
 	c.TplName = "index/follow_owe.tpl"
 }
+
+func (c *ViewController) FollowUpdate() {
+	flash := beego.NewFlash()
+
+	user := c.GetSessionUser()
+	if user == "" {
+		flash.Error("请先登录")
+		flash.Store(&c.Controller)
+		c.Redirect("/login", 302)
+		return
+	}
+
+	api.UpdateUserFollowingTargets(user)
+
+	util.LogInfo(c.Ctx, "[%s] updated his following", user)
+	c.Redirect("/follow", 302)
+}

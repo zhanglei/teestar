@@ -41,8 +41,8 @@
   </div>
   <div class="col-md-3 hidden-sm hidden-xs">
     {{if .IsLogin}}
-      {{template "components/star_usage.tpl" .}}
-      {{template "components/star_button.tpl" .}}
+      {{template "components/follow_usage.tpl" .}}
+      {{template "components/follow_button.tpl" .}}
     {{else}}
       {{template "components/welcome.tpl" .}}
     {{end}}

@@ -116,4 +116,5 @@ func initView(){
 	beego.Router("/follow", &view_controllers.ViewController{}, "GET:FollowIndex")
 	beego.Router("/follower", &view_controllers.ViewController{}, "GET:FollowerPage")
 	beego.Router("/follow_owe", &view_controllers.ViewController{}, "GET:FollowOwePage")
+	beego.Router("/follow_update", &view_controllers.ViewController{}, "GET:FollowUpdate")
 }
