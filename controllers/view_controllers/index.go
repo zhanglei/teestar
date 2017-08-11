@@ -54,7 +54,7 @@ func (c *ViewController) Index() {
 
 	c.Data["PageTitle"] = "GitStar - GitHub项目点赞"
 	c.Layout = "layout/layout.tpl"
-	c.TplName = "index.tpl"
+	c.TplName = "index/index.tpl"
 }
 
 func (c *ViewController) OwePage() {
@@ -78,7 +78,7 @@ func (c *ViewController) OwePage() {
 
 	c.Data["PageTitle"] = "GitStar - 欠我赞的人"
 	c.Layout = "layout/layout.tpl"
-	c.TplName = "owe.tpl"
+	c.TplName = "index/owe.tpl"
 }
 
 func (c *ViewController) OwesPage() {
@@ -102,7 +102,7 @@ func (c *ViewController) OwesPage() {
 
 	c.Data["PageTitle"] = "GitStar - 欠赞排行"
 	c.Layout = "layout/layout.tpl"
-	c.TplName = "owes.tpl"
+	c.TplName = "index/owes.tpl"
 }
 
 func (c *ViewController) Update() {
@@ -537,7 +537,7 @@ func (c *ViewController) RepoPage() {
 
 	c.Data["PageTitle"] = "GitStar - 我的项目"
 	c.Layout = "layout/layout.tpl"
-	c.TplName = "repo.tpl"
+	c.TplName = "index/repo.tpl"
 }
 
 func (c *ViewController) ReferrerPage() {
