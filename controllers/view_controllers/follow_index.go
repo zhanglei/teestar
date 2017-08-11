@@ -23,7 +23,7 @@ func (c *ViewController) FollowIndex() {
 	c.Data["IsLogin"] = true
 	c.Data["UserInfo"] = objUser
 
-	c.Data["Recommend"] = api.GetUserRecommend(user)
+	c.Data["CanFollow"] = api.GetUserCanFollowStatus(user)
 
 	util.LogInfo(c.Ctx, "[%s] viewed follow index page", user)
 
