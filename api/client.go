@@ -67,6 +67,38 @@ func ListStarringRepos(user string) []string {
 	return res
 }
 
+func ListFollowingTargets(user string) []string {
+	res := []string{}
+
+	client := NewAuthenticatedClient()
+	ctx := context.Background()
+
+	page := 1
+	got := 0
+
+	for {
+		opt := &github.ListOptions{Page: page, PerPage: 100}
+		targets, _, err := client.Users.ListFollowing(ctx, user, opt)
+		if err != nil {
+			panic(err)
+		}
+
+		for _, target := range targets {
+			res = append(res, *target.Login)
+			// fmt.Println(*target.Login)
+		}
+
+		got = len(targets)
+		if got != 100 {
+			break
+		} else {
+			page += 1
+		}
+	}
+
+	return res
+}
+
 func HasGitHubUser(user string) bool {
 	client := NewAuthenticatedClient()
 	ctx := context.Background()

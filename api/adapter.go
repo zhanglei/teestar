@@ -37,6 +37,11 @@ type User struct {
 	IsDisabled bool
 }
 
+type UserFollowingTarget struct {
+	User string `xorm:"varchar(100) notnull pk"`
+	Target string `xorm:"varchar(100) notnull pk"`
+}
+
 type ExtendedUser struct {
 	User          string
 	Hitter        string
