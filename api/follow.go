@@ -61,7 +61,7 @@ func IsUserFollowingTarget(user string, target string) bool {
 }
 
 func GetUserFollowStatus(user string) UserFollowStatus {
-	otherUsers := GetOtherFollowableUsers(user)
+	otherUsers := GetOtherEnabledUsers(user)
 	followingTargets := GetIntersect(otherUsers, GetUserFollowingTargets(user))
 	canFollowTargets := GetSubtract(otherUsers, followingTargets)
 
@@ -84,7 +84,7 @@ func GetUserFollowStatus(user string) UserFollowStatus {
 }
 
 func GetUserFollowingStatus(user string) []FollowEntry {
-	otherUsers := GetOtherFollowableUsers(user)
+	otherUsers := GetOtherEnabledUsers(user)
 	followingTargets := GetIntersect(otherUsers, GetUserFollowingTargets(user))
 
 	followEntries := []FollowEntry{}
@@ -98,7 +98,7 @@ func GetUserFollowingStatus(user string) []FollowEntry {
 }
 
 func GetUserFollowedStatus(user string) []FollowEntry {
-	otherUsers := GetOtherFollowableUsers(user)
+	otherUsers := GetOtherEnabledUsers(user)
 	followingTargets := GetIntersect(otherUsers, GetUserFollowingTargets(user))
 	followingTargetsMap := NewSet()
 	for _, target := range followingTargets {
