@@ -41,6 +41,22 @@
         </table>
       </div>
     </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        他的粉丝
+      </div>
+      <div class="table-responsive">
+        <table class="table table-striped table-responsive">
+          <tbody>
+          {{range .TargetFollowStatus.FollowedTargets}}
+          <tr>
+            <td><a target="_blank" href="/users/{{.}}">{{.}}</a></td>
+          </tr>
+          {{end}}
+          </tbody>
+        </table>
+      </div>
+    </div>
     {{else}}
     <div class="panel panel-default">
       <div class="panel-body">用户不存在</div>
