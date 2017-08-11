@@ -12,25 +12,27 @@
           <tr>
             <td>用户名</td>
             <td>点赞账号</td>
-            <td>QQ号</td>
             <td>昵称</td>
-            <td>入驻时间</td>
             <td>项目数</td>
             <td>点赞数</td>
             <td>被赞数</td>
             <td>欠赞数</td>
+            <td>加粉数</td>
+            <td>被粉数</td>
+            <td>欠粉数</td>
           </tr>
           {{range .UserInfos}}
           <tr>
             <td><a href="/users/{{.User}}" target="_blank">{{.User}}</a></td>
             <td><a href="https://github.com/{{.Hitter}}" rel="noreferrer" target="_blank">{{.Hitter}}</a></td>
-            <td>{{.QQ}}</td>
             <td>{{.Nickname}}</td>
-            <td>{{.CreatedAt}}</td>
             <td>{{.RepoCount}}</td>
             <td>{{.StarringCount}}</td>
             <td>{{.StarredCount}}</td>
             <td>{{.OweCount}}</td>
+            <td>{{.FollowingCount}}</td>
+            <td>{{.FollowedCount}}</td>
+            <td>{{.FollowOweCount}}</td>
           </tr>
           {{end}}
           </tbody>
