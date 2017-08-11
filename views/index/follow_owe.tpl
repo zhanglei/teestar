@@ -9,7 +9,7 @@
         <li><a href="/follow">互粉主页</a></li>
         <li><a href="/follower">我的粉丝</a></li>
         <li class="active"><a href="/follow_owe">欠我粉的人</a></li>
-        <div class="pull-right">我的点赞: <span class="label label-primary">{{.UserInfo.StarringCount}}</span> &nbsp;&nbsp; 我被点赞: <span class="label label-primary">{{.UserInfo.StarredCount}}</span> &nbsp;&nbsp; 欠赞: <span class="label label-primary">{{.UserInfo.OweCount}}</span></div>
+        {{template "components/follow_badge.tpl" .}}
         </ul>
       </div>
       <div class="panel-body paginate-bot">
