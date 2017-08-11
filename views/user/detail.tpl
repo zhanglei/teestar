@@ -50,7 +50,7 @@
           <tbody>
           {{range .TargetFollowedStatus}}
           <tr>
-            <td><a target="_blank" href="/users/{{.User}}">{{.User}}</a> {{if .Followed}}[互粉]{{end}}</td>
+            <td><a target="_blank" href="/users/{{.User}}">{{.User}}</a> {{if .Followed}}<span class="label label-success">互粉</span>{{end}}</td>
           </tr>
           {{end}}
           </tbody>
