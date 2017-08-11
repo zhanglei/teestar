@@ -112,3 +112,13 @@ func UpdateUserEmail(user string, email string) bool {
 
 	return affected != 0
 }
+
+func UpdateUserFollowable(user string, followable bool) bool {
+	objUser := User{User: user, IsFollowable: followable}
+	affected, err := adapter.engine.Id(user).Cols("is_followable").Update(objUser)
+	if err != nil {
+		panic(err)
+	}
+
+	return affected != 0
+}

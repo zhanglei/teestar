@@ -301,6 +301,14 @@ func (c *ViewController) Setting() {
 	email := c.Input().Get("email")
 	api.UpdateUserEmail(user, email)
 
+	var followable bool
+	if c.Input().Get("followable") == "on" {
+		followable = true
+	} else {
+		followable = false
+	}
+	api.UpdateUserFollowable(user, followable)
+
 	util.LogInfo(c.Ctx, "[%s] updated his setting", user)
 
 	flash.Success("更新资料成功")
