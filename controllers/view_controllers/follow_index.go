@@ -49,7 +49,7 @@ func (c *ViewController) FollowerPage() {
 	c.Data["IsLogin"] = true
 	c.Data["UserInfo"] = objUser
 
-	c.Data["Recommend"] = api.GetUserRecommend(user)
+	c.Data["Followers"] = api.GetUserFollowedStatus(user)
 
 	util.LogInfo(c.Ctx, "[%s] viewed follower page", user)
 
@@ -75,7 +75,7 @@ func (c *ViewController) FollowOwePage() {
 	c.Data["IsLogin"] = true
 	c.Data["UserInfo"] = objUser
 
-	c.Data["Recommend"] = api.GetUserRecommend(user)
+	c.Data["Following"] = api.GetUserFollowingStatus(user)
 
 	util.LogInfo(c.Ctx, "[%s] viewed follow owe page", user)
 

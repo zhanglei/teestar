@@ -14,21 +14,21 @@
       </div>
       <div class="panel-body paginate-bot">
         {{template "components/flash_error.tpl" .}}
-        {{range .Recommend}}
+        {{range .Followers}}
         <div class="media">
           <div class="media-left">
           </div>
           <div class="media-body">
             <div class="title">
-              <a rel="noreferrer" target="_blank" href="https://github.com/{{.Repo}}">{{.Repo}}</a>
+              <a rel="noreferrer" target="_blank" href="https://github.com/{{.User}}">{{.User}}</a>
             </div>
             <p class="gray">
-              <a target="_blank" href="/users/{{.Target}}"><span class="label label-primary">{{.Target}}</span></a>
+              <a target="_blank" href="/users/{{.User}}"><span class="label label-primary">{{.User}}</span></a>
               <span>•</span>
-              {{if ge .Score 0}}
-              <span class="hidden-sm hidden-xs">{{.Target}}还欠我{{.Score}}个赞</span>
+              {{if .Followed}}
+              <span class="label label-success">我已经粉他</span>
               {{else}}
-              <b><span class="hidden-sm hidden-xs">我还欠{{.Target}} {{.ScoreR}}个赞</span></b>
+              <span class="label label-danger">我还没有粉他</span>
               {{end}}
             </p>
           </div>

@@ -83,6 +83,20 @@ func GetUserFollowStatus(user string) UserFollowStatus {
 	return userFollowStatus
 }
 
+func GetUserFollowingStatus(user string) []FollowEntry {
+	otherUsers := GetOtherFollowableUsers(user)
+	followingTargets := GetIntersect(otherUsers, GetUserFollowingTargets(user))
+
+	followEntries := []FollowEntry{}
+	for _, target := range followingTargets {
+		if !IsUserFollowingTarget(target, user) {
+			followEntries = append(followEntries, FollowEntry{User: target, Followed: false})
+		}
+	}
+
+	return followEntries
+}
+
 func GetUserFollowedStatus(user string) []FollowEntry {
 	otherUsers := GetOtherFollowableUsers(user)
 	followingTargets := GetIntersect(otherUsers, GetUserFollowingTargets(user))
