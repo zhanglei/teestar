@@ -15,7 +15,7 @@ type GlobalController struct {
 // @Title UpdateStarringRepos
 // @Description update all the repos starred by each user into GitStar cache
 // @Success 200 {object} controllers.api_controller.Response The Response object
-// @router /starring-repos/update [post]
+// @router /starring-repos/update [get]
 func (c *GlobalController) UpdateStarringRepos() {
 	if c.RequireLogin() {
 		return
@@ -24,6 +24,29 @@ func (c *GlobalController) UpdateStarringRepos() {
 	var resp Response
 
 	affected := api.UpdateStarringRepos()
+
+	if affected {
+		resp = Response{Code: 200, Msg: "ok", Data: ""}
+	} else {
+		resp = Response{Code: 200, Msg: "not affected", Data: ""}
+	}
+
+	c.Data["json"] = resp
+	c.ServeJSON()
+}
+
+// @Title UpdateFollowingUsers
+// @Description update all the repos starred by each user into GitStar cache
+// @Success 200 {object} controllers.api_controller.Response The Response object
+// @router /following-users/update [get]
+func (c *GlobalController) UpdateFollowingUsers() {
+	if c.RequireLogin() {
+		return
+	}
+
+	var resp Response
+
+	affected := api.UpdateFollowingTargets()
 
 	if affected {
 		resp = Response{Code: 200, Msg: "ok", Data: ""}

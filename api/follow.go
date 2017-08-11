@@ -37,6 +37,19 @@ func UpdateUserFollowingTargets(user string) bool {
 	return affected != 0
 }
 
+func UpdateFollowingTargets() bool {
+	affected := false
+	users := GetFollowableUsers()
+
+	for _, user := range users {
+		if UpdateUserFollowingTargets(user) {
+			affected = true
+		}
+	}
+
+	return affected
+}
+
 func IsUserFollowingTarget(user string, target string) bool {
 	userFollowingTarget := UserFollowingTarget{User: user, Target: target}
 	has, err := adapter.engine.Get(&userFollowingTarget)
