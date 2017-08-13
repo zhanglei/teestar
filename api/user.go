@@ -1,6 +1,9 @@
 package api
 
 import (
+	"runtime"
+	"sort"
+	"sync"
 	"time"
 )
 
@@ -96,12 +99,27 @@ func GetUserObjects() []User {
 
 func GetExtendedUserObjects() ExtendedUserList {
 	objUsers := GetUserObjects()
-
 	objExtendedUsers := ExtendedUserList{}
-	for _, objUser := range objUsers {
-		objExtendedUsers = append(objExtendedUsers, GetExtendedUserFromUser(&objUser))
-	}
 
+	runtime.GOMAXPROCS(runtime.NumCPU())
+
+	var mutex sync.Mutex
+	var w sync.WaitGroup
+	w.Add(len(objUsers))
+	for _, objUser := range objUsers {
+		go func(objUser User) {
+			objExtendedUser := GetExtendedUserFromUser(&objUser)
+			mutex.Lock()
+			objExtendedUsers = append(objExtendedUsers, objExtendedUser)
+			mutex.Unlock()
+			w.Done()
+		}(objUser)
+	}
+	w.Wait()
+
+	runtime.GOMAXPROCS(1)
+
+	sort.Sort(objExtendedUsers)
 	return objExtendedUsers
 }
 
