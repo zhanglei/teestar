@@ -46,16 +46,11 @@ func IsUserAdmin(user string) bool {
 	}
 }
 
-func GetExtendedUser(user string) *ExtendedUser {
-	objUser := GetUser(user)
-	if objUser == nil {
-		return nil
-	}
-
+func GetExtendedUserFromUser(objUser *User) *ExtendedUser {
 	starringCount := GetUserStarringCount(objUser.User)
 	starredCount := GetUserStarredCount(objUser.User)
 
-	followStatus := GetUserFollowStatus(user)
+	followStatus := GetUserFollowStatus(objUser.User)
 	followingCount := len(followStatus.FollowingTargets)
 	followedCount := len(followStatus.FollowedTargets)
 
@@ -80,6 +75,15 @@ func GetExtendedUser(user string) *ExtendedUser {
 	return &objExtendedUser
 }
 
+func GetExtendedUser(user string) *ExtendedUser {
+	objUser := GetUser(user)
+	if objUser == nil {
+		return nil
+	}
+
+	return GetExtendedUserFromUser(objUser)
+}
+
 func GetUserObjects() []User {
 	var objUsers []User
 	err := adapter.engine.Asc("created_at").Find(&objUsers)
@@ -95,7 +99,7 @@ func GetExtendedUserObjects() ExtendedUserList {
 
 	objExtendedUsers := ExtendedUserList{}
 	for _, objUser := range objUsers {
-		objExtendedUsers = append(objExtendedUsers, GetExtendedUser(objUser.User))
+		objExtendedUsers = append(objExtendedUsers, GetExtendedUserFromUser(&objUser))
 	}
 
 	return objExtendedUsers
