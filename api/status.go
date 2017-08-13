@@ -22,8 +22,10 @@ func (list StatusList) Len() int {
 func (list StatusList) Less(i, j int) bool {
 	if list[i].Score > list[j].Score {
 		return true
-	} else {
+	} else if list[i].Score < list[j].Score {
 		return false
+	} else {
+		return list[i].Target < list[j].Target
 	}
 }
 

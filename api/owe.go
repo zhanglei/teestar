@@ -1,6 +1,10 @@
 package api
 
-import "sort"
+import (
+	"runtime"
+	"sort"
+	"sync"
+)
 
 func GetUnsortedUserOwe(user string) StatusList {
 	statusList := StatusList{}
@@ -33,10 +37,23 @@ func GetOwe() StatusList {
 	users := GetUsers()
 	allStatusList := StatusList{}
 
+	runtime.GOMAXPROCS(runtime.NumCPU())
+
+	var mutex sync.Mutex
+	var w sync.WaitGroup
+	w.Add(len(users))
 	for _, user := range users {
-		statusList := GetUnsortedUserOwe(user)
-		allStatusList = append(allStatusList, statusList...)
+		go func(user string) {
+			statusList := GetUnsortedUserOwe(user)
+			mutex.Lock()
+			allStatusList = append(allStatusList, statusList...)
+			mutex.Unlock()
+			w.Done()
+		}(user)
 	}
+	w.Wait()
+
+	runtime.GOMAXPROCS(1)
 
 	sort.Sort(allStatusList)
 	return allStatusList
