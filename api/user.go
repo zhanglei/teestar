@@ -4,6 +4,20 @@ import (
 	"time"
 )
 
+type ExtendedUserList []*ExtendedUser
+
+func (list ExtendedUserList) Len() int {
+	return len(list)
+}
+
+func (list ExtendedUserList) Less(i, j int) bool {
+	return list[i].CreatedAt < list[j].CreatedAt
+}
+
+func (list ExtendedUserList) Swap(i, j int) {
+	list[i], list[j] = list[j], list[i]
+}
+
 func GetUser(user string) *User {
 	var objUser = User{User: user}
 	has, err := adapter.engine.Get(&objUser)
@@ -76,12 +90,12 @@ func GetUserObjects() []User {
 	return objUsers
 }
 
-func GetExtendedUserObjects() []ExtendedUser {
+func GetExtendedUserObjects() ExtendedUserList {
 	objUsers := GetUserObjects()
 
-	objExtendedUsers := []ExtendedUser{}
+	objExtendedUsers := ExtendedUserList{}
 	for _, objUser := range objUsers {
-		objExtendedUsers = append(objExtendedUsers, *GetExtendedUser(objUser.User))
+		objExtendedUsers = append(objExtendedUsers, GetExtendedUser(objUser.User))
 	}
 
 	return objExtendedUsers
