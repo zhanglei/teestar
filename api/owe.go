@@ -2,7 +2,7 @@ package api
 
 import "sort"
 
-func GetUserOwe(user string) StatusList {
+func GetUnsortedUserOwe(user string) StatusList {
 	statusList := StatusList{}
 	otherUsers := GetOtherEnabledUsers(user)
 	for _, otherUser := range otherUsers {
@@ -20,6 +20,11 @@ func GetUserOwe(user string) StatusList {
 		statusList = append(statusList, &status)
 	}
 
+	return statusList
+}
+
+func GetUserOwe(user string) StatusList {
+	statusList := GetUnsortedUserOwe(user)
 	sort.Sort(statusList)
 	return statusList
 }
@@ -29,7 +34,7 @@ func GetOwe() StatusList {
 	allStatusList := StatusList{}
 
 	for _, user := range users {
-		statusList := GetUserOwe(user)
+		statusList := GetUnsortedUserOwe(user)
 		allStatusList = append(allStatusList, statusList...)
 	}
 
