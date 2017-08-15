@@ -86,7 +86,7 @@ func GetUserFollowStatus(user string) UserFollowStatus {
 }
 
 func GetUserFollowingStatus(user string) []FollowEntry {
-	otherUsers := GetOtherEnabledUsers(user)
+	otherUsers := GetOtherFollowableUsers(user)
 	followingTargets := GetIntersect(otherUsers, GetUserFollowingTargets(user))
 
 	followEntries := []FollowEntry{}
