@@ -68,6 +68,18 @@ func (c *ViewController) RepoPage() {
 		return
 	}
 
+	messages := api.GetSystemMessages()
+	for _, message := range messages {
+		if !message.IsHTML {
+			flash.Data[message.Type] = message.Text
+			c.Data["flash"] = flash.Data
+		} else {
+			flash.Data[message.Type] = " "
+			c.Data["flash"] = flash.Data
+			c.Data["flash_data"] = template.HTML(message.Text)
+		}
+	}
+
 	c.Data["IsLogin"] = true
 	c.Data["UserInfo"] = api.GetExtendedUser(user)
 
@@ -90,6 +102,18 @@ func (c *ViewController) OwePage() {
 		flash.Store(&c.Controller)
 		c.Redirect("/login", 302)
 		return
+	}
+
+	messages := api.GetSystemMessages()
+	for _, message := range messages {
+		if !message.IsHTML {
+			flash.Data[message.Type] = message.Text
+			c.Data["flash"] = flash.Data
+		} else {
+			flash.Data[message.Type] = " "
+			c.Data["flash"] = flash.Data
+			c.Data["flash_data"] = template.HTML(message.Text)
+		}
 	}
 
 	c.Data["IsLogin"] = true

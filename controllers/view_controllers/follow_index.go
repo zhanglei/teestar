@@ -1,6 +1,8 @@
 package view_controllers
 
 import (
+	"html/template"
+
 	"github.com/astaxie/beego"
 	"github.com/hsluoyz/gitstar/api"
 	"github.com/hsluoyz/gitstar/util"
@@ -19,6 +21,18 @@ func (c *ViewController) FollowIndex() {
 	}
 
 	objUser := api.GetExtendedUser(user)
+
+	messages := api.GetSystemMessages()
+	for _, message := range messages {
+		if !message.IsHTML {
+			flash.Data[message.Type] = message.Text
+			c.Data["flash"] = flash.Data
+		} else {
+			flash.Data[message.Type] = " "
+			c.Data["flash"] = flash.Data
+			c.Data["flash_data"] = template.HTML(message.Text)
+		}
+	}
 
 	c.Data["IsLogin"] = true
 	c.Data["UserInfo"] = objUser
@@ -46,6 +60,18 @@ func (c *ViewController) FollowerPage() {
 
 	objUser := api.GetExtendedUser(user)
 
+	messages := api.GetSystemMessages()
+	for _, message := range messages {
+		if !message.IsHTML {
+			flash.Data[message.Type] = message.Text
+			c.Data["flash"] = flash.Data
+		} else {
+			flash.Data[message.Type] = " "
+			c.Data["flash"] = flash.Data
+			c.Data["flash_data"] = template.HTML(message.Text)
+		}
+	}
+
 	c.Data["IsLogin"] = true
 	c.Data["UserInfo"] = objUser
 
@@ -71,6 +97,18 @@ func (c *ViewController) FollowOwePage() {
 	}
 
 	objUser := api.GetExtendedUser(user)
+
+	messages := api.GetSystemMessages()
+	for _, message := range messages {
+		if !message.IsHTML {
+			flash.Data[message.Type] = message.Text
+			c.Data["flash"] = flash.Data
+		} else {
+			flash.Data[message.Type] = " "
+			c.Data["flash"] = flash.Data
+			c.Data["flash_data"] = template.HTML(message.Text)
+		}
+	}
 
 	c.Data["IsLogin"] = true
 	c.Data["UserInfo"] = objUser
