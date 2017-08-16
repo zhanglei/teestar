@@ -39,7 +39,7 @@
       </div>
     </div>
   </div>
-  <div class="col-md-3 hidden-sm hidden-xs">
+  <div class="col-md-3">
     {{if .IsLogin}}
       {{template "components/follow_usage.tpl" .}}
       {{template "components/follow_button.tpl" .}}

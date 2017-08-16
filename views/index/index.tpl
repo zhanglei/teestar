@@ -26,9 +26,9 @@
               <a target="_blank" href="/users/{{.Target}}"><span class="label label-primary">{{.Target}}</span></a>
               <span>•</span>
               {{if ge .Score 0}}
-              <span class="hidden-sm hidden-xs">{{.Target}}还欠我{{.Score}}个赞</span>
+              <span>{{.Target}}还欠我{{.Score}}个赞</span>
               {{else}}
-              <b><span class="hidden-sm hidden-xs">我还欠{{.Target}} {{.ScoreR}}个赞</span></b>
+              <b><span>我还欠{{.Target}} {{.ScoreR}}个赞</span></b>
               {{end}}
             </p>
           </div>
@@ -39,7 +39,7 @@
       </div>
     </div>
   </div>
-  <div class="col-md-3 hidden-sm hidden-xs">
+  <div class="col-md-3">
     {{if .IsLogin}}
       {{template "components/star_usage.tpl" .}}
       {{template "components/star_button.tpl" .}}
