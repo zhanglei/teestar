@@ -32,7 +32,7 @@ func (c *ViewController) SettingPage() {
 
 	escapedRepos := []EscapedRepo{}
 	for _, repo := range repos {
-		escaped := strings.Replace(repo, "/", ".", -1)
+		escaped := strings.Replace(repo, "/", "~", -1)
 		escapedRepos = append(escapedRepos, EscapedRepo{Repo: repo, RepoEscaped: escaped})
 	}
 	c.Data["EscapedRepos"] = escapedRepos
@@ -210,7 +210,7 @@ func (c *ViewController) DeleteRepo() {
 	}
 
 	repo := c.GetString(":repo")
-	repo = strings.Replace(repo, ".", "/", -1)
+	repo = strings.Replace(repo, "~", "/", -1)
 
 	msg := api.CheckDeleteRepo(user, repo)
 	if msg != "" {
