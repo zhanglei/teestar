@@ -6,7 +6,7 @@
         <p class="alert alert-success">GitStar是用Golang语言编写的社区系统，旨在帮助开源爱好者的GitHub项目进行推广</p>
         <p>感谢 <a href="https://beego.me/" target="_blank">Beego</a> - Golang Web开发框架</p>
         <p>
-          用户反馈群: <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=3be0e33b7f8fd6da953be4d06c9c1d81b6ce2d93e126898087681e43d32ec0d9"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="GitHub Star项目点赞" title="GitHub Star项目点赞"></a> (646373152)
+          GitStar官方群: <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=3be0e33b7f8fd6da953be4d06c9c1d81b6ce2d93e126898087681e43d32ec0d9"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="GitHub Star项目点赞" title="GitHub Star项目点赞"></a> (646373152)
         </p>
         <p class="alert alert-success">想让你的GitHub开源项目短期内增加50+个star么？请参加我们的GitStar社区：
         </p>
