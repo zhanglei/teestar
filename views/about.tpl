@@ -22,11 +22,7 @@
         </p>
         <img border="0" src="/static/imgs/donate_alipay.jpg" alt="支付宝捐赠">
         <img border="0" src="/static/imgs/donate_weixin.png" alt="微信捐赠">
-
       </div>
     </div>
-  </div>
-  <div class="col-md-3 hidden-sm hidden-xs">
-
   </div>
 </div>

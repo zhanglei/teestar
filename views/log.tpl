@@ -24,7 +24,4 @@
       </div>
     </div>
   </div>
-  <div class="col-md-3 hidden-sm hidden-xs">
-
-  </div>
 </div>

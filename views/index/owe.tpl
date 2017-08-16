@@ -30,16 +30,16 @@
               <span class="label label-danger">昵称：{{.Nickname}}</span>
             </p>
             <p class="gray">
-               <span class="hidden-sm hidden-xs">我已赞他{{len .StarringRepos}}个项目：{{range .StarringRepos}} <a rel="noreferrer" target="_blank" href="https://github.com/{{.}}"><span class="label label-success">{{.}}</span></a> {{end}}</span>
+               <span>我已赞他{{len .StarringRepos}}个项目：{{range .StarringRepos}} <a rel="noreferrer" target="_blank" href="https://github.com/{{.}}"><span class="label label-success">{{.}}</span></a> {{end}}</span>
             </p>
             <p class="gray">
-              <span class="hidden-sm hidden-xs">他已赞我{{len .StarredRepos}}个项目：{{range .StarredRepos}} <a rel="noreferrer" target="_blank" href="https://github.com/{{.}}"><span class="label label-success">{{.}}</span></a> {{end}}</span>
+              <span>他已赞我{{len .StarredRepos}}个项目：{{range .StarredRepos}} <a rel="noreferrer" target="_blank" href="https://github.com/{{.}}"><span class="label label-success">{{.}}</span></a> {{end}}</span>
             </p>
             <p class="gray">
-              <span class="hidden-sm hidden-xs">我还可以赞他{{len .CanStarRepos}}个项目：{{range .CanStarRepos}} <a rel="noreferrer" target="_blank" href="https://github.com/{{.}}"><span class="label label-default">{{.}}</span></a> {{end}}</span>
+              <span>我还可以赞他{{len .CanStarRepos}}个项目：{{range .CanStarRepos}} <a rel="noreferrer" target="_blank" href="https://github.com/{{.}}"><span class="label label-default">{{.}}</span></a> {{end}}</span>
             </p>
             <p class="gray">
-              <span class="hidden-sm hidden-xs">他还可以赞我{{len .CanBeStarredRepos}}个项目：{{range .CanBeStarredRepos}} <a rel="noreferrer" target="_blank" href="https://github.com/{{.}}"><span class="label label-default">{{.}}</span></a> {{end}}</span>
+              <span>他还可以赞我{{len .CanBeStarredRepos}}个项目：{{range .CanBeStarredRepos}} <a rel="noreferrer" target="_blank" href="https://github.com/{{.}}"><span class="label label-default">{{.}}</span></a> {{end}}</span>
             </p>
           </div>
         </div>

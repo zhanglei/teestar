@@ -67,7 +67,7 @@
       </div>
     </div>
   </div>
-  <div class="col-md-3 hidden-sm hidden-xs">
+  <div class="col-md-3">
     {{template "../components/setting_help_info.tpl" .}}
   </div>
 </div>
