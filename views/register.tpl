@@ -17,7 +17,7 @@
             <label for="qq">QQ号</label>
             <input type="text" id="qq" name="qq" class="form-control" placeholder="你的QQ号码">
           </div>
-          <input type="submit" class="btn btn-sm btn-default" value="注册"> <a href="/login">去登录</a>
+          <input type="submit" class="btn btn-default" value="注册"> <a href="/login">去登录</a>
         </form>
       </div>
     </div>
