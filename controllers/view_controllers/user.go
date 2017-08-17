@@ -54,20 +54,31 @@ func (c *ViewController) RegisterPage() {
 func (c *ViewController) Register() {
 	flash := beego.NewFlash()
 	user, password := c.Input().Get("username"), c.Input().Get("password")
+	qq := c.Input().Get("qq")
 
 	msg := api.CheckUserRegister(user, password)
 	if msg != "" {
 		flash.Error(msg)
 		flash.Store(&c.Controller)
 		c.Redirect("/register", 302)
-	} else {
-		api.AddUser(user, password)
-
-		c.SetSessionUser(user)
-
-		util.LogInfo(c.Ctx, "[%s] is registered as new user", user)
-		c.Redirect("/user/setting", 302)
+		return
 	}
+
+	msg = api.CheckUserUpdateQQ(qq)
+	if msg != "" {
+		flash.Error(msg)
+		flash.Store(&c.Controller)
+		c.Redirect("/register", 302)
+		return
+	}
+
+	api.AddUser(user, password)
+	api.UpdateUserQQ(user, qq)
+
+	c.SetSessionUser(user)
+
+	util.LogInfo(c.Ctx, "[%s] is registered as new user", user)
+	c.Redirect("/user/setting", 302)
 }
 
 //登出
