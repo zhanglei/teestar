@@ -18,7 +18,7 @@
           <li>支持绑定GitHub小号点赞，大号用来做开源，小号专门用来点赞，互不干扰；</li>
           <li>支持与QQ号绑定，你可以去用QQ去提醒欠了你赞的人进行回赞，恶意欠赞不还者可以举报给管理员，管理员会采取警告甚至封号处理。</li>
         </ul>
-        <p>我要捐赠，支持作者开发:
+        <p class="alert alert-success">我要捐赠，支持作者开发:
         </p>
         <img border="0" src="/static/imgs/donate_alipay.jpg" alt="支付宝捐赠">
         <img border="0" src="/static/imgs/donate_weixin.png" alt="微信捐赠">
