@@ -23,6 +23,10 @@
               <a rel="noreferrer" target="_blank" href="https://github.com/{{.Repo}}">{{.Repo}}：获得 <span class="label label-default">{{len .Stargazers}}</span> 个赞</a>
             </div>
             <p class="gray">
+              {{if .IsDisabled}}
+              <span class="label label-warning">隐藏中</span>
+              <span> </span>
+              {{end}}
               {{if ne (len .Stargazers) 0}}
                 被 {{range .Stargazers}}<a target="_blank" href="/users/{{.}}"><span class="label label-primary">{{.}}</span></a> {{end}}
                 等{{len .Stargazers}}人点赞
