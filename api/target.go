@@ -105,18 +105,17 @@ type Entry2 struct {
 func GetRecommend() []Entry2 {
 	entries := []Entry2{}
 
-	users := GetUsers()
-	for _, user := range users {
-		repos := GetUserRepos(user)
+	objUsers := GetUserObjects()
+	for _, objUser := range objUsers {
+		repos := GetUserRepos(objUser.User)
 		if len(repos) == 0 {
 			continue
 		}
 
-		statusList := GetUserStatus(user)
-		objUser := GetUser(user)
+		statusList := GetUserStatus(objUser.User)
 		for _, status := range statusList {
 			if len(status.CanStarRepos) != 0 {
-				entries = append(entries, Entry2{User: user, QQ: objUser.QQ, Nickname: objUser.Nickname, Target: status.Target, CanStarRepos: status.CanStarRepos, Score: status.Score})
+				entries = append(entries, Entry2{User: objUser.User, QQ: objUser.QQ, Nickname: objUser.Nickname, Target: status.Target, CanStarRepos: status.CanStarRepos, Score: status.Score})
 			}
 		}
 	}
