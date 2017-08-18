@@ -30,6 +30,16 @@ func GetUserRepos(user string) []string {
 	return repos
 }
 
+func GetUserRepoObjects(user string) []UserRepo {
+	var objUserRepos []UserRepo
+	err := adapter.engine.Find(&objUserRepos, &UserRepo{User: user})
+	if err != nil {
+		panic(err)
+	}
+
+	return objUserRepos
+}
+
 func GetUserRepoCount(user string) int {
 	userRepo := new(UserRepo)
 	total, err := adapter.engine.Where("user = ?", user).Count(userRepo)

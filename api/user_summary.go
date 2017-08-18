@@ -39,14 +39,18 @@ func GetRepoStargazers(user string, repo string) []string {
 }
 
 func GetExtendedUserRepoObjects(user string) []ExtendedUserRepo {
-	objRepos := []ExtendedUserRepo{}
-	repos := GetUserRepos(user)
+	objExtendedUserRepos := []ExtendedUserRepo{}
+	objUserRepos := GetUserRepoObjects(user)
 
-	for _, repo := range repos {
-		stargazers := GetRepoStargazers(user, repo)
-		objRepo := ExtendedUserRepo{Repo: repo, Stargazers: stargazers}
-		objRepos = append(objRepos, objRepo)
+	for _, objUserRepo := range objUserRepos {
+		stargazers := GetRepoStargazers(user, objUserRepo.Repo)
+		objRepo := ExtendedUserRepo{
+			User: objUserRepo.User,
+			Repo: objUserRepo.Repo,
+			IsDisabled: objUserRepo.IsDisabled,
+			Stargazers: stargazers}
+		objExtendedUserRepos = append(objExtendedUserRepos, objRepo)
 	}
 
-	return objRepos
+	return objExtendedUserRepos
 }

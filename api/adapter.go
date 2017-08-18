@@ -64,7 +64,9 @@ type ExtendedUser struct {
 }
 
 type ExtendedUserRepo struct {
+	User       string
 	Repo       string
+	IsDisabled bool
 	Stargazers []string
 }
 
