@@ -11,6 +11,7 @@ import (
 type EscapedRepo struct {
 	Repo        string
 	RepoEscaped string
+	IsDisabled  string
 }
 
 func (c *ViewController) SettingPage() {
@@ -225,6 +226,68 @@ func (c *ViewController) DeleteRepo() {
 	util.LogInfo(c.Ctx, "[%s] deleted repo: [%s]", user, repo)
 
 	flash.Success("删除项目成功")
+	flash.Store(&c.Controller)
+	c.Redirect("/user/setting", 302)
+}
+
+func (c *ViewController) EnableRepo() {
+	flash := beego.NewFlash()
+
+	user := c.GetSessionUser()
+	if user == "" {
+		flash.Error("请先登录")
+		flash.Store(&c.Controller)
+		c.Redirect("/login", 302)
+		return
+	}
+
+	repo := c.GetString(":repo")
+	repo = strings.Replace(repo, "~", "/", -1)
+
+	msg := api.CheckDeleteRepo(user, repo)
+	if msg != "" {
+		flash.Error(msg)
+		flash.Store(&c.Controller)
+		c.Redirect("/user/setting", 302)
+		return
+	}
+
+	api.EnableUserRepo(user, repo, true)
+
+	util.LogInfo(c.Ctx, "[%s] enabled repo: [%s]", user, repo)
+
+	flash.Success("项目已更改为显示状态")
+	flash.Store(&c.Controller)
+	c.Redirect("/user/setting", 302)
+}
+
+func (c *ViewController) DisableRepo() {
+	flash := beego.NewFlash()
+
+	user := c.GetSessionUser()
+	if user == "" {
+		flash.Error("请先登录")
+		flash.Store(&c.Controller)
+		c.Redirect("/login", 302)
+		return
+	}
+
+	repo := c.GetString(":repo")
+	repo = strings.Replace(repo, "~", "/", -1)
+
+	msg := api.CheckDeleteRepo(user, repo)
+	if msg != "" {
+		flash.Error(msg)
+		flash.Store(&c.Controller)
+		c.Redirect("/user/setting", 302)
+		return
+	}
+
+	api.EnableUserRepo(user, repo, false)
+
+	util.LogInfo(c.Ctx, "[%s] disabled repo: [%s]", user, repo)
+
+	flash.Success("项目已更改为隐藏状态")
 	flash.Store(&c.Controller)
 	c.Redirect("/user/setting", 302)
 }

@@ -87,3 +87,13 @@ func DeleteUserRepo(user string, repo string) bool {
 
 	return affected != 0
 }
+
+func EnableUserRepo(user string, repo string, enable bool) bool {
+	objUserRepo := UserRepo{User: user, Repo: repo, IsDisabled: !enable}
+	affected, err := adapter.engine.Where("user=? and repo=?", user, repo).Cols("is_disabled").Update(objUserRepo)
+	if err != nil {
+		panic(err)
+	}
+
+	return affected != 0
+}
