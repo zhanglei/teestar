@@ -30,7 +30,7 @@
 
     <div class="panel panel-default">
       <div class="panel-heading">
-        我需要被别人点赞的项目（靠前的项目会被优先展示）
+        我需要被别人点赞的项目（靠前的项目会被优先展示，隐藏的项目不会被展示）
         <a href="/repo/add" class="pull-right">添加项目</a>
       </div>
       <div class="table-responsive">
@@ -38,8 +38,13 @@
           <tbody>
           {{range .EscapedRepos}}
           <tr>
-            <td><a rel="noreferrer" target="_blank" href="https://github.com/{{.Repo}}">{{.Repo}}</a></td>
+            <td><a rel="noreferrer" target="_blank" href="https://github.com/{{.Repo}}">{{.Repo}}</a> {{if .IsDisabled}}（该项目已隐藏）{{end}}</td>
             <td>
+              {{if .IsDisabled}}
+              <a id="enable_repo" href="/repo/enable/{{.User}}" class="btn btn-xs btn-primary">显示</a>
+              {{else}}
+              <a id="enable_repo" href="/repo/disable/{{.User}}" class="btn btn-xs btn-warning">隐藏</a>
+              {{end}}
               <a id="delete_repo" href="javascript:if(confirm('确认删除项目{{.Repo}}吗?')) location.href='/repo/delete/{{.User}}'" class="btn btn-xs btn-danger">删除</a>
             </td>
           </tr>

@@ -33,9 +33,17 @@
         <table class="table table-striped table-responsive">
           <tbody>
           {{range .TargetRepos}}
+          {{if $.UserInfo.IsAdmin}}
           <tr>
-            <td><a rel="noreferrer" target="_blank" href="https://github.com/{{.Repo}}">{{.Repo}}：获得 <span class="label label-default">{{len .Stargazers}}</span> 个赞</a></td>
+            <td><a rel="noreferrer" target="_blank" href="https://github.com/{{.Repo}}">{{.Repo}}：获得 <span class="label label-default">{{len .Stargazers}}</span> 个赞</a> {{if .IsDisabled}}（该项目已隐藏）{{end}}</td>
           </tr>
+          {{else}}
+          {{if not .IsDisabled}}
+          <tr>
+            <td><a rel="noreferrer" target="_blank" href="https://github.com/{{.Repo}}">{{.Repo}}：获得 <span class="label label-default">{{len .Stargazers}}</span> 个赞</a> {{if .IsDisabled}}（该项目已隐藏）{{end}}</td>
+          </tr>
+          {{end}}
+          {{end}}
           {{end}}
           </tbody>
         </table>
