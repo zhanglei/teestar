@@ -46,11 +46,11 @@ func GetUserTargetStatus(user string, target string) UserTargetStatus {
 	nickname := objTarget.Nickname
 	hitter := objTarget.Hitter
 
-	targetRepos := GetUserRepos(target)
+	targetRepos := GetUserEnabledRepos(target)
 	userStarringRepos := GetUserStarringRepos(user)
 	starringRepos := GetIntersect(targetRepos, userStarringRepos)
 
-	userRepos := GetUserRepos(user)
+	userRepos := GetUserEnabledRepos(user)
 	targetStarringRepos := GetUserStarringRepos(target)
 	starredRepos := GetIntersect(userRepos, targetStarringRepos)
 
@@ -107,7 +107,7 @@ func GetRecommend() []Entry2 {
 
 	objUsers := GetUserObjects()
 	for _, objUser := range objUsers {
-		repos := GetUserRepos(objUser.User)
+		repos := GetUserEnabledRepos(objUser.User)
 		if len(repos) == 0 {
 			continue
 		}

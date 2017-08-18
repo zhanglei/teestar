@@ -2,7 +2,7 @@ package api
 
 func GetUserStarringCount(user string) int {
 	githubStarringRepos := GetUserStarringRepos(user)
-	userRepos := GetUserRepos(user)
+	userRepos := GetUserEnabledRepos(user)
 	allRepos := GetAllRepos()
 	otherRepos := GetSubtract(allRepos, userRepos)
 	starringRepos := GetIntersect(githubStarringRepos, otherRepos)
@@ -10,7 +10,7 @@ func GetUserStarringCount(user string) int {
 }
 
 func GetUserStarredCount(user string) int {
-	userRepos := GetUserRepos(user)
+	userRepos := GetUserEnabledRepos(user)
 	userStarringRepo := new(UserStarringRepo)
 
 	count := 0

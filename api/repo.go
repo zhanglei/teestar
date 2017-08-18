@@ -30,6 +30,23 @@ func GetUserRepos(user string) []string {
 	return repos
 }
 
+func GetUserEnabledRepos(user string) []string {
+	var userRepos []UserRepo
+	err := adapter.engine.Find(&userRepos, &UserRepo{User: user})
+	if err != nil {
+		panic(err)
+	}
+
+	repos := []string{}
+	for _, userRepo := range userRepos {
+		if !userRepo.IsDisabled {
+			repos = append(repos, userRepo.Repo)
+		}
+	}
+
+	return repos
+}
+
 func GetUserRepoObjects(user string) []UserRepo {
 	var objUserRepos []UserRepo
 	err := adapter.engine.Find(&objUserRepos, &UserRepo{User: user})
