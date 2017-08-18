@@ -64,7 +64,7 @@ type ExtendedUser struct {
 }
 
 type ExtendedUserRepo struct {
-	Name       string
+	Repo       string
 	Stargazers []string
 }
 

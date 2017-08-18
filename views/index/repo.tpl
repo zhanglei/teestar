@@ -20,7 +20,7 @@
           </div>
           <div class="media-body">
             <div class="title">
-              <a rel="noreferrer" target="_blank" href="https://github.com/{{.Name}}">{{.Name}}：获得 <span class="label label-default">{{len .Stargazers}}</span> 个赞</a>
+              <a rel="noreferrer" target="_blank" href="https://github.com/{{.Repo}}">{{.Repo}}：获得 <span class="label label-default">{{len .Stargazers}}</span> 个赞</a>
             </div>
             <p class="gray">
               {{if ne (len .Stargazers) 0}}

@@ -34,7 +34,7 @@
           <tbody>
           {{range .TargetRepos}}
           <tr>
-            <td><a rel="noreferrer" target="_blank" href="https://github.com/{{.Name}}">{{.Name}}：获得 <span class="label label-default">{{len .Stargazers}}</span> 个赞</a></td>
+            <td><a rel="noreferrer" target="_blank" href="https://github.com/{{.Repo}}">{{.Repo}}：获得 <span class="label label-default">{{len .Stargazers}}</span> 个赞</a></td>
           </tr>
           {{end}}
           </tbody>

@@ -44,7 +44,7 @@ func GetExtendedUserRepoObjects(user string) []ExtendedUserRepo {
 
 	for _, repo := range repos {
 		stargazers := GetRepoStargazers(user, repo)
-		objRepo := ExtendedUserRepo{Name: repo, Stargazers: stargazers}
+		objRepo := ExtendedUserRepo{Repo: repo, Stargazers: stargazers}
 		objRepos = append(objRepos, objRepo)
 	}
 
