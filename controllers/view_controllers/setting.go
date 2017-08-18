@@ -8,12 +8,6 @@ import (
 	"github.com/hsluoyz/gitstar/util"
 )
 
-type EscapedRepo struct {
-	Repo        string
-	RepoEscaped string
-	IsDisabled  string
-}
-
 func (c *ViewController) SettingPage() {
 	beego.ReadFromRequest(&c.Controller)
 	flash := beego.NewFlash()
@@ -28,15 +22,12 @@ func (c *ViewController) SettingPage() {
 
 	c.Data["IsLogin"] = true
 	c.Data["UserInfo"] = api.GetUser(user)
-	repos := api.GetUserRepos(user)
-	c.Data["Repos"] = repos
 
-	escapedRepos := []EscapedRepo{}
-	for _, repo := range repos {
-		escaped := strings.Replace(repo, "/", "~", -1)
-		escapedRepos = append(escapedRepos, EscapedRepo{Repo: repo, RepoEscaped: escaped})
+	userRepos := api.GetUserRepoObjects(user)
+	for i := range userRepos {
+		userRepos[i].User = strings.Replace(userRepos[i].Repo, "/", "~", -1)
 	}
-	c.Data["EscapedRepos"] = escapedRepos
+	c.Data["EscapedRepos"] = userRepos
 
 	util.LogInfo(c.Ctx, "[%s] viewed setting", user)
 

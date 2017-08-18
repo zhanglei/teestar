@@ -40,7 +40,7 @@
           <tr>
             <td><a rel="noreferrer" target="_blank" href="https://github.com/{{.Repo}}">{{.Repo}}</a></td>
             <td>
-              <a id="delete_repo" href="javascript:if(confirm('确认删除项目{{.Repo}}吗?')) location.href='/repo/delete/{{.RepoEscaped}}'" class="btn btn-xs btn-danger">删除</a>
+              <a id="delete_repo" href="javascript:if(confirm('确认删除项目{{.Repo}}吗?')) location.href='/repo/delete/{{.User}}'" class="btn btn-xs btn-danger">删除</a>
             </td>
           </tr>
           {{end}}
