@@ -83,7 +83,7 @@ func (c *ViewController) RepoPage() {
 	c.Data["IsLogin"] = true
 	c.Data["UserInfo"] = api.GetExtendedUser(user)
 
-	c.Data["Repos"] = api.GetUserRepoObjects(user)
+	c.Data["Repos"] = api.GetExtendedUserRepoObjects(user)
 
 	util.LogInfo(c.Ctx, "[%s] viewed repo page", user)
 

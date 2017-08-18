@@ -54,7 +54,7 @@ func (c *UsersController) GetUserRepos() {
 // @Title GetUserExtendedRepos
 // @Description Get all the repos the user added in GitStar with extended information
 // @Param   user     path    string  true        "The username"
-// @Success 200 {object} api.Repo The Repo object
+// @Success 200 {object} api.ExtendedUserRepo The ExtendedUserRepo object
 // @router /:user/repos/extended [get]
 func (c *UsersController) GetUserExtendedRepos() {
 	if c.RequireLogin() {
@@ -63,7 +63,7 @@ func (c *UsersController) GetUserExtendedRepos() {
 
 	user := c.GetString(":user")
 
-	c.Data["json"] = api.GetUserRepoObjects(user)
+	c.Data["json"] = api.GetExtendedUserRepoObjects(user)
 	c.ServeJSON()
 }
 

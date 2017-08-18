@@ -55,7 +55,7 @@ func (c *ViewController) UserPage() {
 	c.Data["UserInfo"] = api.GetUser(user)
 
 	c.Data["TargetInfo"] = api.GetExtendedUser(target)
-	c.Data["TargetRepos"] = api.GetUserRepoObjects(target)
+	c.Data["TargetRepos"] = api.GetExtendedUserRepoObjects(target)
 	c.Data["TargetFollowedStatus"] = api.GetUserFollowedStatus(target)
 
 	c.Data["PageTitle"] = "GitStar - 用户：" + target

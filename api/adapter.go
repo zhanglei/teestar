@@ -63,7 +63,7 @@ type ExtendedUser struct {
 	FollowOweCount int
 }
 
-type Repo struct {
+type ExtendedUserRepo struct {
 	Name       string
 	Stargazers []string
 }
