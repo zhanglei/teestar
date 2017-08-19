@@ -55,10 +55,13 @@
           <li>
             <a href="/about">关于</a>
           </li>
+          <li>
+          <a href="http://zcmft.oschina.io/gitstardemo">App下载</a>
+          </li>
           {{if .IsLogin}}
           <li>
             <a target="_blank" href="/users/{{.UserInfo.User}}">
-              欢迎您，{{.UserInfo.User}}
+              欢迎，{{.UserInfo.User}}
             </a>
           </li>
           <li>
