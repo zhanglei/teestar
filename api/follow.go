@@ -92,7 +92,8 @@ func GetUserFollowingStatus(user string) []FollowEntry {
 	followEntries := []FollowEntry{}
 	for _, target := range followingTargets {
 		if !IsUserFollowingTarget(target, user) {
-			followEntries = append(followEntries, FollowEntry{User: target, Followed: false})
+			objUser := GetUser(target)
+			followEntries = append(followEntries, FollowEntry{User: target, QQ: objUser.QQ, Nickname: objUser.Nickname, Followed: false})
 		}
 	}
 

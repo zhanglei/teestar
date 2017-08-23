@@ -25,6 +25,10 @@
             <p class="gray">
               <a target="_blank" href="/users/{{.User}}"><span class="label label-primary">{{.User}}</span></a>
               <span>•</span>
+              <span class="label label-warning">QQ：{{.QQ}}</span>
+              <span>•</span>
+              <span class="label label-danger">昵称：{{.Nickname}}</span>
+              <span>•</span>
               {{if .Followed}}
               <span class="label label-success">他已经粉我</span>
               {{else}}
