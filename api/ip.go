@@ -19,7 +19,7 @@ func IsMainland(ip string) bool {
 func GetDescFromIP(ip string) string {
 	info, err := Find(ip)
 	if err != nil {
-		panic(err)
+		return "error: " + err.Error()
 	}
 
 	res := info.Country + ", " + info.Region + ", " + info.City
