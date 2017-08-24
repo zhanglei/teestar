@@ -11,15 +11,19 @@ import (
 	"github.com/hsluoyz/gitstar/api"
 )
 
+func getIPInfo(clientIP string) string {
+	if clientIP == "" {
+		return ""
+	}
+
+	desc := api.GetDescFromIP(clientIP)
+	return fmt.Sprintf("%s: %s", clientIP, desc)
+}
+
 func LogInfo(ctx *context.Context, f string, v ...interface{}) {
 	var ipString string
 	clientIP := ctx.Request.Header.Get("x-forwarded-for")
-	if clientIP != "" {
-		desc := api.GetDescFromIP(clientIP)
-		ipString = fmt.Sprintf("(%s: %s) ", clientIP, desc)
-	} else {
-		ipString = "() "
-	}
+	ipString = fmt.Sprintf("(%s) ", getIPInfo(clientIP))
 
 	logs.Info(ipString + f, v...)
 }
