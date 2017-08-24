@@ -16,8 +16,20 @@ func getIPInfo(clientIP string) string {
 		return ""
 	}
 
-	desc := api.GetDescFromIP(clientIP)
-	return fmt.Sprintf("%s: %s", clientIP, desc)
+	ips := strings.Split(clientIP, ",")
+	res := ""
+	for i := range ips {
+		ip := strings.TrimSpace(ips[i])
+		desc := api.GetDescFromIP(ip)
+		ipstr := fmt.Sprintf("%s: %s", ip, desc)
+		if i != len(ips) - 1 {
+			res += ipstr + " -> "
+		} else {
+			res += ipstr
+		}
+	}
+
+	return res
 }
 
 func LogInfo(ctx *context.Context, f string, v ...interface{}) {
