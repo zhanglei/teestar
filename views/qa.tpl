@@ -39,6 +39,17 @@
         <div class="alert alert-success alert-dismissible" role="alert"><b>9、为什么我首次登录平台，我被点赞就很多？</b></div>
         <p>因为平台是从GitHub获取的数据，在加入平台之前，你已经与平台上的其他人有过互赞了，所以平台统计到了。不会影响后续项目互赞，放心使用。
         </p>
+
+        <div class="alert alert-success alert-dismissible" role="alert"><b>10、为什么有人欠了我很多赞，却没有显示在“欠我赞的人”页面里？</b></div>
+        <p>“欠我赞的人”页面里只显示他还能给你点赞的，如果他欠你，但是你的项目他都点满了，这种不显示。
+
+        <div class="alert alert-success alert-dismissible" role="alert"><b>11、网站打不开？</b></div>
+        <p>有可能是开了VPN的情况，目前网站已经开发了禁止国外IP访问的功能（但目前还未启用，所以目前开了VPN还是可以访问网站的）。也有可能是日志功能的bug，所以遇到这种情况可以在GitStar官方群里反馈下。
+        </p>
+
+        <div class="alert alert-success alert-dismissible" role="alert"><b>12、赞了、粉了之后刷新了页面还是显示那么多欠赞？</b></div>
+        <p>赞完了后，记得点击页面右侧的红色刷新按钮（互粉是蓝色按钮）。如果设置了小号的，得用小号来赞或者粉，不要用错帐号了。
+        </p>
       </div>
     </div>
   </div>
