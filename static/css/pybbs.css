@@ -760,6 +760,7 @@ body {
 .wrapper {
     width: 100%;
     background-color: #e2e2e2;
+    min-height:calc(100vh - 70px);
 }
 
 .title a:visited {
