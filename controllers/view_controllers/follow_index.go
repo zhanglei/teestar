@@ -30,7 +30,7 @@ func (c *ViewController) FollowIndex() {
 		} else {
 			flash.Data[message.Type] = " "
 			c.Data["flash"] = flash.Data
-			c.Data["flash_data"] = template.HTML(message.Text)
+			c.Data["flash_html_" + message.Type] = template.HTML(message.Text)
 		}
 	}
 
@@ -68,7 +68,7 @@ func (c *ViewController) FollowerPage() {
 		} else {
 			flash.Data[message.Type] = " "
 			c.Data["flash"] = flash.Data
-			c.Data["flash_data"] = template.HTML(message.Text)
+			c.Data["flash_html_" + message.Type] = template.HTML(message.Text)
 		}
 	}
 
@@ -106,7 +106,7 @@ func (c *ViewController) FollowOwePage() {
 		} else {
 			flash.Data[message.Type] = " "
 			c.Data["flash"] = flash.Data
-			c.Data["flash_data"] = template.HTML(message.Text)
+			c.Data["flash_html_" + message.Type] = template.HTML(message.Text)
 		}
 	}
 
