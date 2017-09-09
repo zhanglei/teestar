@@ -93,7 +93,7 @@ func (c *GlobalController) GetSystemMessages() {
 		return
 	}
 
-	messages := api.GetSystemMessages()
+	messages := api.GetSystemMessages("")
 	for i := range messages {
 		messages[i].Text = base64.StdEncoding.EncodeToString([]byte(messages[i].Text))
 	}

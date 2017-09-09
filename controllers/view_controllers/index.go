@@ -32,7 +32,7 @@ func (c *ViewController) Index() {
 		flash.Error("该账户已被管理员禁用，项目已处于隐藏状态。有问题请联系管理员，QQ群：646373152")
 	}
 
-	messages := api.GetSystemMessages()
+	messages := api.GetSystemMessages(user)
 	for _, message := range messages {
 		if !message.IsHTML {
 			flash.Data[message.Type] = message.Text
@@ -68,7 +68,7 @@ func (c *ViewController) RepoPage() {
 		return
 	}
 
-	messages := api.GetSystemMessages()
+	messages := api.GetSystemMessages(user)
 	for _, message := range messages {
 		if !message.IsHTML {
 			flash.Data[message.Type] = message.Text
@@ -104,7 +104,7 @@ func (c *ViewController) OwePage() {
 		return
 	}
 
-	messages := api.GetSystemMessages()
+	messages := api.GetSystemMessages(user)
 	for _, message := range messages {
 		if !message.IsHTML {
 			flash.Data[message.Type] = message.Text

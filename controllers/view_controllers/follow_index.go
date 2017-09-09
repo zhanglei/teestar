@@ -22,7 +22,7 @@ func (c *ViewController) FollowIndex() {
 
 	objUser := api.GetExtendedUser(user)
 
-	messages := api.GetSystemMessages()
+	messages := api.GetSystemMessages(user)
 	for _, message := range messages {
 		if !message.IsHTML {
 			flash.Data[message.Type] = message.Text
@@ -60,7 +60,7 @@ func (c *ViewController) FollowerPage() {
 
 	objUser := api.GetExtendedUser(user)
 
-	messages := api.GetSystemMessages()
+	messages := api.GetSystemMessages(user)
 	for _, message := range messages {
 		if !message.IsHTML {
 			flash.Data[message.Type] = message.Text
@@ -98,7 +98,7 @@ func (c *ViewController) FollowOwePage() {
 
 	objUser := api.GetExtendedUser(user)
 
-	messages := api.GetSystemMessages()
+	messages := api.GetSystemMessages(user)
 	for _, message := range messages {
 		if !message.IsHTML {
 			flash.Data[message.Type] = message.Text
