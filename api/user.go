@@ -67,6 +67,7 @@ func GetExtendedUserFromUser(objUser *User) *ExtendedUser {
 		IsAdmin: objUser.IsAdmin,
 		IsDisabled: objUser.IsDisabled,
 		IsFollowable: objUser.IsFollowable,
+		IsFlagged: objUser.IsFlagged,
 		RepoCount: GetUserRepoCount(objUser.User),
 		StarringCount: starringCount,
 		StarredCount: starredCount,
@@ -198,7 +199,7 @@ func GetFollowableUsers() []string {
 
 	users := []string{}
 	for _, objUser := range objUsers {
-		if !objUser.IsDisabled && objUser.QQ != "" && objUser.IsFollowable {
+		if !objUser.IsDisabled && objUser.QQ != "" && objUser.IsFollowable && !objUser.IsFlagged {
 			users = append(users, objUser.User)
 		}
 	}
@@ -215,7 +216,7 @@ func GetOtherFollowableUsers(user string) []string {
 
 	users := []string{}
 	for _, objUser := range objUsers {
-		if objUser.User != user && !objUser.IsDisabled && objUser.QQ != "" && objUser.IsFollowable {
+		if objUser.User != user && !objUser.IsDisabled && objUser.QQ != "" && objUser.IsFollowable && !objUser.IsFlagged {
 			users = append(users, objUser.User)
 		}
 	}
@@ -288,7 +289,7 @@ func getCurrentTime() string {
 }
 
 func AddUser(user string, password string) bool {
-	objUser := User{User: user, Password: password, Hitter: "", CreatedAt: getCurrentTime(), IsAdmin: false, IsDisabled: false, IsFollowable: false}
+	objUser := User{User: user, Password: password, Hitter: "", CreatedAt: getCurrentTime(), IsAdmin: false, IsDisabled: false, IsFollowable: false, IsFlagged: false}
 	affected, err := adapter.engine.Insert(objUser)
 	if err != nil {
 		panic(err)

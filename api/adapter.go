@@ -37,6 +37,7 @@ type User struct {
 	IsAdmin      bool
 	IsDisabled   bool
 	IsFollowable bool
+	IsFlagged    bool
 }
 
 type UserFollowingTarget struct {
@@ -54,6 +55,7 @@ type ExtendedUser struct {
 	IsAdmin        bool
 	IsDisabled     bool
 	IsFollowable   bool
+	IsFlagged      bool
 	RepoCount      int
 	StarringCount  int
 	StarredCount   int
