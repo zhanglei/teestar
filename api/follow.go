@@ -25,6 +25,12 @@ func UpdateUserFollowingTargets(user string) bool {
 		panic(err)
 	}
 
+	flagged := IsGitHubUserFlagged(hitter)
+	UpdateUserFlagged(user, flagged)
+	if flagged {
+		return affected != 0
+	}
+
 	targets := ListFollowingTargets(hitter)
 	userTargets := []UserFollowingTarget{}
 	for _, target := range targets {

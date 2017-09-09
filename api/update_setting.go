@@ -49,3 +49,13 @@ func UpdateUserFollowable(user string, followable bool) bool {
 
 	return affected != 0
 }
+
+func UpdateUserFlagged(user string, flagged bool) bool {
+	objUser := User{User: user, IsFlagged: flagged}
+	affected, err := adapter.engine.Id(user).Cols("is_flagged").Update(objUser)
+	if err != nil {
+		panic(err)
+	}
+
+	return affected != 0
+}

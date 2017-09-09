@@ -23,6 +23,12 @@ func UpdateUserStarringRepos(user string) bool {
 		panic(err)
 	}
 
+	flagged := IsGitHubUserFlagged(hitter)
+	UpdateUserFlagged(user, flagged)
+	if flagged {
+		return affected != 0
+	}
+
 	repos := ListStarringRepos(hitter)
 	userRepos := []UserStarringRepo{}
 	for _, repo := range repos {
