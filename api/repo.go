@@ -67,6 +67,16 @@ func GetUserRepoCount(user string) int {
 	return int(total)
 }
 
+func HasRepo(repo string) bool {
+	userRepo := UserRepo{Repo: repo}
+	has, err := adapter.engine.Get(&userRepo)
+	if err != nil {
+		panic(err)
+	}
+
+	return has
+}
+
 func HasUserRepo(user string, repo string) bool {
 	userRepo := UserRepo{User: user, Repo: repo}
 	has, err := adapter.engine.Get(&userRepo)
