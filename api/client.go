@@ -2,6 +2,7 @@ package api
 
 import (
 	"context"
+	"net/http"
 	"strings"
 
 	"github.com/google/go-github/github"
@@ -134,4 +135,18 @@ func HasGitHubRepo(repo string) bool {
 	}
 
 	return true
+}
+
+func IsGitHubUserFlagged(user string) bool {
+	client := &http.Client{}
+
+	request, err := http.NewRequest("GET", "https://github.com/" + user, nil)
+	if err != nil {
+		panic(err)
+	}
+
+	response, _ := client.Do(request)
+
+	status := response.StatusCode
+	return status == 404
 }
