@@ -20,6 +20,8 @@
             <td>加粉数</td>
             <td>被粉数</td>
             <td>欠粉数</td>
+            <td>Star缓存</td>
+            <td>Follow缓存</td>
           </tr>
           {{range .UserInfos}}
           <tr>
@@ -33,6 +35,8 @@
             <td>{{.FollowingCount}}</td>
             <td>{{.FollowedCount}}</td>
             <td>{{.FollowOweCount}}</td>
+            <td><a target="_blank" href="api/users/{{.User}}/starring-repos/update">更新</a></td>
+            <td><a target="_blank" href="api/users/{{.User}}/following-users/update">更新</a></td>
           </tr>
           {{end}}
           </tbody>
