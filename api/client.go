@@ -150,3 +150,8 @@ func IsGitHubUserFlagged(user string) bool {
 	status := response.StatusCode
 	return status == 404
 }
+
+func IsGitHubUserActive(user string) bool {
+	repos := ListRepos(user)
+	return len(repos) >= 3
+}

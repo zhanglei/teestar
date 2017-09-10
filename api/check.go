@@ -39,6 +39,8 @@ func CheckUserUpdateHitter(user string, hitter string) string {
 		return "点赞账号与其他用户的点赞账号（小号）重复，无法使用"
 	} else if !HasGitHubUser(hitter) {
 		return "点赞账号不是合法的、已存在的GitHub用户名"
+	} else if !IsGitHubUserActive(hitter) {
+		return "点赞账号至少要有3个仓库，请完善该小号后再设置"
 	} else {
 		return ""
 	}
