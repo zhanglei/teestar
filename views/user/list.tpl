@@ -19,8 +19,6 @@
             <td>是否已禁用</td>
             <td>是否参加Follow</td>
             <td>是否已被Flagged</td>
-            <td>Star缓存</td>
-            <td>Follow缓存</td>
           </tr>
           {{range .UserInfos}}
           <tr>
@@ -33,8 +31,6 @@
             <td>{{.IsDisabled}}</td>
             <td>{{.IsFollowable}}</td>
             <td>{{.IsFlagged}}</td>
-            <td><a target="_blank" href="api/users/{{.User}}/starring-repos/update">更新</a></td>
-            <td><a target="_blank" href="api/users/{{.User}}/following-users/update">更新</a></td>
           </tr>
           {{end}}
           </tbody>

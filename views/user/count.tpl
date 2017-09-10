@@ -35,8 +35,8 @@
             <td>{{.FollowingCount}}</td>
             <td>{{.FollowedCount}}</td>
             <td>{{.FollowOweCount}}</td>
-            <td><a target="_blank" href="api/users/{{.User}}/starring-repos/update">更新</a></td>
-            <td><a target="_blank" href="api/users/{{.User}}/following-users/update">更新</a></td>
+            <td><a target="_blank" href="api/users/{{.User}}/starring-repos/update">刷</a></td>
+            <td><a target="_blank" href="api/users/{{.User}}/following-users/update">刷</a></td>
           </tr>
           {{end}}
           </tbody>
