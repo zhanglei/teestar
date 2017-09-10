@@ -25,7 +25,7 @@
           </tr>
           {{range .UserInfos}}
           <tr>
-            <td><a href="/users/{{.User}}" target="_blank">{{.User}}</a></td>
+            <td><a href="/users/{{.User}}" target="_blank">{{if .IsFlagged}}<font style="background:#D9534F" color="white">{{.User}}</font>{{else}}{{.User}}{{end}}</a></td>
             <td><a href="https://github.com/{{.Hitter}}" rel="noreferrer" target="_blank">{{.Hitter}}</a></td>
             <td>{{.Nickname}}</td>
             <td>{{.RepoCount}}</td>
