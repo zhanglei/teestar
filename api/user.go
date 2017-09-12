@@ -182,7 +182,7 @@ func GetOtherEnabledUsers(user string) []string {
 
 	users := []string{}
 	for _, objUser := range objUsers {
-		if objUser.User != user && !objUser.IsDisabled {
+		if objUser.User != user && !objUser.IsDisabled && !objUser.IsFlagged {
 			users = append(users, objUser.User)
 		}
 	}
