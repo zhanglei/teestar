@@ -145,7 +145,10 @@ func IsGitHubUserFlagged(user string) bool {
 		panic(err)
 	}
 
-	response, _ := client.Do(request)
+	response, err := client.Do(request)
+	if err != nil {
+		panic(err)
+	}
 
 	status := response.StatusCode
 	return status == 404
