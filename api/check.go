@@ -40,7 +40,7 @@ func CheckUserUpdateHitter(user string, hitter string) string {
 	} else if !HasGitHubUser(hitter) {
 		return "点赞账号不是合法的、已存在的GitHub用户名"
 	} else if !IsGitHubUserActive(hitter) {
-		return "点赞账号至少要有3个仓库，请完善该小号后再设置"
+		return "点赞账号至少要有3个仓库，并且其中至少有1个仓库是非fork的，请完善该小号后再设置"
 	} else {
 		return ""
 	}

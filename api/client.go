@@ -155,6 +155,22 @@ func IsGitHubUserFlagged(user string) bool {
 }
 
 func IsGitHubUserActive(user string) bool {
-	repos := ListRepos(user)
-	return len(repos) >= 3
+	client := NewAuthenticatedClient()
+	ctx := context.Background()
+
+	repos, _, err := client.Repositories.List(ctx, user, nil)
+	if err != nil {
+		panic(err)
+	}
+
+	if len(repos) < 3 {
+		return false
+	}
+
+	for _, repo := range repos {
+		if !*(repo.Fork) {
+			return true
+		}
+	}
+	return false
 }
