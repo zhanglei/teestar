@@ -22,6 +22,34 @@
         </p>
         <img border="0" src="/static/imgs/donate_alipay.jpg" alt="支付宝捐赠">
         <img border="0" src="/static/imgs/donate_weixin.png" alt="微信捐赠">
+        <p>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <tbody>
+            <tr>
+              <td>时间</td>
+              <td>捐助者</td>
+              <td>金额</td>
+            </tr>
+            <tr>
+              <td>2017-7-31</td>
+              <td>邹阳</td>
+              <td>16.8</td>
+            </tr>
+            <tr>
+              <td>2017-9-21</td>
+              <td>OOM?</td>
+              <td>20</td>
+            </tr>
+            <tr>
+              <td>2017-9-21</td>
+              <td>重口味</td>
+              <td>5</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        </p>
       </div>
     </div>
   </div>
