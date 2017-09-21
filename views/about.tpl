@@ -38,7 +38,7 @@
             </tr>
             <tr>
               <td>2017-9-21</td>
-              <td>OOM?</td>
+              <td>OOM</td>
               <td>20</td>
             </tr>
             <tr>
