@@ -235,7 +235,7 @@ func (c *ViewController) EnableRepo() {
 	repo := c.GetString(":repo")
 	repo = strings.Replace(repo, "~", "/", -1)
 
-	msg := api.CheckDeleteRepo(user, repo)
+	msg := api.CheckEnableRepo(user, repo)
 	if msg != "" {
 		flash.Error(msg)
 		flash.Store(&c.Controller)
