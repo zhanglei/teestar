@@ -107,8 +107,8 @@ func CheckDeleteRepo(user string, repo string) string {
 		return "项目不能为空"
 	} else if !HasUserRepo(user, repo) {
 		return "该项目不存在"
-	} else if HasUserStatus(user) {
-		return "还清所有欠赞后才可以隐藏、删除项目"
+	} else if CanPayOff(user) >= 10 {
+		return "未还欠赞小于10次时，才可以隐藏、删除项目，请及时还清欠赞"
 	} else {
 		return ""
 	}

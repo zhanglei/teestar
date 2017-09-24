@@ -62,16 +62,21 @@ func GetUserTargetStatus(user string, target string) UserTargetStatus {
 	return UserTargetStatus{User: user, Target: target, QQ: qq, Nickname: nickname, Hitter: hitter, StarringRepos: starringRepos, StarredRepos: starredRepos, Score: score, CanStarRepos: canStarRepos, CanBeStarredRepos: canBeStarredRepos}
 }
 
-func HasUserStatus(user string) bool {
+func CanPayOff(user string) int {
+	canPayOff := 0
 	otherUsers := GetOtherEnabledUsers(user)
 	for _, otherUser := range otherUsers {
 		status := GetUserTargetStatus(user, otherUser)
 		if status.Score > 0 && len(status.CanStarRepos) > 0 {
-			return true
+			min := status.Score
+			if len(status.CanStarRepos) < min {
+				min = len(status.CanStarRepos)
+			}
+			canPayOff += min
 		}
 	}
 
-	return false
+	return canPayOff
 }
 
 func GetUserStatus(user string) StatusList {
