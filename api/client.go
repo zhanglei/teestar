@@ -4,6 +4,7 @@ import (
 	"context"
 	"net/http"
 	"strings"
+	"time"
 
 	"github.com/google/go-github/github"
 )
@@ -98,6 +99,25 @@ func ListFollowingTargets(user string) []string {
 	}
 
 	return res
+}
+
+func IsGitHubUserOldEnough(user string) bool {
+	client := NewAuthenticatedClient()
+	ctx := context.Background()
+
+	userObj, _, err := client.Users.Get(ctx, user)
+	if err != nil {
+			panic(err)
+	}
+
+	t := userObj.CreatedAt.Time
+	now := time.Now()
+	days := now.Sub(t).Hours() / 24
+
+	if days >= 30 {
+		return true
+	}
+	return false
 }
 
 func HasGitHubUser(user string) bool {
