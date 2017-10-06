@@ -137,6 +137,38 @@ func HasGitHubRepo(repo string) bool {
 	return true
 }
 
+func IsGitHubUserStarringRepo(user string, repo string) bool {
+	client := NewAuthenticatedClient()
+	ctx := context.Background()
+
+	page := 1
+	got := 0
+
+	for {
+		opt := &github.ActivityListStarredOptions{"created", "asc", github.ListOptions{Page: page, PerPage: 100}}
+		starredRepos, _, err := client.Activity.ListStarred(ctx, user, opt)
+		if err != nil {
+			panic(err)
+		}
+
+		for _, repo2 := range starredRepos {
+			if *repo2.Repository.FullName == repo {
+				return true
+			}
+			// fmt.Println(*repo.FullName)
+		}
+
+		got = len(starredRepos)
+		if got != 100 {
+			break
+		} else {
+			page += 1
+		}
+	}
+
+	return false
+}
+
 func IsGitHubUserFlagged(user string) bool {
 	client := &http.Client{}
 

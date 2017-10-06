@@ -10,9 +10,11 @@ func CheckUserRegister(user string, password string) string {
 	} else if HasHitter("", user) {
 		return "用户名已被其他用户注册为点赞小号"
 	} else if strings.Contains(user, "@") {
-		return "请不要使用邮箱，GitHub profile（如https://github.com/abc）中，abc是用户名"
+		return "请不要使用邮箱，需要使用GitHub用户名。在GitHub profile（如https://github.com/abc）中，abc是用户名"
 	} else if !HasGitHubUser(user) {
 		return "用户名不是合法的、已存在的GitHub用户名"
+	} else if !IsGitHubUserStarringRepo(user, "Sable/abc") {
+		return "为了验证你对所填GitHub账号的所有权，请Star这个仓库：https://github.com/Sable/abc，然后再点击注册。注册成功后，可以取消该点赞"
 	} else {
 		return ""
 	}
