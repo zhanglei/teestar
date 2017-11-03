@@ -21,7 +21,7 @@ func NewAuthenticatedClient() *gitee.Client {
 	        TokenURL: "https://gitee.com/oauth/token",
 	    },
 	}
-	token,err := conf.PasswordCredentialsToken(ctx,"noreply@daiheimao.top","1qaz2wsx")
+	token,_ := conf.PasswordCredentialsToken(ctx,"noreply@daiheimao.top","1qaz2wsx")
 
 	tp := gitee.OAuthTransport{
 		Token: token,
