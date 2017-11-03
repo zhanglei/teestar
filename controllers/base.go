@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"github.com/astaxie/beego"
-	"github.com/hsluoyz/gitstar/api"
+	"github.com/weilaihui/teestar/api"
 )
 
 type BaseController struct {

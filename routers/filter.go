@@ -2,8 +2,8 @@ package routers
 
 import (
 	"github.com/astaxie/beego/context"
-	"github.com/hsluoyz/gitstar/api"
-	"github.com/hsluoyz/gitstar/util"
+	"github.com/weilaihui/teestar/api"
+	"github.com/weilaihui/teestar/util"
 )
 
 var FilterIP = func(ctx *context.Context) {

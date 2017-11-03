@@ -8,7 +8,7 @@ import (
 
 	"github.com/astaxie/beego/context"
 	"github.com/astaxie/beego/logs"
-	"github.com/hsluoyz/gitstar/api"
+	"github.com/weilaihui/teestar/api"
 )
 
 func getIPInfo(clientIP string) string {

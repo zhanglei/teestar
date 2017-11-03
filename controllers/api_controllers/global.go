@@ -3,8 +3,8 @@ package api_controllers
 import (
 	"encoding/base64"
 
-	"github.com/hsluoyz/gitstar/api"
-	"github.com/hsluoyz/gitstar/controllers"
+	"github.com/weilaihui/teestar/api"
+	"github.com/weilaihui/teestar/controllers"
 )
 
 // Global API

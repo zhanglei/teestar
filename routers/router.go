@@ -10,8 +10,8 @@ package routers
 import (
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/plugins/cors"
-	"github.com/hsluoyz/gitstar/controllers/api_controllers"
-	"github.com/hsluoyz/gitstar/controllers/view_controllers"
+	"github.com/weilaihui/teestar/controllers/api_controllers"
+	"github.com/weilaihui/teestar/controllers/view_controllers"
 )
 
 func init() {

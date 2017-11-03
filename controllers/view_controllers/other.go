@@ -2,8 +2,8 @@ package view_controllers
 
 import (
 	"github.com/astaxie/beego"
-	"github.com/hsluoyz/gitstar/api"
-	"github.com/hsluoyz/gitstar/util"
+	"github.com/weilaihui/teestar/api"
+	"github.com/weilaihui/teestar/util"
 )
 
 //关于

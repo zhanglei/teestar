@@ -8,7 +8,7 @@ import (
 	"testing"
 
 	"github.com/astaxie/beego"
-	_ "github.com/hsluoyz/gitstar/routers"
+	_ "github.com/weilaihui/teestar/routers"
 	. "github.com/smartystreets/goconvey/convey"
 )
 

@@ -1,8 +1,8 @@
 package api_controllers
 
 import (
-	"github.com/hsluoyz/gitstar/api"
-	"github.com/hsluoyz/gitstar/util"
+	"github.com/weilaihui/teestar/api"
+	"github.com/weilaihui/teestar/util"
 )
 
 // @Title GetUserTargetStatus

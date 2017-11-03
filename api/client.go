@@ -6,16 +6,28 @@ import (
 	"strings"
 	"time"
 
-	"github.com/google/go-github/github"
+	"golang.org/x/oauth2"
+	"github.com/weilaihui/go-gitee/gitee"
 )
 
-func NewAuthenticatedClient() *github.Client {
-	tp := github.BasicAuthTransport{
-		Username: "mytesttest@test.com",
-		Password: "1qaz2wsx",
+func NewAuthenticatedClient() *gitee.Client {
+	ctx := context.Background()
+	conf := &oauth2.Config{
+	    ClientID:     "47e10a732882363062588a4cb26e0eea80eb4e3d32f60ce8193f7f96e467abac",
+	    ClientSecret: "228f59e9306d14b95de611db8ffcb39524a9c6e499dc1c09eed1652a63781d57",
+	    Scopes:       []string{"user_info", "projects", "pull_requests", "issues", "notes", "keys", "hook", "groups", "gists"},
+	    Endpoint: oauth2.Endpoint{
+	        AuthURL:  "https://gitee.com/oauth/auth",
+	        TokenURL: "https://gitee.com/oauth/token",
+	    },
+	}
+	token,err := conf.PasswordCredentialsToken(ctx,"noreply@daiheimao.top","1qaz2wsx")
+
+	tp := gitee.OAuthTransport{
+		Token: token,
 	}
 
-	return github.NewClient(tp.Client())
+	return gitee.NewClient(tp.Client())
 }
 
 func ListRepos(user string) []string {
@@ -47,7 +59,7 @@ func ListStarringRepos(user string) []string {
 	got := 0
 
 	for {
-		opt := &github.ActivityListStarredOptions{"created", "asc", github.ListOptions{Page: page, PerPage: 100}}
+		opt := &gitee.ActivityListStarredOptions{"created", "asc", gitee.ListOptions{Page: page, PerPage: 100}}
 		starredRepos, _, err := client.Activity.ListStarred(ctx, user, opt)
 		if err != nil {
 			panic(err)
@@ -79,7 +91,7 @@ func ListFollowingTargets(user string) []string {
 	got := 0
 
 	for {
-		opt := &github.ListOptions{Page: page, PerPage: 100}
+		opt := &gitee.ListOptions{Page: page, PerPage: 100}
 		targets, _, err := client.Users.ListFollowing(ctx, user, opt)
 		if err != nil {
 			panic(err)
@@ -101,7 +113,7 @@ func ListFollowingTargets(user string) []string {
 	return res
 }
 
-func IsGitHubUserOldEnough(user string) bool {
+func IsGiteeUserOldEnough(user string) bool {
 	client := NewAuthenticatedClient()
 	ctx := context.Background()
 
@@ -157,7 +169,7 @@ func HasGitHubRepo(repo string) bool {
 	return true
 }
 
-func IsGitHubUserStarringRepo(user string, repo string) bool {
+func IsGiteeUserStarringRepo(user string, repo string) bool {
 	client := NewAuthenticatedClient()
 	ctx := context.Background()
 
@@ -165,7 +177,7 @@ func IsGitHubUserStarringRepo(user string, repo string) bool {
 	got := 0
 
 	for {
-		opt := &github.ActivityListStarredOptions{"created", "asc", github.ListOptions{Page: page, PerPage: 100}}
+		opt := &gitee.ActivityListStarredOptions{"created", "asc", gitee.ListOptions{Page: page, PerPage: 100}}
 		starredRepos, _, err := client.Activity.ListStarred(ctx, user, opt)
 		if err != nil {
 			panic(err)
@@ -189,10 +201,10 @@ func IsGitHubUserStarringRepo(user string, repo string) bool {
 	return false
 }
 
-func IsGitHubUserFlagged(user string) bool {
+func IsGiteeUserFlagged(user string) bool {
 	client := &http.Client{}
 
-	request, err := http.NewRequest("GET", "https://github.com/" + user, nil)
+	request, err := http.NewRequest("GET", "https://gitee.com/" + user, nil)
 	if err != nil {
 		panic(err)
 	}
@@ -206,7 +218,7 @@ func IsGitHubUserFlagged(user string) bool {
 	return status == 404
 }
 
-func IsGitHubUserActive(user string) bool {
+func IsGiteeUserActive(user string) bool {
 	client := NewAuthenticatedClient()
 	ctx := context.Background()
 

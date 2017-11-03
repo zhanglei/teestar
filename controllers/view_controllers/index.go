@@ -4,9 +4,9 @@ import (
 	"html/template"
 
 	"github.com/astaxie/beego"
-	"github.com/hsluoyz/gitstar/api"
-	"github.com/hsluoyz/gitstar/controllers"
-	"github.com/hsluoyz/gitstar/util"
+	"github.com/weilaihui/teestar/api"
+	"github.com/weilaihui/teestar/controllers"
+	"github.com/weilaihui/teestar/util"
 )
 
 type ViewController struct {
