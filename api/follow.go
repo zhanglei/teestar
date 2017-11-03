@@ -25,7 +25,7 @@ func UpdateUserFollowingTargets(user string) bool {
 		panic(err)
 	}
 
-	flagged := IsGitHubUserFlagged(hitter)
+	flagged := IsGiteeUserFlagged(hitter)
 	UpdateUserFlagged(user, flagged)
 	if flagged {
 		return affected != 0

@@ -132,7 +132,7 @@ func IsGiteeUserOldEnough(user string) bool {
 	return false
 }
 
-func HasGitHubUser(user string) bool {
+func HasGiteeUser(user string) bool {
 	client := NewAuthenticatedClient()
 	ctx := context.Background()
 
@@ -148,7 +148,7 @@ func HasGitHubUser(user string) bool {
 	return true
 }
 
-func HasGitHubRepo(repo string) bool {
+func HasGiteeRepo(repo string) bool {
 	client := NewAuthenticatedClient()
 	ctx := context.Background()
 

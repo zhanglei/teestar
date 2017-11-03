@@ -11,11 +11,11 @@ func CheckUserRegister(user string, password string) string {
 		return "用户名已被其他用户注册为点赞小号"
 	} else if strings.Contains(user, "@") {
 		return "请不要使用邮箱，需要使用GitHub用户名。在GitHub profile（如https://github.com/abc）中，abc是用户名"
-	} else if !HasGitHubUser(user) {
+	} else if !HasGiteeUser(user) {
 		return "用户名不是合法的、已存在的GitHub用户名"
-	} else if !IsGitHubUserOldEnough(user) {
+	} else if !IsGiteeUserOldEnough(user) {
 		return "GitHub账号注册时间需要至少满30天"
-	} else if !IsGitHubUserStarringRepo(user, "Sable/abc") {
+	} else if !IsGiteeUserStarringRepo(user, "Sable/abc") {
 		return "为了验证你对所填GitHub账号的所有权，请Star这个仓库：https://github.com/Sable/abc，然后再点击注册。注册成功后，可以取消该点赞"
 	} else {
 		return ""
@@ -41,9 +41,9 @@ func CheckUserUpdateHitter(user string, hitter string) string {
 		return "点赞账号与其他用户的用户名（大号）重复，无法使用"
 	} else if HasHitter(user, hitter) {
 		return "点赞账号与其他用户的点赞账号（小号）重复，无法使用"
-	} else if !HasGitHubUser(hitter) {
+	} else if !HasGiteeUser(hitter) {
 		return "点赞账号不是合法的、已存在的GitHub用户名"
-	} else if !IsGitHubUserActive(hitter) {
+	} else if !IsGiteeUserActive(hitter) {
 		return "点赞账号至少要有3个仓库，并且其中至少有1个仓库是非fork的，请完善该小号后再设置"
 	} else {
 		return ""
@@ -85,7 +85,7 @@ func CheckAddRepo(user string, repo string) string {
 		return "该项目已经存在"
 	} else if HasRepo(repo) {
 		return "该项目已经被其他用户添加，如有疑问请联系管理员"
-	} else if !HasGitHubRepo(repo) {
+	} else if !HasGiteeRepo(repo) {
 		return "项目地址不是合法的、已存在的GitHub项目地址"
 	} else {
 		return ""
